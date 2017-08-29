@@ -1,0 +1,113 @@
+html,body {max-width:100% !important; min-height: 100% !important;}
+body{ background-color: #2C82BA;opacity: 0.9;font-size:0.25rem;}
+
+.banner{ position: relative;}
+.banner img.bannerpic{width: 100%; display: block;}
+.banner .touxiang{ background:url(../../Images/agentIMG/pic_002.png) no-repeat; background-size: 100% 100%; width: 0.77rem; height: 0.77rem; padding: 0.08rem; position: absolute; top: 0.15rem; right: 0.15rem;}
+.banner .touxiang img{display: block; width: 0.77rem; height: 0.77rem;}
+.banner .btxt{text-shadow: 1px 0 0 #eb452f, 0 1px 0 #eb452f,0 -1px 0 #eb452f, -1px 0 0 #eb452f, 1px 0 1px #eb452f, 0 1px 1px #eb452f,  0 -1px 1px #eb452f, -1px 0 1px #eb452f; position: absolute; top: 0.3rem; right: 1.2rem; line-height: 1.2; font-size: 0.27rem; color: #ffffff; text-align: right;}
+
+.footer{padding:0.25rem 0; color: #ffffff; font-size: 0.25rem; text-align: center;}
+
+.main{position: relative; width:6.02rem; margin: auto; margin-top: 0.5rem;}
+.main p.cj-note{text-align: right; margin-bottom: 0.05rem; color: #ffffff;}
+.main p.cj-note span{ color: #fff535;}
+.dali{}
+.noshow, .gdtc{ display: none;}
+.dali li{ margin-bottom: 0rem;}
+.dali li .title{ background:url(../../Images/agentIMG/pic_03.png) no-repeat; width: 6.02rem; height: 1.04rem; background-size: 100% 100%; overflow: hidden;}
+.dali li .title a{text-shadow: 1px 0 0 #ffffff, 0 1px 0 #ffffff,0 -1px 0 #ffffff, -1px 0 0 #ffffff, 1px 0 1px #ffffff, 0 1px 1px #ffffff,  0 -1px 1px #ffffff, -1px 0 1px #ffffff; color: #eb452f; display: block; padding-top: 0.22rem; line-height: 0.82rem; height: 0.82rem; text-align: center; font-size: 0.31rem; padding-right: 0.2rem; position: relative;}
+.dali li .title a img{width: 0.33rem; height: 0.36rem; margin-left: 0.1rem; margin-top: 0.4rem; vertical-align: middle;}
+
+.fixss{position: fixed; bottom: 0.15rem; left: 0.2rem;}
+.fixss img{display: block; width: 1.46rem; height: 0.57rem;}
+.fixbtn{position: fixed; top: 1.25rem; right: 0; background: #ffffff; color: #ed462f; border: 0.02rem solid #ed462f; border-right: none; border-top-left-radius: 0.1rem; border-bottom-left-radius: 0.1rem; width: 0.37rem; text-align: center; line-height: 1.1; display: block; padding: 0.05rem 0; -webkit-box-shadow:-2px 3px 5px rgba(0,0,0,0.5); box-shadow:-2px 3px 5px rgba(0,0,0,0.5);}
+.fixbtn.hdgzbtn{ top: 1.3rem;}
+
+.tupian{ display: block; border: 0.02rem solid #ffffff;}
+.tupian img{ display: block; width: 100%;}
+
+.lipin{ padding-top: 0.05rem;}
+.lipin h5{ text-align: center; color: #fff535; font-size: 0.29rem; margin-bottom: 0.05rem;}
+.lipin p.more{ text-align: center; color: #ffffff; font-size: 0.25rem; margin-bottom: 0.1rem;}
+.lipin p.more a{ color: #ffffff; border-bottom:0.02rem solid #ffffff;}
+.pic{ margin-bottom: 0.12rem; position: relative;}
+.pic img{ display: block; width: 100%;}
+.pic a.dian1{ display: block; position: absolute; width: 2.7rem; height: 0.36rem; top: 0.18rem; right: 0.7rem;}
+.pic a.dian1 img{ display: block; width: 0.33rem; height: 0.36rem; float: right;}
+.lipin p.txt{ text-align: center; color: #ffffff; font-size: 0.25rem; margin: 0.1rem 0; line-height: 1.4;}
+.lipin .btnbox{ text-align: center;}
+.lipin .btnbox a{ position: relative;}
+.lipin .btnbox a img.shou{ position:absolute; display: block; width: 0.33rem; height: 0.36rem; top: 0.27rem; right: 0.1rem;}
+.lipin .btnbox a.btn1{}
+.lipin .btnbox a.btn2{}
+.lipin .btnbox img{ height: 0.39rem; margin:0 0.06rem}
+
+.dialogpage{color: #ffffff; width: 6.4rem; position: relative;}
+.dialogpage .dialog-hd{width: 6.4rem; height: 0.93rem; position: relative; background:url(../../Images/agentIMG/pic_17.png) no-repeat; background-size: 100% 100%;}
+.dialogpage .dialog-hd a.closebtn{ position: absolute; top: -0.2rem; right: 0.2rem; color: #ffffff; border: 0.02rem solid #ffffff; display: block; width: 0.4rem; height: 0.4rem; line-height: 0.4rem; text-align: center; font-size: 0.23rem; border-radius: 100%;}
+.dialogpage .dialog-bd{padding:0 0.55rem; background:url(../../Images/agentIMG/pic_11.png) repeat-y; background-size: 100% auto; border-bottom-left-radius: 0.15rem; min-height: 4rem; max-height: 6.5rem; overflow: auto; border-bottom-right-radius: 0.15rem;}
+.dialogpage .dialog-bd img.qrcode{ width: 2.8rem; height: 2.8rem; display: block; margin: auto;}
+.dialogpage p+p{}
+.dialogpage p{ font-size: 0.25rem;}
+.dialogpage h4{ text-align: center; line-height: 1; margin:0.15rem 0; font-size: 0.37rem;}
+.dialogpage .dialog-ft{width: 6.4rem; height: 0.65rem; position: relative; background:url(../../Images/agentIMG/pic_10.png) no-repeat; background-size: 100% 100%;}
+.dialogpage a.qrbtn{ background: #fff535; color: #eb452f; text-align: center; width: 3.35rem; height: 0.54rem; line-height: 0.54rem; margin: auto; border-radius: 0.54rem; display: block; margin-top: 0.25rem;}
+
+.dialogpage2{color: #ffffff; width: 6.02rem; position: relative; font-size: 0.25rem;}
+.dialogpage2 .dialog-hd{width: 6.02rem; height: 1.17rem; position: relative; background:url(../../Images/agentIMG/pic_0012.png) no-repeat; background-size: 100% 100%;}
+.dialogpage2 .dialog-hd a.closebtn{ position: absolute; top: -0.2rem; right: 0.2rem; color: #ffffff; border: 0.02rem solid #ffffff; display: block; width: 0.4rem; height: 0.4rem; line-height: 0.4rem; text-align: center; font-size: 0.23rem; border-radius: 100%;}
+.dialogpage2 .dialog-bd{padding:0 0.32rem; background:url(../../Images/agentIMG/pic_011.png) repeat-y; background-size: 100% auto; border-bottom-left-radius: 0.15rem; min-height: 4rem; max-height: 6rem; overflow: auto; border-bottom-right-radius: 0.15rem;}
+.dialogpage2 .dialog-bd img.qrcode{ width: 2.8rem; height: 2.8rem; display: block; margin: auto;}
+.dialogpage2 h4{ text-align: center; line-height: 1; margin:0.15rem 0; font-size: 0.37rem;}
+.dialogpage2 .dialog-ft{width: 6.02rem; height: 0.22rem; position: relative; background:url(../../Images/agentIMG/pic_010.png) no-repeat; background-size: 100% 100%;}
+.dialogpage2 table{width: 100%; color: #ffffff;}
+.dialogpage2 table th{font-weight: bold; font-size: 0.27rem;}
+.dialogpage2 table th, .dialogpage2 table td{ text-align: center; color: #ffffff; padding: 0.03rem 0.07rem; font-size: 0.25rem;}
+.dialogpage2 table tr.hjline td{color: #fff534 !important;}
+.dialogpage2 table td a.lqbtn{ display: inline-block; color: #ae3221; background: #fff534; border-radius: 0.05rem; padding: 0 0.1rem;}
+.dialogpage2 table td a.ylqbtn{ display: inline-block; color: #fff534; border-radius: 0.05rem; padding: 0 0.1rem;}
+
+
+.box2{background: #e0ebf4; padding:0.15rem;  margin-top: -0.05rem;}
+
+.divselect{margin: 0 0 0.15rem; background:#ffffff; border-radius:0.15rem; position:relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+.divselect cite{height:0.75rem;line-height:0.75rem; font-size:0.25rem; display:block; color:#2C82BA; cursor:pointer;font-style:normal; padding-left:0.15rem; padding-right:0.5rem; border:1px solid #2C82BA; border-radius:0.15rem;
+background:url(../../Images/agentIMG/arrow2.png) no-repeat right center; background-size:auto 0.3rem; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.divselect ul{width:100%;border:1px solid #bdbebe; background-color:#E1F3FF; position:absolute; z-index:20000; margin-top:-1px; display:none; padding-bottom:0.15rem; margin-bottom:0.15rem;}
+.divselect ul li{ margin-top:0.15rem;}
+.divselect ul li a{display:block; color:#333333; text-decoration:none; padding:0.05rem 0.15rem; -webkit-tap-highlight-color: rgba(0, 0, 0, 0.35);}
+.divselect ul li a h3{ color:#e92e29; font-size:0.27rem;}
+.divselect ul li a p{ color:#131213;}
+.divselect ul li a p img{display:block; width:100%;}
+.divselect ul li a:hover{background-color:#CCC;}
+
+.yylist{}
+.yylist li{ margin-bottom:0.15rem;}
+.yylist li span{border:1px solid #2C82BA; background:#ffffff; border-radius:0.15rem; padding:0.15rem; display:block;}
+.yylist li span input{width:100%; display: block; border:none; background:none; font-size:0.25rem;}
+.yylist li span.xzqx select{width:100%;border:0; display: block; background:url(../../Images/agentIMG/arrow.png) no-repeat right center transparent; background-size:auto 100%; appearance:none; -webkit-appearance:none; font-size:0.25rem;}
+.yynote{color:#000000; margin-bottom:0.05rem !important;}
+.yynote2{color:#000000; font-size:.21rem; margin-bottom:0 !important; display: none;}
+.yynote2 h3{font-size:.21rem; text-align:left; margin-bottom:0.05rem; font-weight:bold;}
+.yynote2 p{margin:0.05rem 0;}
+.yynote2 p a{color:#0077be;}
+.yynote2 p a img{ width:.61rem; height:.61rem;}
+
+a.wxtips{ display: block; background: #f28731; color: #ffffff; text-align: center; font-size: 0.23rem; margin: 0.08rem 0;}
+
+.btn{padding:0.15rem 0 0;}
+.btn li{ float:left; width:50%;}
+.btn li a{display:block; text-align:center; background:#2C82BA; color:#ffffff; font-size:0.31rem; padding:0.1rem 0; border-radius:0.15rem;}
+.btn li a.btn1{margin-right:0.1rem;}
+.btn li a.btn2{margin-left:0;}
+
+.btnbox2{ text-align: center; margin: 0.15rem 0 0.25rem;}
+.btnbox2 a{ display: inline-block; background:url(../../Images/agentIMG/pic_16.png) no-repeat; background-size: 100% 100%; width: 2.01rem; height: 0.52rem; line-height: 0.52rem; text-align: center; margin: 0 0.15rem; color: #000000;}
+
+
+.djsbox{ background:url(../../Images/agentIMG/pic_21.png) no-repeat; width: 6rem; height: 2.1rem; background-size: 100% 100%; position: relative; margin:auto; margin-top: 0.1rem; }
+.djsbox .djsline{ position: absolute; left: 0.45rem; bottom: 0; color: #ffffff; height: 0.76rem; vertical-align: top; }
+.djsbox .djsline span{ display: inline-block; background:url(../../Images/agentIMG/pic_22.png) no-repeat; width: 0.74rem; height: 0.76rem; background-size: 100% 100%; text-align: center; line-height: 0.76rem; font-size: 0.35rem; margin:0 0.05rem; }
+.djsbox .djsline span, .djsbox .djsline em{ float: left; }
+ .djsbox .djsline em{ margin-top: 0.35rem; }
