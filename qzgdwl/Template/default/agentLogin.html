@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>泉州广电网络业务代理平台</title>
+    <link rel="stylesheet" href="[!CSS]agentCSS/common.css"/>
+    <link rel="stylesheet" href="[!CSS]agentCSS/login.css"/>
+	
+	<script src="[!JS]agentJS/jquery.js"></script>
+	<script src="[!JS]agentJS/layer.m.js"></script>
+	<script src="[!JS]common.js"></script>
+	<script src="[!JS]function.js"></script>
+	<link href="[!CSS]agentCSS/layer.css" type="text/css" rel="styleSheet" >
+</head>
+<body>
+    <!-- <div id="login"></div> -->
+    <div class="login_bg">
+        <div id="logo">
+            <img src="[!IMG]agentIMG/logo.png" alt=""/>
+        </div>
+        <form id="LoginForm">
+            <div class="userName">
+                <lable>手机号：</lable>
+                <input type="text" name="phone" id="phone" placeholder="请输入手机号" pattern="[0-9A-Za-z]{6,16}" required/>
+            </div>
+            <div class="passWord">
+                <lable>密&nbsp;&nbsp;&nbsp;码：</lable>
+                <input type="password" name="password" id="password" placeholder="请输入密码" pattern="[0-9A-Za-z]{6,25}" required/>
+            </div>
+            <div class="choose_box">
+                <div>
+                    <input type="checkbox" checked="checked" class="checkbox" value="1" name="auto_login"/>
+                    <lable>自动登录</lable>
+                </div>
+                <a href="index.php?m=agent&a=agentPassword">忘记密码</a>
+            </div>
+            <div class="login_btn" onclick="login();">登&nbsp;&nbsp;录</div>
+        </form>
+		<if condition="$confirm neq 1">
+        <div class="other_login">
+            <div class="other"></div>
+            <span style="padding-top: 6px;"><a href="index.php?m=agent&a=agentRegister">代理注册</a></span>
+            <div class="other"></div>
+        </div>
+		<else/>
+		</if>
+       <!--  <div class="other_choose">
+            <a href="">
+                <img src="[!IMG]agentIMG/qq.png" alt=""/>
+            </a>
+            <a href="">
+                <img src="[!IMG]agentIMG/wx.png" alt=""/>
+            </a>
+            <a href="">
+                <img src="[!IMG]agentIMG/wb.png" alt=""/>
+            </a>
+        </div> -->
+    </div>
+</body>
+<script>
+$(document).ready(function() {	
+	$(".checkbox").change(function() { 
+		if(!$(".checkbox").is(':checked')){			
+			$(".checkbox").val("0");
+		}else{	
+			$(".checkbox").val("1");
+		}
+	});
+});
+	
+function login(){	
+	var phone = $("#phone");
+	var password = $("#password");
+	var resultResult = checkPassword(password.val());
+	var result = isPhoneNum(phone.val());
+	if(result && resultResult){
+		var formdata=$('#LoginForm').serialize();
+		var delay=layer.open({type:2,shadeClose:false});
+		$.post('index.php?m=agent&a=agentLoginSubmit',formdata,function(json){
+			layer.close(delay);
+			if(json.code == 0){
+				layer.open({
+					btn: ['好的'],
+					content: '<p style="text-align:center;">' + json.msg +'</p>',
+					shadeClose: false
+				});
+				setInterval('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=agent%26agentLogin#wechat_redirect',3000);
+			}else{
+				layer.open({
+					btn: ['好的'],
+					content: '<p style="text-align:center;">' + json.msg +'</p>',
+					shadeClose: false
+				});						
+				if(json.code == 1){			
+					setInterval('window.location.href = "index.php?m=agent&a=agentIndex"',1500);
+				}
+			}
+		},'json');
+	}
+}
+	
+</script>
+</html>

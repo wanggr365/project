@@ -1,0 +1,407 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name = "format-detection" content = "telephone=no">
+    <title>泉州广电网络</title>
+    <link rel="stylesheet" href="[!CSS]weui1.css"/>
+    <link rel="stylesheet" href="[!CSS]example1.css"/>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body ontouchstart>
+    <script type="text/javascript">
+        wx.config({
+            debug: false,
+            appId: '<?php echo $signPackage["appId"];?>',
+            timestamp: <?php echo $signPackage["timestamp"];?>,
+            nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+            signature: '<?php echo $signPackage["signature"];?>',
+            jsApiList: ['scanQRCode']
+        });
+    </script>
+    <div class="container" id="container">
+		<div class="article">
+            <div class="bd">
+                <article class="weui_article" style="margin-bottom:-5%;">
+                    <section>
+                        <section>
+                            <h2>互动电视扫描绑定:</h2>
+                            <p>1、打开互动电视进入<b>泉州</b>专区；</p>
+                            <p>2、在下方栏目中选择<b>微信绑定</b>，按照步骤操作即可。</p>
+                        </section>
+                    </section>
+                </article>
+            </div>
+        </div>
+        <div class="qrcord-scan">
+            
+        </div>
+        <div class="button" style="margin-top:-15%;">
+            <div class="bd spacing">
+                <a href="javascript:;" class="weui_btn weui_btn_primary" style="background-color: #007aff;">扫描绑定</a>
+            </div>
+        </div>
+        <div class="article">
+            <div class="bd">
+                <article class="weui_article">
+                    <section>
+                        <section>
+                            <h3>温馨提示:</h3>
+                            <p>此功能仅对广电网络互动电视用户开放；</p>
+                        </section>
+                    </section>
+                </article>
+            </div>
+        </div>
+		<!--
+        <div class="button" style="margin-top:-25px;">
+            <div class="bd spacing">
+                <a href="javascript:;" class="weui_btn weui_btn_primary1" style="background-color: #007aff;">直接输入智能卡号绑定</a>
+            </div>
+        </div>
+		-->
+        <div class="dialog" style="display:none">
+            <!--BEGIN dialog1-->
+            <div class="weui_dialog_confirm" id="dialog1" style="">
+                <div class="weui_mask"></div>
+                <div class="weui_dialog">
+                    <div class="weui_dialog_hd"><strong class="weui_dialog_title">确定绑定此账号?</strong></div>
+                    <div class="weui_dialog_bd">
+                        <div class="cell">
+                            <div class="weui_cells weui_cells_form clear-border">
+                                <div class="weui_cell clear-padding clear-border" style="display:none">
+                                    <div class="weui_cell_hd"><label class="weui_label">智能卡号</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="cardno"></div>
+                                </div>
+                                <div class="weui_cell clear-padding clear-border">
+                                    <div class="weui_cell_hd"><label class="weui_label">客户编号</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="terminalNo"></div>
+                                </div>
+                                <div class="weui_cell clear-padding clear-border">
+                                    <div class="weui_cell_hd"><label class="weui_label">客户名称</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="custName"></div>
+                                </div>
+                                <div class="weui_cell clear-padding clear-border">
+                                    <div class="weui_cell_hd"><label class="weui_label">联系电话</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="contactPhone"></div>
+                                </div>
+                                <div class="weui_cell clear-padding clear-border">
+                                    <div class="weui_cell_hd"><label class="weui_label">客户地址</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="custAddr"></div>
+                                </div>
+                                <div class="weui_cell clear-padding clear-border">
+                                    <div class="weui_cell_hd"><label class="weui_label">账号余额</label></div>
+                                    <div class="weui_cell_bd weui_cell_primary" id="balance">元</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui_dialog_ft">
+                        <a href="javascript:;" class="weui_btn_dialog default canel">取消</a>
+                        <a href="javascript:;" class="weui_btn_dialog primary bind">确定</a>
+                    </div>
+                </div>
+            </div>
+            <!--END dialog1-->
+        </div>
+	
+        <div class="dialogInput" style="display:none">
+            <!--BEGIN dialog1-->
+            <div class="weui_dialog_confirm" id="dialogInput" style="">
+                <div class="weui_mask"></div>
+                <div class="weui_dialog">
+                    <input style="margin-top: 7%;height: 35px;width: 85%;font-size: 20px;"  type="number"  id="inputCardno" pattern="[0-9]*" placeholder="请输入智能卡号"/>
+
+
+                   <!-- <div class="weui-cell__hd"><label class="weui-label">智能卡号</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" id="inputCardno" type="number" pattern="[0-9]*" placeholder="请输入智能卡号"/>
+                    </div>-->
+                    <div class="weui_dialog_ft">
+                        <a href="javascript:;" class="weui_btn_dialog default canelInput">取消</a>
+                        <a href="javascript:;" class="weui_btn_dialog primary searchInput">查询</a>
+                    </div>
+                </div>
+            </div>
+            <!--END dialog1-->
+        </div>
+		
+		<div class="js_dialog" id="iosDialog2" style="display: none;">
+			<div class="weui_mask"></div>
+			<div class="weui_dialog">
+				<div class="weui_dialog_bd" style="margin-top:5%;font-size:20px;">您当前已绑定！<br>多账号绑定即将推出，敬请期待!</div>
+				<div class="weui_dialog_ft">
+					<a href="javascript:;" id="iKnow" class="weui_dialog_btn weui_dialog_btn_primary">知道了</a>
+				</div>
+			</div>
+		</div>
+		
+        <div class="toast">
+            <div id="toast_success" style="display: none;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <i class="weui_icon_toast weui_icon_toast_success"></i>
+                    <p class="weui_toast_content">绑定成功</p>
+                </div>
+            </div>
+            <div id="toast_error" style="display: none;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <i class="weui_icon_toast weui_icon_toast_error"></i>
+                    <p class="weui_toast_content">识别失败</p>
+                </div>
+            </div>
+
+            
+			
+
+            <!-- loading toast -->
+            <div id="loadingToast" class="weui_loading_toast" style="display: none;">
+                <div class="weui_mask_transparent"></div>
+                <div class="weui_toast">
+                    <div class="weui_loading">
+                        <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                        <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+                    </div>
+                    <p class="weui_toast_content">数据加载中,<br>请您稍后</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="weui_dialog_confirm" id="divSubmitSure" style="display:none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">客户编号绑定成功</strong></div>
+        <div class="weui_dialog_bd" id="weuiMsg"></div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" onclick="submitCancel();" class="weui_btn_dialog default">前往首页</a>
+            <a href="javascript:;" onclick="submitSure();" class="weui_btn_dialog primary">领滴滴券</a>
+        </div>
+    </div>
+</div>
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .qrcord-scan {
+            width: 100%;
+            height: 52%;
+            background: url('Statics/Default/Images/qr.gif') no-repeat;
+            background-size: 80%;
+            background-position: 50% 0%;
+        }
+        .clear-padding {
+            padding:0px 0px;
+        }
+        
+        .clear-border:before{
+            border-top: 0px solid #ddd;
+            border-bottom: 0px solid #ddd;
+        }
+        
+        .clear-border:after{
+            border-top: 0px solid #ddd;
+            border-bottom: 0px solid #ddd;
+        }
+        
+        .container>div {
+            background-color: #f2f2f2;
+        }
+        
+        .weui_cells {
+            background-color: #fafafc;
+        }
+
+        .weui_icon_toast_error:before {
+            content: '\EA03';
+        }
+    </style>
+    <script>
+        $('.button .weui_btn_primary').click(function(){
+			wx.scanQRCode({
+				needResult: 1,
+				scanType: ["qrCode"],
+				success: function (res) {
+					var result = res.resultStr;
+					var cardno = '';
+					if(result.indexOf(',')>-1){
+						cardno = res.resultStr.split(',')[1];
+					}else{
+						cardno = res.resultStr;
+					}
+					/*if(result.indexOf('code=')>-1){
+						cardno = res.resultStr.split('code=')[1];
+					}else{
+						//cardno = res.resultStr;
+					}*/
+					//alert(cardno);
+					$('#loadingToast').show();
+					$.ajax({
+						url:"index.php?m=qzgdwl&a=qzgdwlSearchInforByCardno",
+						data: "cardno=" + cardno + "&unionid={$unionid}",
+						dataType:'json',
+						type:'post',
+						success:function(data){
+							$('#loadingToast').hide();
+							if(data.code == 0){
+								//var data = ret.data.data;
+								$("#cardno").html(cardno);
+								$("#terminalNo").html(data.cust_code);
+								$("#custName").html(data.cust_name);
+								$("#contactPhone").html(data.mobile1);
+								$("#custAddr").html(data.address);
+								$("#balance").html('<b>绑定后可查看</b>');
+								$('.dialog').show();
+							}else{
+								$('#toast_error').show();
+								setTimeout(function(){
+									$('#toast_error').hide();
+									$("#toast_error .weui_toast_content").html('识别失败');
+								},3000);
+							}
+						},
+						error:function(){
+							$('#toast_error').show();
+							setTimeout(function(){
+								$('#toast_error').hide();
+								$("#toast_error .weui_toast_content").html('识别失败');
+							},3000);
+						}
+					});
+				}
+			});
+        });
+
+         $('.button .weui_btn_primary1').click(function(){
+            $('.dialogInput').show();
+            $('#inputCardno').focus();
+        });
+
+        $('#iKnow').click(function(){
+            $('#iosDialog2').hide();
+        });
+
+        $('.dialogInput .weui_dialog_ft .searchInput').click(function(){
+            $('#loadingToast').show();
+            var cardno = $('#inputCardno').val(); 
+            //alert(cardno);
+            $.ajax({
+                url:"index.php?m=qzgdwl&a=qzgdwlSearchInforByCardno",
+                data: "cardno=" + cardno + "&unionid={$unionid}",
+                dataType:'json',
+                type:'post',
+                success:function(data){
+                    $('#loadingToast').hide();
+                    if(data.code == 0){
+                        $('.dialogInput').hide();
+                        //var data = ret.data.data;
+                        $("#cardno").html(cardno);
+                        $("#terminalNo").html(data.cust_code);
+                        $("#custName").html(data.cust_name);
+                        $("#contactPhone").html(data.mobile1);
+                        $("#custAddr").html(data.address);
+                        $("#balance").html('<b>绑定后可查看</b>');
+                        $('.dialog').show();
+                    }else{
+                        $('#toast_error_input').show();
+                        setTimeout(function(){
+                            $('#toast_error_input').hide();
+                            $("#toast_error_input .weui_toast_content").html('智能卡输入错误');
+                        },3000);
+                    }
+                },
+                error:function(){
+                    $('#toast_error_input').show();
+                    setTimeout(function(){
+                        $('#toast_error_input').hide();
+                        $("#toast_error_input .weui_toast_content").html('智能卡输入错误');
+                    },3000);
+                }
+            });
+        });
+
+        $('.dialog .weui_dialog_ft .bind').click(function(){
+            $('#loadingToast').show();
+            $.ajax({
+                url:"index.php?m=qzgdwl&a=qzgdwlScanSure&unionid={$unionid}",
+                data:"cust_no=" + $("#terminalNo").html() + "&unionid={$unionid}&source=qr",
+                dataType:'json', 
+                type:'post',
+                success:function(rets){
+                    $('#loadingToast').hide();
+                    if(rets.code == 0){
+                        $("#cardno").html('');
+                        $("#terminalNo").html('');
+                        $("#custName").html('');
+                        $("#contactPhone").html('');
+                        $("#custAddr").html('');
+                        $("#balance").html('');
+                        $('.dialog').hide();
+                        $('#toast_success').show();
+                        setTimeout(function(){
+                            $('#toast_success').hide();
+                            location.href = "index.php?m=qzgdwl&a=qzgdwlIndex&unionid={$unionid}";
+                        },3000);
+                    }else{
+						$("#toast_error .weui_toast_content").html(rets.msg);
+                        $('#toast_error').show();
+                        setTimeout(function(){
+                            $('#toast_error').hide();
+                            $("#toast_error .weui_toast_content").html(rets.msg);
+                        },3000);
+                    }
+                },
+                error:function(){
+                    $('#toast_error').show();
+                    setTimeout(function(){
+                        $('#toast_error').hide();
+                        $("#toast_error .weui_toast_content").html('识别失败');
+                    },3000);
+                }
+            });
+        });
+		
+		function submitCancel(){
+			window.location.href = "index.php?m=qzgdwl&a=qzgdwlIndex";
+		}
+
+		function submitSure(){
+			window.location.href = "https://gsactivity.diditaxi.com.cn/gulfstream/activity/v2/giftpackage/index?g_channel=02f6339b4aabd4c479cf3ff838755f13";
+		}
+
+        $('#toast_error').click(function(){
+            $('#toast_error').hide();
+            $("#toast_error .weui_toast_content").html('识别失败');
+        });
+
+        $('#toast_success').click(function(){
+            $('#toast_success').hide();
+        });
+
+        $('.dialog .weui_dialog_ft .canel').click(function(){
+            $("#cardno").html('');
+            $("#terminalNo").html('');
+            $("#custName").html('');
+            $("#contactPhone").html('');
+            $("#custAddr").html('');
+            $("#balance").html('');
+            $('.dialog').hide();
+        });
+    </script>
+</body>
+</html>

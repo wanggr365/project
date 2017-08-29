@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<style>
+
+
+.mui-toast-container {
+	position: fixed;
+	display:none;
+	z-index: 9999;
+	bottom: 20%;
+	width: 100%;
+	-webkit-transition: opacity .8s;
+	transition: opacity .8s;
+	opacity: 0
+}
+
+.mui-toast-container.mui-active {
+	opacity: 1;
+}
+
+.mui-toast-message {
+	font-size: 14px;
+	width: 270px;
+	margin: 5px auto;
+	padding: 5px;
+	text-align: center;
+	color: #000;
+	border-radius: 7px;
+	background-color: #d8d8d8
+}
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+</style>
+<link rel="stylesheet" href="[!CSS]weui1.css"/>
+<link rel="stylesheet" href="[!CSS]example1.css"/>
+<link rel="stylesheet" href="[!CSS]sj/style.css"/>
+<style type="text/css">
+	
+</style>
+
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]bootstrap.min.js"></script>
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+</head>
+<body style="background: url(/qzgdwl/Statics/Default/Images/sj/hbq.jpg);background-size: 100%;background-repeat: no-repeat;background-color: #FF5735;">
+
+
+ <div class="pageWrapper homePageWrapper" style="padding-top:68%;"> 
+    <!-- page content wrapper starts -->
+    <div class="pageContentWrapper servicesPageContent">
+		<div class="pageSpacer"></div>
+		<!-- service starts -->
+		<div class="columnWrapper serviceWrapper oneHalf" style="border-bottom: 0px solid #f0f0f0;"> 
+			<div class="serviceIcon serviceIconClockLight">我有红包券</div>
+			<div style="text-align:center;margin-bottom: 4px;">
+				<a href="javascript:scanQR();" class="hbq1" ></a>
+			</div>
+		</div>
+      <!-- service ends --> 
+      <!-- service starts 
+		<div class="pageSpacer" ></div>
+		<div class="columnWrapper serviceWrapper oneHalf" style="border-bottom: 0px solid #f0f0f0;"> 
+			<div class="serviceIcon serviceIconClockLight">我要红包券</div>
+			<div style="text-align:center;margin-bottom: 4px;">
+				<a href="index.php?m=sj&a=sjBusiness" class="hbq2" ></a>
+			</div>
+		</div>-->
+      
+      
+    </div>
+    <!-- page content wrapper ends --> 
+  </div>
+
+<div style="text-align:center; margin-top: -10px;">
+	<a href="index.php?m=qzgdwl&a=qzgdwlTicketList" class="large button red font_class" style="font-size:18px;line-height:15px;">红包记录</a><a href="#" class="large button red font_class" onclick="showHdgz();" style="font-size:18px;line-height:15px;margin-left: 20px;">活动规则</a>
+</div>
+<div class="toast">
+	<div id="toast_success" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_success"></i>
+			<p class="weui_toast_content">识别成功</p>
+		</div>
+	</div>
+	<div id="toast_error" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_error"></i>
+			<p class="weui_toast_content">识别失败</p>
+		</div>
+	</div>
+
+	
+	
+
+	<!-- loading toast -->
+	<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">数据加载中,<br>请您稍后</p>
+		</div>
+	</div>
+</div>
+<!--  -->
+<div class="mui-toast-container"><div class="mui-toast-message">点击右上角菜单，分享到朋友圈！</div></div>
+
+<div class="xxcy-main" id="csyj-main" style="display:none;overflow:auto;">
+	<div class="xxcy">
+		<h3>活动规则</h3>			
+		<p><b>1.活动时间</b>：2016年12月20日-2017年2月28日。<br>
+<b>2.活动对象</b>：办理广电爱家68或88套餐的用户<br>
+<b>3.活动内容</b>：<br>
+（1）预存服务费满888元，赠送“幸运红包券”1张，红包金额10-300元，还可再领滴滴快车88元大礼包；<br>
+（2）预存服务费满1288元，赠送“超级红包券”1张，红包金额20-1000元，还可再领滴滴快车108元大礼包。<br>
+4.根据预存金额取最高档次“红包券”赠送，不叠加赠送。<br>
+5.可进入泉州广电网络官方微信“个人中心”--“优惠券”查看领到的红包。</p>
+		
+		
+	</div>
+	<div class="close_xxcy" id="close_csyj" onclick="closeHdgz();"><img src="[!IMG]close_1.png" /></div>
+</div>
+
+<div class="zj-main" id="zj-main" style="display:none;overflow:auto;">
+		<div class="txzl" id="txzl">
+			<div style="padding-top:50%">
+				<h3>好机相拍报</h3>
+				<h2 id="h2">分享至朋友圈再领1个“趣味红包”和滴滴快车88元大礼包</h2>	
+				<div class="info_tj" onclick="alertMsg();">立即分享</div>	
+			</div>
+		</div>
+		<div class="close_zj" ><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+
+<div class="zj-main" id="fx-main" style="display:none;overflow:auto;">
+		<div class="txzl">
+			<div style="padding-top:50%">
+				<h3>感谢分享</h3>
+				<h2>再送您1个“趣味红包”</h2>		
+				<div class="info_tj" onclick="goDidi();">领取滴滴大礼包</div>	
+			</div>
+		</div>
+		<div class="close_zj" ><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+
+<div class="zj-main" id="gd-main" style="display:none;overflow:auto;">
+		<div class="txzl" style="background-image:url(Statics/Default/Images/zj_1.png);width: 86%;height: 60.5%;position: absolute;top: 20%;left: 7%; background-size: 100% 100%; text-align: center;">
+			<img src="[!IMG]sj/QR.png" style="padding-top: 6%;"/>
+			<div style="padding-top:0%">
+				<h3>长按识别二维码</h3>
+				<h2>绑定广电账号送红包</h2>	
+				<h2>还可再领滴滴快车券</h2>		
+			</div>
+		</div>
+		<div class="close_zj" style="top: 18%"><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+<script>
+
+	window.onload = function(){
+		
+	}
+</script>
+<script>
+	var arrTtitle=["广电网络送百万红包，我领了xx元，你也快来抢！","办业务送车费，广电网络携手滴滴快车派送百万大礼！","广电宽带全网升级20M，办爱家套餐送最高千元红包！"];
+	var title = "广电宽带全网升级20M，办爱家套餐送最高千元红包！";
+	var desc="新春佳节，看电视当然用广电网络";
+	var type = "01";
+	var link = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjBusiness#wechat_redirect";
+	var imgUrl = "http://www.968816.com.cn/qzgdwl/Statics/Default/Images/sj/hb.jpg";
+	//var unionid = '<?php echo $unionid;?>';
+	wx.config({
+	//debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			'onMenuShareAppMessage',
+			'onMenuShareTimeline',
+			'scanQRCode'
+		]
+	});
+	
+
+	$(".close2").click(function(){
+		 $('#myModal').modal('hide');
+	});
+
+	function scanQR(){
+		<if condition="$userRow['is_binding'] neq 1">
+			$('#toast_error').show();
+			$("#toast_error .weui_toast_content").html('请先绑定广电账号');
+			setTimeout(function(){
+				$('#toast_error').hide();
+				$("#toast_error .weui_toast_content").html('');
+				$('#gd-main').fadeIn();
+			},2000);
+			return;
+		</if>
+		wx.scanQRCode({
+			needResult: 1,
+			scanType: ["qrCode"],
+			success: function (res) {
+				var result = res.resultStr;
+				var cardno = '';
+				if(result.indexOf('code=')>-1){
+					cardno = res.resultStr.split('code=')[1];
+				}else{
+					$('#toast_error').show();
+					$("#toast_error .weui_toast_content").html('无效二维码');
+					setTimeout(function(){
+						$('#toast_error').hide();
+						$("#toast_error .weui_toast_content").html('无效二维码');
+					},3000);
+					return false;
+				}
+				
+				$('#loadingToast').show();
+				$.ajax({
+					url:"index.php?m=sj&a=sjQRScan",
+					data: "cardno=" + cardno ,
+					dataType:'json',
+					type:'post',
+					success:function(data){						
+						$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/0yuan.png)');
+						$('#loadingToast').hide();
+						if(data.code == 0){	
+							type = data.type;
+							if(data.type == "02"){
+								$('#h2').html('分享至朋友圈再领1个“趣味红包”和滴滴快车108元大礼包');
+							}
+							changeImg(parseInt(data.value));
+							$('#zj-main').fadeIn();	
+							title = "广电网络送百万红包，我领了" + data.value + "元，你也快来抢！";
+							wx.onMenuShareTimeline({
+								title: title, // 分享标题
+								link: link, // 分享链接
+								imgUrl: imgUrl, // 分享图标
+								success: function () { 
+									// 用户确认分享后执行的回调函数
+									share();
+								},
+								cancel: function () { 
+									// 用户取消分享后执行的回调函数
+								}
+							});
+							wx.onMenuShareAppMessage({
+								title: title, // 分享标题
+								desc: desc, // 分享描述
+								link: link, // 分享链接
+								imgUrl: imgUrl, // 分享图标
+								type: '', // 分享类型,music、video或link，不填默认为link
+								dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+								success: function () { 
+									// 用户确认分享后执行的回调函数
+									//share();
+								},
+								cancel: function () { 
+									// 用户取消分享后执行的回调函数
+								}
+							});
+						}else if(data.code == 1){
+							$('#toast_error').show();
+							$("#toast_error .weui_toast_content").html('该红包券已使用');
+							setTimeout(function(){
+								$('#toast_error').hide();
+								$("#toast_error .weui_toast_content").html('该红包券已使用');
+							},3000);
+						}else{
+							$('#toast_error').show();
+							$("#toast_error .weui_toast_content").html('无效二维码');
+							setTimeout(function(){
+								$('#toast_error').hide();
+								$("#toast_error .weui_toast_content").html('无效二维码');
+							},3000);
+						}
+					},
+					error:function(){
+						$('#toast_error').show();
+						$("#toast_error .weui_toast_content").html('无效二维码');
+						setTimeout(function(){
+							$('#toast_error').hide();
+							$("#toast_error .weui_toast_content").html('无效二维码');
+						},3000);
+					}
+				});
+			}
+		});
+	};
+	
+	function changeImg(_i){
+		switch(_i){
+			case 1: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/10yuan.png)');
+				break;
+			case 2: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/20yuan.png)');
+				break;
+			case 3: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/300yuan.png)');
+				break;
+			case 4: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/20yuan.png)');
+				break;
+			case 5: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/50yuan.png)');
+				break;
+			case 6: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/1000yuan.png)');
+				break;
+			case 7: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/1yuan.png)');
+				break;
+			case 8: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/2yuan.png)');
+				break;
+			case 9: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/5yuan.png)');
+				break;
+			case 10: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/200yuan.png)');
+				break;
+			case 11: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/1yuan.png)');
+				break;
+			case 12: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/2yuan.png)');
+				break;
+			case 13: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/5yuan.png)');
+				break;
+			case 14: 									
+				$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/888yuan.png)');
+				break;
+		}
+	}
+	
+	function share(){
+		$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/0yuan.png)');
+		$('.zj-main').fadeOut();
+		$.ajax({
+			type:'post',
+			url: "index.php?m=sj&a=hbqShare",
+			context: document.body,
+			dataType:'json',  
+			data:'',
+			success: function(json){
+				if(json.code == 1){					
+					changeImg(parseInt(json.value));
+					//
+					$('#fx-main').fadeIn();	
+					title = "办业务送车费，广电网络携手滴滴快车派送百万大礼！";
+					wx.onMenuShareTimeline({
+						title: title, // 分享标题
+						link: link, // 分享链接
+						imgUrl: imgUrl, // 分享图标
+						success: function () { 
+							// 用户确认分享后执行的回调函数
+							//share();
+						},
+						cancel: function () { 
+							// 用户取消分享后执行的回调函数
+						}
+					});
+					wx.onMenuShareAppMessage({
+						title: title, // 分享标题
+						desc: desc, // 分享描述
+						link: link, // 分享链接
+						imgUrl: imgUrl, // 分享图标
+						type: '', // 分享类型,music、video或link，不填默认为link
+						dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+						success: function () { 
+							// 用户确认分享后执行的回调函数
+							//share();
+						},
+						cancel: function () { 
+							// 用户取消分享后执行的回调函数
+						}
+					});
+				}else if(json.code == 0){
+					$('#toast_success').show();
+					$("#toast_success .weui_toast_content").html('感谢分享');
+					setTimeout(function(){
+						$('#toast_success').hide();
+						$("#toast_success .weui_toast_content").html('感谢分享');
+					},3000);
+				}else{
+					$('#toast_error').show();
+					$("#toast_error .weui_toast_content").html('超时操作');
+					setTimeout(function(){						
+						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjIndex#wechat_redirect";
+						$("#toast_error .weui_toast_content").html('超时操作');
+					},2000);
+				}
+			}
+		});
+	}
+	
+	wx.ready(function(){	
+							//$('#zj-main').fadeIn();	
+							//$('.txzl').css('backgroundImage','url(Statics/Default/Images/sj/10yuan.png)');
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		
+		wx.onMenuShareAppMessage({
+			title: title, // 分享标题
+			desc: desc, // 分享描述
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+	});
+</script>
+<script>
+	function alertMsg(){
+		$('.mui-toast-container').show();
+		$('.mui-toast-container').addClass('mui-active');
+		setTimeout(function(){		
+			$('.mui-toast-container').hide();				
+			$('.mui-toast-container').removeClass('mui-active');
+		},5000);
+	}
+	
+	function goDidi(){
+		if(type == "01"){
+			window.location.href = "https://gsactivity.diditaxi.com.cn/gulfstream/activity/v2/giftpackage/index?g_channel=5ffdf519a5ce1cd5989321ba1ad77d7b";
+		}else{
+			window.location.href = "https://gsactivity.diditaxi.com.cn/gulfstream/activity/v2/giftpackage/index?g_channel=503566b9faa5d8c6f2e34e9c966bc165";
+		}
+	}
+	
+	$('.close_zj').click(function(){
+		$('.zj-main').fadeOut();
+	});
+</script>
+<script>
+	function showHdgz(){
+		$('#csyj-main').fadeIn();
+	}
+	function closeHdgz(){
+		$('#csyj-main').fadeOut();		
+	}
+</script>
+</body>
+</html>

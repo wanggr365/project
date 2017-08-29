@@ -1,0 +1,80 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="MobileOptimized" content="300"/>
+<title>广电网络微信营业厅</title>
+<link rel="stylesheet" type="text/css" href="[!CSS]css.css" media="all">
+<script type="text/javascript" src="[!JS]jquery-1.8.3.min.js" ></script>
+<script type="text/javascript">
+	var Request = new Object(); 			
+	Request = GetRequest();
+	$(document).ready(function(){
+		/*$.ajax({
+			type: 'POST',
+			url: 'index.php?m=index&a=queryBill',
+			dataType: 'text',
+			cache: false,
+			data:{"accountNo":Request['accountNo'].toString()},
+			error: function(){
+				alert('出错了！');
+				return false;
+			},
+			success:function(json){
+				var l = json.length;
+				for(var i=0;i++;i<l){
+					alert(1);
+					//$("#tbBill").append('<tr><td>' + json[i].BILLCYCLE + '</td></tr>' + '<tr><td>' + json[i].AMOUNT + '</td></tr>' + '<tr><td>' + json[i].PPYAMOUNT + '</td></tr>' + '<tr><td>' + json[i].UNPAYMENTCHARGE + '</td></tr>' );
+				}
+			}
+		});*/
+		$.ajax({
+	  	    type:'post',
+				  url: "index.php?m=index&a=queryBill",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"accountNo="+Request['accountNo'].toString(),
+				  success: function(json){
+						var l = json.length;
+						for(var i=0;i<l;i++){
+							$("#tbBill").append('<tr><td class=\"tdBill\">' + json[i].BILLCYCLE + '</td>' + '<td class=\"tdBill\">' + json[i].AMOUNT + '</td>' + '<td class=\"tdBill\">' + json[i].PPYAMOUNT + '</td>' + '<td class=\"tdBill\">' + json[i].UNPAYMENTCHARGE + '</td></tr>' );
+						}
+						$("#tip").html("查询结果只显示最近一年的账单");
+				  }
+			});	
+	});
+	function GetRequest() { 
+		var url = location.search; //获取url中"?"符后的字串 
+		var theRequest = new Object(); 
+		if (url.indexOf("?") != -1) { 
+			var str = decodeURI(url.substr(1)); 
+			strs = str.split("&"); 
+			for(var i = 0; i < strs.length; i ++) { 
+				theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+			} 
+		} 
+		return theRequest; 
+	} 
+</script>
+</head>
+
+<body style="background-image:url([!IMG]bg.png);">
+<div class="bianhao02"><div style="height:20px;"></div></div>
+<div class="logo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历史账单查询</div>
+<div class="bianhao02"><div style="height:20px;"></div></div>
+	<table id="tbBill" frame="box" style="background-color:#ffffff;text-align:center">
+		<tr>
+		  <td width="122" class="bianhao33">计费期</td>
+		  <td width="122" class="bianhao33">账单金额（元）</td>
+		  <td width="122" class="bianhao33">已缴金额（元）</td>
+		  <td width="122" class="bianhao33">未缴金额（元）</td>
+		</tr>
+	</table>
+<div class="bianhao02">
+		<div style="height:44px;width:300px;color:#ffffff;font-size:20px;font-weight:bold;text-align:center;">温馨提示：<br><span id="tip">数据获取中，请稍后！</span></div>
+</div>
+<div class="bianhao02"><div style="height:20px;"></div></div>
+</body>
+</html>
+

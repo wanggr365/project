@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<style>
+
+
+
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover		
+	{ background-color: #F5921E; }
+</style>
+<link rel="stylesheet" href="[!CSS]sj/style.css"/>
+<style type="text/css">
+	
+</style>
+
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]iscroll.js"></script>
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+</head>
+<body style="background: url(/qzgdwl/Statics/Default/Images/sj/sj.jpg);background-size: 100%;background-repeat: no-repeat;background-color: #FF5735;">
+
+
+<ul class="mainmenu" style="padding-top:72%;">
+	<li><a href="index.php?m=sj&a=sjHbq"><img src="[!IMG]sj/1.png"></a></li>
+	<li><a href="index.php?m=sj&a=sjJfs"><img src="[!IMG]sj/2.png"></a></li>
+	<li><a href="index.php?m=sj&a=sjBinding"><img src="[!IMG]sj/3.png"></a></li>
+	<li><a href="index.php?m=sj&a=sjRank"><img src="[!IMG]sj/4.png"></a></li>   	 
+</ul>
+<div style="width:69%;height:1px;margin:10px auto;padding:0px;background-color:yellow;overflow:hidden;"></div>
+<div style="text-align:center; margin-top: 20px;">
+	<a href="index.php?m=qzgdwl&a=qzgdwlTicketList" class="large button red font_class" style="font-size:18px;line-height:15px;">红包记录</a><a href="#" class="large button red font_class" onclick="showHdgz();" style="font-size:18px;line-height:15px;margin-left: 20px;">活动规则</a>
+</div>
+<!-------------活动规则-------------->
+<div class="xxcy-main" id="csyj-main" style="display:none;overflow:auto;">
+	<div class="xxcy">
+		<h3>活动规则</h3>			
+		<p><b>1.活动时间</b>：2016年12月20日-2017年2月28日。<br>
+<b>2.活动内容</b>：<br>
+（1）办广电爱家套餐预存服务费满888元、1288元即送红包券，红包金额最高1000元。<br>
+（2）已绑定广电账户的用户微信缴收视费满198元，即有机会领红包，红包金额最高200元。<br>
+（3）分享邀请码邀请好友微信绑定广电账户，成功绑定后即可各赚1个红包。<br>
+（4）成功邀请1个好友绑定广电账户可增加1个红包积分，最终红包积分最高者可获得888元“财运红包”。<br>
+（5）参与以上任一活动，即送滴滴快车大礼包,100%有奖。<br>
+（6）可进入泉州广电网络官方微信“个人中心”--“优惠券”查看领到的红包。</p>
+		
+		
+	</div>
+	<div class="close_xxcy" id="close_csyj" onclick="closeHdgz();"><img src="[!IMG]close_1.png" /></div>
+</div>
+
+<div class="zj-main" id="gd-main" style="display:none;overflow:auto;">
+		<div class="txzl" style="background-image:url(Statics/Default/Images/zj_1.png);width: 86%;height: 60.5%;position: absolute;top: 20%;left: 7%; background-size: 100% 100%; text-align: center;">
+			<img src="[!IMG]sj/QR.png" style="padding-top: 6%;"/>
+			<div style="padding-top:0%">
+				<h3>长按识别二维码</h3>
+				<h2>绑定广电账号送红包</h2>	
+				<h2>还可再领滴滴快车券</h2>		
+			</div>
+		</div>
+		<div class="close_zj" style="top: 18%"><img src="[!IMG]close_1.png" /></div>
+</div> 
+<script>
+
+	window.onload = function(){
+		
+	}
+	
+	$('.close_zj').click(function(){
+		$('.zj-main').fadeOut();
+	});
+
+	function showHdgz(){
+		$('#csyj-main').fadeIn();
+	}
+	function closeHdgz(){
+		$('#csyj-main').fadeOut();		
+	}
+</script>
+<script>
+	var title="广电宽带全网升级20M，百万红包送不停";
+	var desc="还可再领滴滴快车大礼包";
+	var link = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dshareBinding%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjIndex#wechat_redirect";
+	var imgUrl = "http://www.968816.com.cn/qzgdwl/Statics/Default/Images/sj/hb.jpg";
+	wx.config({
+	//debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			'onMenuShareAppMessage',
+			'onMenuShareTimeline'
+		]
+	});
+	
+	wx.ready(function(){		
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		
+		wx.onMenuShareAppMessage({
+			title: title, // 分享标题
+			desc: desc, // 分享描述
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+	});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<!--App自定义的css-->
+<style>
+
+
+.mui-toast-container {
+	position: fixed;
+	z-index: 9999;
+	bottom: 20%;
+	width: 100%;
+	-webkit-transition: opacity .8s;
+	transition: opacity .8s;
+	opacity: 0
+}
+
+.mui-toast-container.mui-active {
+	opacity: 1;
+}
+
+.mui-toast-message {
+	font-size: 14px;
+	width: 270px;
+	margin: 5px auto;
+	padding: 5px;
+	text-align: center;
+	color: #000;
+	border-radius: 7px;
+	background-color: #d8d8d8
+}
+
+
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+	.importaa {
+		max-width: 400px;
+		display: block;
+		width: 40%;
+		height: 40px;
+		border: 1px solid #ffff00;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		font-weight: bold;
+		color: #FFFF00;
+		margin: 0 auto;
+		font-family: Arial, Helvetica, sans-serif;
+		background: rgba(0,0,0,0.5);
+	}
+	.footer {
+		width: 80%;
+		margin: 16px auto;
+		padding: 15px 0px;
+		text-align:center;
+		border-radius: 6px;
+		-webkit-border-radius: 6px;
+	}
+	
+	.footer p {
+		font-family:"microsoft yahei";
+		width: 90%;
+		margin: 5px auto;
+		margin-bottom:5px;
+		font-size: 15px;
+		color: #ffffff;
+	}
+		/*******谢谢参与页面*******/
+.xxcy-main { width:100%;height: 100%; max-width: 640px; margin: 0 auto; background-color: rgba(0,0,0,0.7) ; background-size: 100% 100%;position:absolute;overflow:hidden;*zoom:1;z-index:10;left:center;top:0;}
+.xxcy-main .xxcy{width:90%;height:auto;position:absolute;top:10%;left:5%;background: url(Statics/Default/Images/zj_1.png) center ; background-size: 100% 100%;}
+.xxcy h3{font-size:20px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#e32d2c;line-height:140%;text-align:center;margin-top:7%;}
+.xxcy p{font-size:18px;width:90%;height:auto;margin:2% auto 5% auto;color:#232323;line-height:150%;text-align:left;}
+.xxcy .code{width:40%;height:auto;margin:0% auto 3% auto;}
+.xxcy-main .close_xxcy{width:31px;height:31px;position:absolute;top:8%;right:2.5%;}
+
+/*******中奖页面*******/
+.zj-main { width:100%;height: 100%; max-width: 640px; margin: 0 auto; background-color: rgba(0,0,0,0.7) ; background-size: 100% 100%;position:absolute;overflow:hidden;*zoom:1;z-index:10;left:center;top:0; }
+.zj-main .txzl{width:90%;height:45.5%;position:absolute;top:25%;left:5%;background: url(../../images/sj/1yuan.png) center ; background-size: 100% 100%;}
+.txzl h3{font-size:20px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#ffffff;line-height:140%;text-align:center;}
+.txzl h2{font-size:18px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#ffffff;line-height:140%;text-align:center;}
+.txzl p{font-size:18px;width:90%;height:auto;margin:1% auto 0 auto;color:#232323;line-height:150%;text-align:center;}
+.txzl h4{font-size:16px;font-weight:bold;width:100%;height:auto;margin:3% auto 0 auto;color:#e32d2c;line-height:140%;text-align:center;}
+.txzl .info_tj{width:50%;height:auto;font-size:20px;line-height:180%;color:#000000;text-align:center;background:yellow;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;margin:1.5% auto 6% auto}
+.zj-main .close_zj{width:31px;height:31px;position:absolute;top:27%;right:3.5%;}
+</style>
+<script>
+	function onBridgeReady(){
+		WeixinJSBridge.call('hideOptionMenu');
+	}
+
+	if (typeof WeixinJSBridge == "undefined"){
+		if( document.addEventListener ){
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		}else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	}else{
+		onBridgeReady();
+	}
+</script>
+
+</head>
+<body style="background-color: #5894D2;">
+<div>
+	<img style="width: 100%;" src="[!IMG]sj/bindTitle.png">
+</div>
+
+<div style="margin-top:-25%;">
+	<div class="footer" >
+		<div style="width:100%;">
+			<img src="[!IMG]sj/QR.png"/>
+			<div  style="width:100%;margin: -5% 0 0 0%;">
+				<p style="margin-bottom:0px;">长按识别二维码关注绑定</p>
+				<div style="background-color: #749CC5;    border-radius: 13px; margin: 3% 0 0 8%;    width: 84%; padding: 1% 0 1% 0;">
+				<p style="font-size:18px;margin-bottom:5px;">绑定广电账号,即可开通</p> 
+				<p style="font-size:16px;margin-bottom:5px;">·充值缴费、账户余额查询</p> 
+				<p style="font-size:16px;margin-bottom:5px;">·产品订购、历史账单查询</p> 
+				<p style="font-size:16px;margin-bottom:5px;">·业务办理、故障申报功能</p> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+</body>
+</html>

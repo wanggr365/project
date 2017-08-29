@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name = "format-detection" content = "telephone=no">
+		<title>&nbsp;&nbsp;身份登记</title>
+		<link href="[!CSSL]mui.min.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 30%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+			
+			.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+	.mui-input-group:before {
+	    background-color: #F54F29;
+	}
+	.mui-input-group:after {
+	    background-color: #F54F29;
+	}
+	.mui-input-row .mui-btn {
+		float: left;
+		width: auto;
+		padding: 0px 0px;
+	    background-color: #F7A99C;
+	}
+	.mui-navigate-right:after, .mui-push-right:after {
+		right: 28%;
+		color: #F64929;
+	}
+		</style>
+
+	</head>
+
+	<body >
+		<div style="position: absolute;    top: 0;    left: 0;    width: 100%;    height: 100%;    background: rgba(0,0,0,.3);    text-align: center;    background: url([!IMG]qhb/bg1.jpg) no-repeat top center;    background-size: cover;">
+	
+	</div>
+		<div class="mui-content" style="background-color: rgba(0, 0, 0, 0);">
+			<form id='login-form' class="mui-input-group" style="width: 80%;margin: 110% 0 0 10%;background-color: #ffffff;border-radius: 10px;">
+				<div class="mui-input-row">
+					<label>手机</label>
+					<input id='phone' type="number" class="mui-input-clear mui-input" placeholder="请输入您的手机号" value="">
+					<input id='unionid' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$unionid}">
+				</div>
+			</form>
+			<div class="mui-content-padded" style="text-align:center;">
+				<a href="#" id="submit" class="large button red font_class" style="font-size:20px;line-height:20px;margin-top: -10px;background-color:yellow;color:black">提交</a>
+				
+			</div>
+		</div>
+		
+		<script src="[!JSL]mui.min.js"></script>
+		<script type="text/javascript" src="[!JS]jquery.min.js"></script>	
+		<script>
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});				
+				var submit = doc.getElementById('submit');
+				
+				submit.addEventListener('tap', function(event) {
+					var phone = document.getElementById('phone').value;
+					if(!(/^1[3|4|5|7|8]\d{9}$/.test(phone))){ 
+						return mui.alert("手机号码有误，请重填", function() {
+							document.getElementById('phone').focus();
+						});
+					}
+					$.ajax({
+						type:'post',
+						url: "index.php?m=qhb&a=qhbConfirm",
+						context: document.body,
+						dataType:'json',
+						data:"phone=" + phone,
+						success: function(json){
+							if(json.code != "1"){
+								return mui.alert(json.msg, function() {
+								});
+							}else{
+								mui.alert(json.msg, function() {
+									location.href = "index.php?m=qhb&a=qhbIndex"
+								});
+							}
+						}
+					});	
+					
+				}, false);
+			}(mui, document));
+		</script>
+		
+	</body>
+
+</html>

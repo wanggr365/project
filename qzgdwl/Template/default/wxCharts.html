@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="[!JS]echarts.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1000px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var dataMap = {};
+function dataFormatter(obj) {
+    var pList = ['鲤城','丰泽',	'洛江',	'台商',	'晋江',	'石狮',	'南安',	'惠安',	'永春',	'德化',	'安溪',	'泉港'];
+    var temp;
+    for (var year = 16; year >= 1; year--) {
+        var max = 0;
+        var sum = 0;
+        temp = obj[year];
+        for (var i = 0, l = temp.length; i < l; i++) {
+            max = Math.max(max, temp[i]);
+            sum += temp[i];
+            obj[year][i] = {
+                name : pList[i],
+                value : temp[i]
+            }
+        }
+        obj[year + 'max'] = Math.floor(max / 100) * 100;
+        obj[year + 'sum'] = sum;
+    }
+    return obj;
+}
+
+
+dataMap.dataPI = dataFormatter({
+    //max : 4000,
+    1:[1,	8,	2,	3,	0,	2,	3,	8,	0,	1,	6,	1],
+2:[2,	15,	18,	4,	1,	5,	16,	4,	0,	1,	8,	1],
+3:[13,	12,	5,	2,	5,	14,	34,	4,	0,	3,	8,	4],
+4:[6,	16,	12,	5,	13,	8,	26,	7,	4,	8,	7,	6],
+5:[13,	16,	5,	4,	9,	21,	27,	2,	7,	4,	9,	5],
+6:[20,	12,	10,	7,	12,	6,	15,	9,	5,	0,	5,	5],
+7:[22,	8,	20,	12,	8,	26,	31,	3,	12,	1,	12,	5],
+8:[11,	12,	11,	6,	7,	18,	33,	3,	9,	14,	4,	12],
+9:[11,	17,	15,	2,	10,	20,	36,	9,	5,	20,	6,	5],
+10:[7,	14,	13,	11,	6,	23,	38,	7,	13,	26,	7,	8],
+11:[19,	9,	13,	4,	7,	18,	35,	6,	15,	15,	7,	9],
+12:[6,	13,	21,	2,	4,	18,	27,	7,	14,	14,	2,	4],
+13:[18,	14,	22,	3,	9,	19,	50,	8,	13,	10,	4,	4],
+14:[17,	12,	16,	3,	7,	15,	33,	6,	12,	18,	4,	13],
+15:[17,	9,	15,	2,	17,	14,	27,	4,	13,	18,	8,	11],
+16:[11,	20,	12,	2,	16,	31,	34,	16,	13,	13,	13,	5]
+});
+
+dataMap.dataSI = dataFormatter({
+    //max : 26600,
+    1:[1,	6,	0,	3,	0,	2,	3,	5,	0,	1,	3,	1],
+2:[1,	9,	8,	4,	1,	5,	13,	4,	0,	1,	4,	1],
+3:[9,	9,	3,	2,	4,	4,	28,	3,	0,	3,	7,	3],
+4:[5,	9,	4,	5,	6,	5,	25,	7,	3,	8,	5,	5],
+5:[7,	6,	3,	3,	8,	17,	24,	2,	2,	4,	5,	4],
+6:[11,	5,	1,	7,	8,	5,	13,	8,	2,	0,	3,	2],
+7:[14,	5,	9,	7,	7,	16,	23,	2,	8,	1,	8,	5],
+8:[9,	6,	6,	3,	4,	15,	27,	3,	7,	14,	0,	11],
+9:[5,	10,	6,	2,	6,	12,	27,	8,	2,	20,	2,	4],
+10:[3,	8,	3,	8,	5,	12,	30,	7,	6,	20,	4,	5],
+11:[9,	5,	3,	4,	3,	12,	28,	4,	3,	15,	5,	4],
+12:[4,	7,	9,	2,	1,	10,	18,	7,	5,	14,	0,	3],
+13:[10,	6,	10,	3,	6,	15,	44,	7,	5,	10,	3,	2],
+14:[9,	7,	9,	3,	4,	7,	30,	4,	3,	18,	2,	9],
+15:[12,	4,	4,	2,	4,	6,	23,	4,	3,	18,	3,	8],
+16:[6,	8,	5,	1,	12,	23,	24,	14,	4,	13,	6,	5]
+});
+
+dataMap.dataTI = dataFormatter({
+    //max : 25000,
+    1:[0,	2,	2,	0,	0,	0,	0,	3,	0,	0,	3,	0],
+2:[1,	6,	10,	0,	0,	0,	3,	0,	0,	0,	4,	0],
+3:[4,	3,	2,	0,	1,	10,	6,	1,	0,	0,	1,	1],
+4:[1,	7,	8,	0,	7,	3,	1,	0,	1,	0,	2,	1],
+5:[6,	10,	2,	1,	1,	4,	3,	0,	5,	0,	4,	1],
+6:[9,	7,	9,	0,	4,	1,	2,	1,	3,	0,	2,	3],
+7:[8,	3,	11,	5,	1,	10,	8,	1,	4,	0,	4,	0],
+8:[2,	6,	5,	3,	3,	3,	6,	0,	2,	0,	4,	1],
+9:[6,	7,	9,	0,	4,	8,	9,	1,	3,	0,	4,	1],
+10:[4,	6,	10,	3,	1,	11,	8,	0,	7,	6,	3,	3],
+11:[10,	4,	10,	0,	4,	6,	7,	2,	12,	0,	2,	5],
+12:[2,	6,	12,	0,	3,	8,	9,	0,	9,	0,	2,	1],
+13:[8,	8,	12,	0,	3,	4,	6,	1,	8,	0,	1,	2],
+14:[8,	5,	7,	0,	3,	8,	3,	2,	9,	0,	2,	4],
+15:[5,	5,	11,	0,	13,	8,	4,	0,	10,	0,	5,	3],
+16:[5,	12,	7,	1,	4,	8,	10,	2,	9,	0,	7,	0]
+});
+
+dataMap.dataWX = dataFormatter({
+    //max : 25000,
+    1:[6559.42,	12564.47,	4428.5,	275.37,	5747.39,	8215,	16311,	640.54,	1121.14,	3104,	1840,	2095.5],
+2:[5136.01,	13018.27,	7392,	495,	9687.45,	6797.93,	9053.84,	2421.7,	1382,	3672,	3995.81,	3055],
+3:[9837.21,	8964.27,	6630,	480,	8805.35,	8756.59,	13073.04,	2509.66,	760,	8122,	2781.53,	1480],
+4:[3217.45,	9509.19,	5327,	608,	9693.66,	4237,	6500,	572,	3157.17,	7438,	4317.65,	1760],
+5:[6854.5,	9093.86,	4385.35,	0,	6207.35,	5617.97,	7404,	2469,	3404.63,	4393,	2646.36,	716],
+6:[10103.84,	9048.9,	5342,	1789,	9873.31,	2518.03,	6906,	20,	3963.67,	3348.21,	1061,	768],
+7:[9445.5,	8361.71,	3056,	1050,	6602.37,	6311.3,	8310.36,	1472.39,	2247,	10210,	3033,	1130.5],
+8:[9912.03,	11653.14,	4000,	876,	6717.97,	5694.61,	6936.35,	3605,	3161,	6347.5,	2466.6,	1027],
+9:[8964.91,	13769.56,	7372,	1589,	12768.35,	8624.12,	8774.36,	1888,	2294.27,	5293,	2690,	678],
+10:[6981.13,	12390.73,	3096,	1358,	8185.34,	7142.83,	13340,	806,	3335.29,	7236,	1919.75,	2420.3],
+11:[11753.19,	15188.6,	7720.58,	417,	12640.8,	10847.1,	14509.74,	5014.96,	3687.21,	10267,	5171.64,	1539.26],
+12:[9963.12,	11039.93,	8311,	2340,	22814.11,	11856.37,	10186.01,	1349.24,	4384.04,	6313,	3774,	2051.42],
+13:[7372.65,	6449.48,	3545,	4170.37,	8324.79,	5215,	8995.21,	905.46,	2149,	4501,	2575.84,	1697],
+14:[6269,	11597.47,	8062,	1840,	11846.65,	7545.56,	5975.36,	1215,	2030,	3778,	1571,	1891],
+15:[5688,	8892.3,	8211,	508,	9620.88,	6311.2,	8230.45,	1067,	6887,	6214,	3577.23,	615],
+16:[5807,	11885.18,	6857,	2560,	13961.51,	12129.38,	13838.32,	584,	4709.51,	4156,	3920,	1750.1]
+});
+
+
+option = {
+    baseOption: {
+        timeline: {
+            // y: 0,
+            axisType: 'category',
+            // realtime: false,
+            // loop: false,
+            autoPlay: false,
+            currentIndex: 15,
+            playInterval: 1000,
+            // controlStyle: {
+            //     position: 'left'
+            // },
+            data: [
+               '2016-12-20','2016-12-21','2016-12-22','2016-12-23','2016-12-24','2016-12-25','2016-12-26','2016-12-27','2016-12-28','2016-12-29','2016-12-30','2016-12-31','2017-01-01','2017-01-02','2017-01-03','2017-01-04'
+            ],
+            label: {
+               
+            }
+        },
+        title: {
+            subtext: 'By 业务开发中心'
+        },
+        tooltip: {},
+        legend: {
+            x: 'right',
+            data: ['微信收入','红包券', '幸运红包', '超级红包']
+        },
+        calculable : true,
+        grid: {
+            top: 80,
+            bottom: 100
+        },
+        xAxis: [
+            {
+                'type':'category',
+                'axisLabel':{'interval':0},
+                'data':[
+                    '鲤城',	'\n丰泽',	'洛江',	'\n台商',	'晋江',	'\n石狮',	'南安',	'\n惠安',	'永春',	'\n德化',	'安溪',	'\n泉港'
+                ],
+                splitLine: {show: true}//栅格
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '微信收入（元）'
+            }
+        ],
+        series: [
+            {name: '微信收入', type: 'bar'},
+            {name: '红包券', type: 'bar'},
+            {name: '幸运红包', type: 'bar'},
+            {name: '超级红包', type: 'bar'},
+            {
+                name: '数量',
+                type: 'pie',
+                center: ['85%', '25%'],
+                radius: '28%'
+            }
+        ]
+    },
+    options: [
+        {
+            title: {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['1sum']) + "元"},
+            series: [
+                {data: dataMap.dataWX['1']},{data: dataMap.dataPI['1']},
+                {data: dataMap.dataSI['1']},
+                {data: dataMap.dataTI['1']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['1sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['1sum']},
+                    {name: '超级红包', value: dataMap.dataTI['1sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['2sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['2']},{data: dataMap.dataPI['2']},
+                {data: dataMap.dataSI['2']},
+                {data: dataMap.dataTI['2']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['2sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['2sum']},
+                    {name: '超级红包', value: dataMap.dataTI['2sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['3sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['3']},{data: dataMap.dataPI['3']},
+                {data: dataMap.dataSI['3']},
+                {data: dataMap.dataTI['3']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['3sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['3sum']},
+                    {name: '超级红包', value: dataMap.dataTI['3sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['4sum']) + "元"},
+            series : [
+               {data: dataMap.dataWX['4']}, {data: dataMap.dataPI['4']},
+                {data: dataMap.dataSI['4']},
+                {data: dataMap.dataTI['4']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['4sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['4sum']},
+                    {name: '超级红包', value: dataMap.dataTI['4sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['5sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['5']},{data: dataMap.dataPI['5']},
+                {data: dataMap.dataSI['5']},
+                {data: dataMap.dataTI['5']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['5sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['5sum']},
+                    {name: '超级红包', value: dataMap.dataTI['5sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['6sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['6']},{data: dataMap.dataPI['6']},
+                {data: dataMap.dataSI['6']},
+                {data: dataMap.dataTI['6']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['6sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['6sum']},
+                    {name: '超级红包', value: dataMap.dataTI['6sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['7sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['7']},{data: dataMap.dataPI['7']},
+                {data: dataMap.dataSI['7']},
+                {data: dataMap.dataTI['7']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['7sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['7sum']},
+                    {name: '超级红包', value: dataMap.dataTI['7sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['8sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['8']},{data: dataMap.dataPI['8']},
+                {data: dataMap.dataSI['8']},
+                {data: dataMap.dataTI['8']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['8sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['8sum']},
+                    {name: '超级红包', value: dataMap.dataTI['8sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['9sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['9']},{data: dataMap.dataPI['9']},
+                {data: dataMap.dataSI['9']},
+                {data: dataMap.dataTI['9']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['9sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['9sum']},
+                    {name: '超级红包', value: dataMap.dataTI['9sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['10sum']) + "元"},
+            series : [
+               {data: dataMap.dataWX['10']}, {data: dataMap.dataPI['10']},
+                {data: dataMap.dataSI['10']},
+                {data: dataMap.dataTI['10']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['10sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['10sum']},
+                    {name: '超级红包', value: dataMap.dataTI['10sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['11sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['11']},{data: dataMap.dataPI['11']},
+                {data: dataMap.dataSI['11']},
+                {data: dataMap.dataTI['11']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['11sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['11sum']},
+                    {name: '超级红包', value: dataMap.dataTI['11sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['12sum']) + "元"},
+            series : [
+               {data: dataMap.dataWX['12']}, {data: dataMap.dataPI['12']},
+                {data: dataMap.dataSI['12']},
+                {data: dataMap.dataTI['12']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['12sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['12sum']},
+                    {name: '超级红包', value: dataMap.dataTI['12sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['13sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['13']},{data: dataMap.dataPI['13']},
+                {data: dataMap.dataSI['13']},
+                {data: dataMap.dataTI['13']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['13sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['13sum']},
+                    {name: '超级红包', value: dataMap.dataTI['13sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['14sum']) + "元"},
+            series : [
+               {data: dataMap.dataWX['14']}, {data: dataMap.dataPI['14']},
+                {data: dataMap.dataSI['14']},
+                {data: dataMap.dataTI['14']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['14sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['14sum']},
+                    {name: '超级红包', value: dataMap.dataTI['14sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['15sum']) + "元"},
+            series : [
+                {data: dataMap.dataWX['15']},{data: dataMap.dataPI['15']},
+                {data: dataMap.dataSI['15']},
+                {data: dataMap.dataTI['15']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['15sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['15sum']},
+                    {name: '超级红包', value: dataMap.dataTI['15sum']}
+                ]}
+            ]
+        },
+        {
+            title : {text: '泉州广电网络微信收入与双节红包使用情况' + '   ' + '今日微信收入：' + parseInt(dataMap.dataWX['16sum']) + "元"},
+            series : [
+               {data: dataMap.dataWX['16']}, {data: dataMap.dataPI['16']},
+                {data: dataMap.dataSI['16']},
+                {data: dataMap.dataTI['16']},
+                {data: [
+                    {name: '红包券', value: dataMap.dataPI['16sum']},
+                    {name: '幸运红包', value: dataMap.dataSI['16sum']},
+                    {name: '超级红包', value: dataMap.dataTI['16sum']}
+                ]}
+            ]
+        }
+    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

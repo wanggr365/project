@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>泉州广电网络</title>
+		<link href="[!CSSL]mui.min.css" rel="stylesheet" />
+		<link href="[!CSSL]style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 30%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+
+	</head>
+	<?php $more = $_GET['more'];?>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" href="index.php?m=qzgdwl&a=qzgdwlIndex&unionid={$unionid}"></a>
+			<if condition="$more eq 1">
+			<h1 class="mui-title">多账号绑定</h1>
+			<else/>
+			<h1 class="mui-title">广电账号绑定</h1>
+			</if>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label>客户编号</label>
+					<input id='account' type="text" class="mui-input-clear mui-input" value="{$custCode}" placeholder="请输入客户编号" >
+				</div>
+				<div class="mui-input-row">
+					<label>服务密码</label>
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入服务密码">
+					<input id='unionid' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$unionid}">
+				</div>
+			</form>
+			<!--<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>-->
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">确定绑定</button>
+				<div class="link-area"style="font-size:20px;"><br>
+				<a id='forgetCustCode' href="index?m=qzgdwl&a=ywyCustCodeSearch&unionid={$unionid}">获取客户编号</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a id='forgetPassword'>忘记服务密码</a><br><br><br><br>
+				<h5>您还可以通过以下方式绑定：</h5><br>
+				<a id='scanCardno' href="index?m=qzgdwl&a=qzgdwlScanCardno&unionid={$unionid}">扫描智能卡，快捷绑定</a><br>			<br>	
+				<h5>或</h5><br>
+				<a id='scanQRCardno' href="index.php?m=qzgdwl&a=qzgdwlScanQRCardno&unionid={$unionid}">扫描互动电视，快捷绑定</a>
+				</div>
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+		<script src="[!JSL]mui.min.js"></script>
+		<script src="[!JSL]mui.enterfocus.js"></script>
+		<script src="[!JSL]app.js"></script>
+		<script src="[!JS]jquery-2.1.4.js"></script>	
+		<script src="[!JS]function.js"></script>	
+		<script>
+			var tag = 1;
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});				
+				var forgetButton = doc.getElementById('forgetPassword');
+				
+				forgetButton.addEventListener('tap', function(event) {
+					mui.alert("尊敬的用户，您好！服务密码默认为所登记身份证后六位，字母用0代替。若忘记密码请凭户主本人身份证原件至当地广电网络营业厅重置。", function() {
+							});
+				}, false);
+				
+				var login = doc.getElementById('login');
+				
+				login.addEventListener('tap', function(event) {
+					var cust_code = document.getElementById('account').value;
+					var password = document.getElementById('password').value;
+					if(cust_code == ""){
+						return mui.alert("客户编号不能为空", function() {
+									document.getElementById('account').focus();
+								});
+					}
+					else if(password == ""){
+						return mui.alert("服务密码不能为空", function() {
+									document.getElementById('password').focus();
+								});
+					}
+					if(tag == 1){
+						tag = 0;
+						$.ajax({
+							type:'post',
+							url: "index.php?m=qzgdwl&a=loginSubmit",
+							context: document.body,
+							dataType:'json',
+							data:"cust_no="+BASEtrim(document.getElementById("account").value)+"&pwd="+BASEtrim(document.getElementById("password").value)+"&unionid="+BASEtrim(document.getElementById("unionid").value),
+							success: function(json){
+								tag = 1;
+								if(json.code != "0"){
+									return mui.alert(json.msg, function() {
+									});
+								}else{
+									return mui.alert(json.msg, function() {
+										location.href = "index.php?m=qzgdwl&a=qzgdwlIndex&unionid="+document.getElementById("unionid").value;
+										
+									});									
+								}
+							}
+						});
+					}else{
+						
+					}
+					
+					
+				}, false);
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

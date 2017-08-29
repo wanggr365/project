@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>泉州广电网络</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" href="index.php?m=qzgdwl&a=qzgdwlPersonal&unionid={$unionid}"></a>
+			<h1 class="mui-title">故障申报查询</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<foreach name="faultRow" item="fa">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">{$fa.fault_type}&nbsp;&nbsp;&nbsp;&nbsp;{$fa.create_date}</a>
+						<div class="mui-collapse-content">
+							<form class="mui-input-group">
+								
+								<div class="mui-input-row">
+									<label style="width:30%;">姓名</label>	
+									<label style="color:blue;width:70%;">{$fa.fault_name}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">地址</label>
+									<label style="color:blue;width:70%;">{$fa.fault_address}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">手机号</label>
+									<label style="color:blue;width:70%;">{$fa.fault_phone}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">故障状态</label>
+									<label style="color:blue;width:70%;">{$fa.fault_status}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">处理结果</label>
+									<label style="color:blue;width:70%;">{$fa.fault_result}</label>
+								</div>
+							</form>
+							<?php $fa_pic = substr($fa['fault_pic'],0,strlen($fa['fault_pic'])-1); $fa_pic_arr = explode("_",$fa_pic); $fa_pic_num = count($fa_pic_arr);?>
+							<div class="mui-collapse-content">
+							<div id="slider" class="mui-slider">
+								<div class="mui-slider-group mui-slider-loop">
+									<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+									
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<a href="#">
+											<img src="[!IMGU]<?php echo $fa_pic_arr[0];  ?>">
+										</a>
+									</div>
+									<foreach name="fa_pic_arr" item="fa_pic_a">
+									<div class="mui-slider-item">
+										<a href="#">
+											<img src="[!IMGU]{$fa_pic_a}">
+										</a>
+									</div>
+									</foreach>
+									
+									<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<a href="#">
+											<img src="[!IMGU]<?php echo $fa_pic_arr[$fa_pic_num-1];  ?>">
+										</a>
+									</div>
+								</div>
+								<div class="mui-slider-indicator">
+									<div class="mui-indicator mui-active"></div>
+									<for start="1" end="$fa_pic_num">
+									<div class="mui-indicator"></div>
+									</for>
+								</div>
+							</div>
+						</div>
+						</div>
+					</li>	
+					</foreach>
+				</ul>
+			</div>
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+		</script>
+	</body>
+
+</html>

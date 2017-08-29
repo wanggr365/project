@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<style>
+
+.mui-toast-container {
+	position: fixed;
+	display:none;
+	z-index: 9999;
+	bottom: 20%;
+	width: 100%;
+	-webkit-transition: opacity .8s;
+	transition: opacity .8s;
+	opacity: 0
+}
+
+.mui-toast-container.mui-active {
+	opacity: 1;
+}
+
+.mui-toast-message {
+	font-size: 14px;
+	width: 270px;
+	margin: 5px auto;
+	padding: 5px;
+	text-align: center;
+	color: #000;
+	border-radius: 7px;
+	background-color: #d8d8d8
+}
+
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+	.importaa {
+		max-width: 400px;
+		display: block;
+		width: 40%;
+		height: 40px;
+		border: 1px solid #ffff00;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		font-weight: bold;
+		color: #FFFF00;
+		margin: 0 auto;
+		font-family: Arial, Helvetica, sans-serif;
+		background: rgba(0,0,0,0.5);
+	}
+	.footer {
+		width: 80%;
+		margin: 16px auto;
+		padding: 15px 0px;
+		text-align:center;
+		border-radius: 6px;
+		-webkit-border-radius: 6px;
+	}
+	
+	.footer p {
+		font-family:"microsoft yahei";
+		width: 100%;
+		margin: 5px auto;
+		margin-bottom:5px;
+		font-size: 15px;
+		color: #ffffff;
+	}
+</style>
+<link rel="stylesheet" href="[!CSS]weui1.css"/>
+<link rel="stylesheet" href="[!CSS]example1.css"/>
+<link rel="stylesheet" href="[!CSS]sj/style.css"/>
+<link rel="stylesheet" href="[!CSS]sj/bootstrap.min.css"/>
+<style type="text/css">
+	
+</style>
+
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]bootstrap.min.js"></script>
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+</head>
+
+<body style="background-size: 100% ;background-color: #58AAE0;    opacity: 0.9;    font-size: 0.25rem;">
+<div>
+	<img src="[!IMG]yhjTitle.png" style="margin:auto;width:100%;" class="bannerpic">
+</div>
+
+ <div class="pageWrapper homePageWrapper" style="padding-top: 0px;margin-top: 0px;margin-bottom: 0px"> 
+    
+	<div class="pageContentWrapper servicesPageContent" style="background-color: #92C2E2;margin-left: 15%;   margin-right: 15%;">	
+		<if condition="$time elt '2017-05-06 00:00:00'">
+			<div class="columnWrapper serviceWrapper oneHalf" style="border:0px;">
+				<div class="serviceIcon serviceIconClockLight" style="margin-top:15px;">
+					<span id="t_d">00天</span>
+					<span id="t_h">00时</span>
+					<span id="t_m">00分</span>
+					<span id="t_s">00秒</span>
+				</div>
+			</div>
+		<elseif  condition="$time egt '2017-05-07 00:00:00'"/>
+			<div class="columnWrapper serviceWrapper oneHalf" style="border:0px;">
+				<div class="serviceIcon serviceIconClockLight" style="margin-top:15px;">
+					活动已结束，谢谢参与！
+				</div>
+			</div>
+		<else />
+			<if condition="$isHb eq 1">
+			
+			<div class="pageSpacer"></div>
+			
+			<div class="columnWrapper serviceWrapper oneHalf"> 
+				<div class="serviceIcon serviceIconClockLight">您有1个红包券可以领取</div>
+				<div style="text-align:center;margin-bottom: 4px;">
+					<a href="#" class="jfs1" style="height:42px;"></a>
+				</div>
+			</div>
+			</if>
+		  
+			<div class="pageSpacer" ></div>
+			<div class="columnWrapper serviceWrapper oneHalf" style="border-bottom: 0px solid #f0f0f0;"> 
+				<div class="serviceIcon serviceIconClockLight">微信缴费</div>
+				<div style="text-align:center;margin-bottom: 4px;">
+					<a href="#" class="jfs2" style="height:42px;"></a>
+				</div>
+			</div>
+      
+		</if>
+    </div>
+	
+    <!-- page content wrapper ends --> 
+  </div>
+<div >
+	<div class="footer" style="width:90%;margin: 0px auto;">
+		<p>(缴费成功，重新进入此页面即可领取60元红包)</p>
+	</div>
+</div>
+<div style="text-align:center; margin-top:0px;">
+	<a href="index.php?m=qzgdwl&a=qzgdwlTicketList" class="large button red font_class" style="font-size:18px;line-height:15px;background-color: #1187BF;">红包记录</a><a href="#" class="large button red font_class" onclick="showHdgz();" style="font-size:18px;line-height:15px;margin-left: 20px;background-color: #1187BF;">活动规则</a>
+</div>
+<div class="toast">
+	<div id="toast_success" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_success"></i>
+			<p class="weui_toast_content">识别成功</p>
+		</div>
+	</div>
+	<div id="toast_error" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_error"></i>
+			<p class="weui_toast_content">识别失败</p>
+		</div>
+	</div>
+
+	
+	
+
+	<!-- loading toast -->
+	<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">数据加载中,<br>请您稍后</p>
+		</div>
+	</div>
+	
+	<div id="loadingToastJfs" class="weui_loading_toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">跳转中</p>
+		</div>
+	</div>
+</div>
+<!--  -->
+<div id="apply1" class="modal fade padding1" tabindex="-1" data-replace="true" data-backdrop="static" >
+	<div class="modal-dialog modal-content">
+		<div class="modal-body">
+		   <div class="img1"><img src="[!IMG]sj/10yuan.png"/></div>
+		   <p><span>查看红包！</span></p>
+		   <a href="#" class="colse1" data-dismiss="modal"></a>
+		   <button type="button" class="but5" data-dismiss="modal" data-toggle="modal" >马上分享给好友</button>
+		</div>
+	</div>
+</div>
+
+<div class="mui-toast-container"><div class="mui-toast-message">点击右上角菜单，分享到朋友圈！</div></div>
+<div class="xxcy-main" id="csyj-main" style="display:block;">
+	<div class="xxcy">
+		<br></br><br><br><br><br><br>
+<b><h3>活动已结束，谢谢您的参与！</h3></b>
+<br><br><br><br><br><br><br><br><br>
+		
+		
+	</div>
+	
+</div>
+
+<div class="zj-main" id="fx-main" style="display:none;overflow:auto;">
+		<div class="txzl">
+			<div style="padding-top:50%">
+				<h3>感谢参与</h3>
+				<!-- <h2>再送您滴滴快车5元礼包</h2>		
+				<div class="info_tj" onclick="goDidi();">领取滴滴快车券</div>	 -->
+			</div>
+		</div>
+		<div class="close_zj" onclick="jfsClose();" ><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+<div class="zj-main" id="gd-main" style="display:none;overflow:auto;">
+		<div class="txzl" style="background-image:url(Statics/Default/Images/zj_1.png);width: 86%;height: 60.5%;position: absolute;top: 20%;left: 7%; background-size: 100% 100%; text-align: center;">
+			<img src="[!IMG]sj/QR.png" style="padding-top: 6%;"/>
+			<div style="padding-top:0%">
+				<h3>长按识别二维码</h3>
+				<h2>充值300元送60元充值卡</h2>		
+			</div>
+		</div>
+		<div class="close_zj" onclick="fadeClose();" style="top: 18%"><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+<script>
+
+	window.onload = function(){
+		
+	}
+	
+	function fadeClose(){
+		$('.zj-main').fadeOut();
+	}
+	
+</script>
+<script>
+	var title="广电网络用户节";
+	var desc="缴费满300元，即送60元红包";
+	var link = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=yhj%26yhjJfs#wechat_redirect";
+	var imgUrl = "http://www.968816.com.cn/qzgdwl/Statics/Default/Images/sj/hb.jpg";
+	//var unionid = '<?php echo $unionid;?>';
+	wx.config({
+	//debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			'onMenuShareAppMessage',
+			'onMenuShareTimeline'
+		]
+	});
+	wx.ready(function(){		
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		
+		wx.onMenuShareAppMessage({
+			title: title, // 分享标题
+			desc: desc, // 分享描述
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+	});
+
+	$(".colse1").click(function(){
+		 $('#myModal').modal('hide');
+		 window.location.reload();
+	});
+	
+	$('.jfs2').click(function(){
+		$('#loadingToastJfs').show();
+		setTimeout(function(){						
+			window.location.href="index.php?m=qzgdwl&a=qzgdwlGoWxSj";
+		},1000);
+	});
+	
+	$('.jfs1').click(function(){
+		window.location.href = "index.php?m=qzgdwl&a=qzgdwlTicketList";		
+	});
+	
+		
+</script>
+<script>
+	function alertMsg(){
+		$('.mui-toast-container').show();
+		$('.mui-toast-container').addClass('mui-active');
+		setTimeout(function(){		
+			$('.mui-toast-container').hide();				
+			$('.mui-toast-container').removeClass('mui-active');
+		},5000);
+	}
+	
+	function goDidi(){
+		window.location.href = "https://gsactivity.diditaxi.com.cn/gulfstream/activity/v2/giftpackage/index?g_channel=109b25fd62ff2422b01dd07a41973698";
+	}
+	
+	function jfsClose(){
+		$('.zj-main').fadeOut();
+		window.location.reload();
+	};
+</script>
+<script>
+	function showHdgz(){
+		$('#csyj-main').fadeIn();
+	}
+	function closeHdgz(){
+		$('#csyj-main').fadeOut();		
+	}
+	var nowTime = {$timeS};
+	var exTime = <?php echo strtotime('2017-05-06 00:00:00');?>;
+	function getRTime(){
+		var t = exTime - nowTime;
+		var d=0;
+		var h=0;
+		var m=0;
+		var s=0;
+		if(t>=0){
+		  d=Math.floor(t/60/60/24);
+		  h=Math.floor(t/60/60%24);
+		  m=Math.floor(t/60%60);
+		  s=Math.floor(t%60);
+		}
+	 
+		nowTime++;
+		document.getElementById("t_d").innerHTML = d + "天";
+		document.getElementById("t_h").innerHTML = h + "时";
+		document.getElementById("t_m").innerHTML = m + "分";
+		document.getElementById("t_s").innerHTML = s + "秒";
+  }
+	<if condition="$time elt '2017-05-06 00:00:00'">
+		setInterval(getRTime,1000);		
+	</if>
+ 
+</script>
+</body>
+</html>

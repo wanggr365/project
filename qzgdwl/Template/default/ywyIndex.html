@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>泉州广电网络</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="[!IMG]favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name = "format-detection" content = "telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="[!CSS]/light7.css?r=201603281">
+    <link rel="stylesheet" href="[!CSS]/light7-swiper.css">
+    <link rel="stylesheet" href="[!CSS]/light7-swipeout.css">
+    <link rel="stylesheet" href="[!CSS]demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
+    <script src="[!JS]jquery-2.1.4.js"></script>
+	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
+	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+    <script type="text/JavaScript">
+		var Request = new Object(); 			
+		Request = GetRequest(); 
+		$(document).ready(function() { 
+		if(typeof(Request['custCode']) != "undefined" && Request['custCode'] != "undefined" && Request['custCode'] != "" ){
+		
+			$.showIndicator();
+			$.ajax({
+				type:'post',
+				  url: "index.php?m=qzgdwl&a=ywyGetCust",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"custCode="+Request['custCode'].toString(),
+				  success: function(json){
+						if(json.CODE == "99"){
+						$.alert('当前客户不存在！', '错误!');
+						//alert("当前客户不存在！");
+						$.hideIndicator();
+						}else if(json.CODE == "44"){
+							$.alert('输入超时，请退出重新进入！', '错误!');
+							//alert("当前客户不存在！");
+							$.hideIndicator();
+						}else if(json.CODE == "43"){
+							$.alert('只能获取本区域的客户信息！', '错误!');
+							
+							//$.alert(json.MSG, '错误!');
+							//alert("当前客户不存在！");
+							$.hideIndicator();
+						}else{
+							$("#custCode").html(json.CUSTOMERCODE);
+							$("#custName").html(json.CUSTOMERNAME);
+							$("#custProp").html(json.CUSTPROP);
+							$("#address").html(json.ADDRESS);
+							$("#phone").html(json.PHONE);
+							$("#acctNo").html(json.ACCOUNTID);
+						}
+						$.hideIndicator();
+				  }
+			});	
+		}
+	});
+    </script>
+  </head>
+  <body>
+    <div class="page" id="page-index">
+  <header class="bar bar-nav">
+    <a class="icon icon-me pull-left open-panel"></a>
+    <a class="button button-link button-nav pull-right open-popup" data-popup=".popup-about">
+      关于
+      <span class="icon icon-menu"></span>
+    </a>
+    <h1 class="title">营维员支撑系统</h1>
+  </header>
+  <div class="bar bar-standard bar-footer" style="line-height:2.4em;text-align:center;" >
+    <!--<a class="icon icon icon-search pull-left"></a>-->
+	<a href="index.php?m=qzgdwl&a=ywyCustCodeSearch" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">不知道客户编号？点击查询！</div>
+              </div>
+            </a>
+  </div>
+  <div class="content" id='page-index'>
+	  <div class="searchbar row" style="z-index:99;">
+        <div class="search-input col-80" >
+          <label class="icon icon-search" for="search"></label>
+          <input type="text"  id="search" placeholder='输入客户编号'/>
+        </div>
+        <a class="button button-fill button-primary col-20" style="right: 0.3rem;" href="#" onclick="queryCustInfo();">确定</a>
+      </div>		
+	  <div class="ywyP" id="cust">
+		<table width="100%" class="wt-tab01" cellspacing="0" cellpadding="0" border="0">	
+				<tr>
+					<th colspan="5">
+						<em>*</em>当前客户信息
+					</th>
+				</tr>				
+				<tr>
+					<th width="15%" align="center">客户证号</th>
+					<td colspan="4" id="custCode"></td>
+				</tr>
+				<tr>
+					<th width="15%" align="center">客户名称</th>
+					<td colspan="4" id="custName"></td>
+				</tr>
+				<tr>
+					<th width="15%" align="center">客户属性</th>
+					<td colspan="4" id="custProp"></td>
+				</tr>
+				<tr>
+					<th width="15%" align="center">客户地址</th>
+					<td width="30%" id="address"></td>
+				</tr>
+				<tr>
+					<th width="15%" align="center">联系电话</th>
+					<td width="30%" id="phone"></td>	
+				</tr>	
+				<tr style="display:none">
+					<th width="15%" align="center">账本编号</th>
+					<td width="30%" id="acctNo"></td>	
+				</tr>	
+		</table>
+	</div>
+      <div class="list-block">
+        <ul>
+          <!--<li>
+            <a href="/index.php?m=qzgdwl&a=ywyCustCodeSearch" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">获取客户编号</div>
+              </div>
+            </a>
+          </li>-->
+          <li>
+            <a onclick="goUrl(1)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">账户信息查询</div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a onclick="goUrl(2)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">用户订购查询</div>
+              </div>
+            </a>
+          </li>          
+		  <li>
+            <a onclick="goUrl(4)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">业务办理查询</div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a onclick="goUrl(5)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">客户账单查询</div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a onclick="goUrl(6)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">缴费记录查询</div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a onclick="goUrl(7)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">CMTS网管系统</div>
+              </div>
+            </a>
+          </li>
+		  <li>
+            <a onclick="goUrl(8)" class="item-link item-content">
+              <div class="item-inner">
+                <div class="item-title">EOC网管系统</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup popup-about">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-right close-popup">
+      关闭
+    </a>
+    <h1 class="title">关于</h1>
+  </header>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-block">
+        <p>技术支持：泉州广电网络-业务开发中心</p>
+        <p>联系方式: <a href='mailto:2902884852@qq.com'>2902884852@qq.com</a></p>
+        <p></p>
+        <p><a class="button close-popup">好的</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal">
+  <div class="content-block">
+    <p>个人信息</p>
+    <p></p>
+    <!-- Click on link with "close-panel" class will close panel -->
+	<p><a onclick="unBunding()" class="item-link item-content">解绑</a></p>
+    <p><a href="#" class="close-panel">关闭</a></p>
+  </div>
+</div>
+
+    <script src="[!JS]light7.js"></script>
+    <script src="[!JS]light7-swiper.js"></script>
+    <script src="[!JS]light7-city-picker.js"></script>
+    <script src="[!JS]light7-swipeout.js"></script>
+    <script src="[!JS]demos.js?r=201603281"></script>
+  </body>
+</html>

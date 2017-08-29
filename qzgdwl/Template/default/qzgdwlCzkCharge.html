@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>泉州广电网络</title>
+		<link href="[!CSSL]mui.min.css" rel="stylesheet" />
+		<link href="[!CSSL]style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 30%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" href="index.php?m=qzgdwl&a=qzgdwlChargeList&unionid={$unionid}"></a>
+			<h1 class="mui-title">充值卡支付</h1>
+		</header>
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row">
+					<label style="width:40%;">客户名</label>
+					<input id='cust_name' type="text" style="width:60%;" class="mui-input" readonly="readonly" value="{$userRow['cust_name']}" >
+				</div>
+				<div class="mui-input-row">
+					<label style="width:40%;">充值卡号码</label>
+					<input id='card_no' type="text" style="width:60%;" class="mui-input-clear mui-input" value="" placeholder="请输入充值卡号码">
+				</div>
+				<div class="mui-input-row">
+					<label style="width:40%;">充值卡密码</label>
+					<input id='card_password' type="password" style="width:60%;" class="mui-input-password" placeholder="请输入充值卡密码">
+					<input id='unionid' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$unionid}">
+				</div>
+			</form>
+			<!--<form class="mui-input-group">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						自动登录
+						<div id="autoLogin" class="mui-switch">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+			</form>-->
+			<div class="mui-content-padded">
+				<button id='charge' class="mui-btn mui-btn-block mui-btn-primary">充值</button>
+				
+			</div>
+			<div class="mui-content-padded oauth-area">
+
+			</div>
+		</div>
+		<script src="[!JSL]mui.min.js"></script>
+		<script src="[!JSL]mui.enterfocus.js"></script>
+		<script src="[!JSL]app.js"></script>
+		<script src="[!JS]jquery-2.1.4.js"></script>	
+		<script src="[!JS]function.js"></script>	
+		<script>
+			var tagSure = 0;
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});			
+				
+				var charge = doc.getElementById('charge');
+				
+				charge.addEventListener('tap', function(event) {
+					if(tagSure !=0){
+						return false;
+					}
+					var card_no = document.getElementById('card_no').value;
+					var card_password = document.getElementById('card_password').value;
+					if(card_no == ""){
+						return mui.alert("充值卡号码不能为空", function() {
+									document.getElementById('card_no').focus();
+								});
+					}
+					else if(card_password == ""){
+						return mui.alert("充值卡密码不能为空", function() {
+									document.getElementById('card_password').focus();
+								});
+					}
+					tagSure = 1;
+					$.ajax({
+						type:'post',
+						url: "index.php?m=qzgdwl&a=qzgdwlCzkSure",
+						context: document.body,
+						dataType:'json',
+						data:"card_no="+BASEtrim(document.getElementById("card_no").value)+"&card_password="+BASEtrim(document.getElementById("card_password").value)+"&unionid="+BASEtrim(document.getElementById("unionid").value),
+						success: function(json){
+							tagSure = 0;
+							return mui.alert(json.msg, function() {
+									//document.getElementById("abc").innerHTML = json.msg;
+							});
+						}
+					});
+					
+					
+				}, false);
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

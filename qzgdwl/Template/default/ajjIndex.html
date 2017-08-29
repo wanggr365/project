@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>&nbsp;鲤城安监局</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name = "format-detection" content = "telephone=no">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css"/>
+		<script>
+		/*function onBridgeReady(){
+			WeixinJSBridge.call('hideOptionMenu');
+		}
+
+		if (typeof WeixinJSBridge == "undefined"){
+			if( document.addEventListener ){
+				document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+			}else if (document.attachEvent){
+				document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+				document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			}
+		}else{
+			onBridgeReady();
+		}*/
+		</script>
+		<style>
+			/*跨webview需要手动指定位置*/
+			
+			.mui-plus header.mui-bar {
+				display: none!important;
+			}
+			.mui-plus .mui-bar-nav~.mui-content {
+				padding: 0!important;
+			}
+			
+			.mui-plus .plus{
+				display: inline;
+			}
+			
+			.plus{
+				display: none;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			p {
+				text-indent: 22px;
+			}
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+			.mui-popover {
+				height: 300px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header mui-card-media" style="background-image:url([!IMG]ajj/10.jpg);padding: 68px;">				
+				</div><!-- 政策法规、安全常识、危险化学品、职业卫生、工贸行业、道路交通、消防安全、以案示警、知识问卷 -->
+				
+			</div>
+		        <ul class="mui-table-view mui-grid-view mui-grid-9" style="    padding: 12px;">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=jfs&a=sjJfs" style="padding: 0px 0;">
+		                    <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/1.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">政策法规</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=ywyBill&unionid={$unionid}"  style="padding: 0px 0;">
+		                    <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/2.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">安全常识</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlPdcx"  style="padding: 0px 0;">
+		                   <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/3.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">危险化学品</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlBusi&unionid={$unionid}"  style="padding: 0px 0;">
+		                    <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/4.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">职业卫生</div></a></li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlMenuActivity"  style="padding: 0px 0;">
+		                   <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/5.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">工贸行业</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlFault&unionid={$unionid}"  style="padding: 0px 0;">
+		                    <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/6.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">道路交通</div></a></li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlScanQRCardno&unionid={$unionid}"  style="padding: 0px 0;">
+		                   <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/7.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">消防安全</div></a></li>		            
+					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlSelf&unionid={$unionid}"  style="padding: 0px 0;">
+		                   <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/8.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">以案示警</div></a></li>
+		           <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 8px 8px;"><a href="index.php?m=qzgdwl&a=qzgdwlTicketList&unionid={$unionid}"  style="padding: 0px 0;">
+		                    <img class="icon-grzx" style="width:90%;" src="[!IMG]ajj/9.png" />
+		                    <div class="mui-media-body" style="margin-top: 5px;">知识问卷</div></a></li>
+		        </ul> 
+				<div class="mui-media-body" style="padding: 22px 0 20px 0; width: 100%;bottom: 0%;text-align: center;background-color: #4FC6EE;position: fixed;ont-family: inherit;color: #352F2F;">鲤城安监局&nbsp;&nbsp;技术支持：泉州广电网络</div>
+		</div>
+	</body>
+	<script src="[!JS]mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		function alertMsg(){
+			mui.toast('栏目建设中，敬请期待！');
+		}
+		
+	</script>
+</html>

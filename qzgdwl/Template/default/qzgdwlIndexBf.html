@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>&nbsp;泉州广电网络</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name = "format-detection" content = "telephone=no">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css"/>
+		<script>
+		function onBridgeReady(){
+			WeixinJSBridge.call('hideOptionMenu');
+		}
+
+		if (typeof WeixinJSBridge == "undefined"){
+			if( document.addEventListener ){
+				document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+			}else if (document.attachEvent){
+				document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+				document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			}
+		}else{
+			onBridgeReady();
+		}
+		</script>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">个人中心</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header mui-card-media" style="background-image:url([!IMG]10.jpg)">
+				<a class="mui-navigate-right" href="index.php?m=qzgdwl&a=qzgdwlPersonal&unionid={$unionid}">
+					<div style="margin-left:10px;margin-top:10px;width:100%; height:100%; padding-left:0px; padding-top:0px; ">  
+					<table>
+						
+						<if condition="$userRow">
+						<tr>
+							<td rowspan="5" style="width:30%"> 
+								<img src="[!IMG]titleIndexBf.png" style="margin-left:-12px; margin-top:-8px;"width="100" height="100" />
+							</td>
+							
+							<td ><div style="color:#ffffff;margin-left:10px;">·客户姓名：{$userRow['cust_name']}</div></td>
+						</tr>
+						<tr>
+							<td><div style="color:#ffffff;margin-left:10px;">·客户编号：{$userRow['cust_code']}</div></td>
+						</tr>
+						<tr>
+							<td><div style="color:#ffffff;margin-left:10px;">·客户地址：<?php if(mb_strlen($userRow['address'])>18){echo $userRow['address1'];} else{echo $userRow['address'];}?></div></td>
+						</tr>
+						
+						<tr>
+							<td><div style="color:#ffffff;margin-left:16px;"><?php if(mb_strlen($userRow['address'])>18){echo $userRow['address2'];}?></div></td>
+						</tr>
+						<tr>
+							<td></td>
+						</tr>
+						<else/>
+						<tr>
+							<td rowspan="5" style="width:30%"> 
+								<img src="[!IMG]titleIndexBf.png" style="margin-left:-12px; margin-top:-8px;"width="100" height="100" />
+							</td>
+							
+							<td >
+									<div style="text-decoration:underline;color:#035184;font-weight:bold;">点击绑定广电账号,即可开通：</div>
+							</td>
+						</tr>
+						<tr>
+							<td><div style="color:#ffffff;">·充值缴费、账户余额查询，</div></td>
+						</tr>
+						<tr>
+							<td><div style="color:#ffffff;">·产品订购、历史账单查询，</div></td>
+						</tr>
+						<tr>
+							<td><div style="color:#ffffff;">·故障申报等高级功能。</div></td>
+						</tr>
+						
+						<tr>
+							<td></td>
+						</tr>
+						</if>
+					</table>
+					</div>  
+				</a>
+				</div>
+				
+			</div>
+		        <ul class="mui-table-view mui-grid-view mui-grid-9">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7a6b2b757241f8f2&redirect_uri=http://wsc.fjgdwl.com/cgi-bin/auth?from=dotcore&cityid=350500&response_type=code&scope=snsapi_base&state=http%3a%2f%2fwx.fjgdwl.com%2fbroadcast%2fwx%2fWxToken.action%3ftype%3dauthSuccess%26custCode%3d{$userRow['cust_code']}%26corpOrgId%3d{$userRow['ownorgid']}&connect_redirect=1#wechat_redirect">
+		                    <img class="icon-grzx" src="[!IMG]1.png" />
+		                    <div class="mui-media-body">充值</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=ywyBill&unionid={$unionid}">
+		                    <img class="icon-grzx" src="[!IMG]2.png" />
+		                    <div class="mui-media-body">历史账单</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=qzgdwlPdcx">
+		                   <img class="icon-grzx" src="[!IMG]3.png" />
+		                    <div class="mui-media-body">频道查询</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=qzgdwlBusi&unionid={$unionid}">
+		                    <img class="icon-grzx" src="[!IMG]4.png" />
+		                    <div class="mui-media-body">在线办理</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=qzgdwlSelf&unionid={$unionid}">
+		                   <img class="icon-grzx" src="[!IMG]5.png" />
+		                    <div class="mui-media-body">自助诊断</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=qzgdwlFault&unionid={$unionid}">
+		                    <img class="icon-grzx" src="[!IMG]6.png" />
+		                    <div class="mui-media-body">报故障</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="index.php?m=qzgdwl&a=qzgdwlActivity&unionid={$unionid}">
+		                    <img class="icon-grzx" src="[!IMG]7.png" />
+		                    <div class="mui-media-body">最新活动</div></a></li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="javascript:void(0);" onclick="alertMsg();">
+		                    <img class="icon-grzx" src="[!IMG]8.png" />
+		                    <div class="mui-media-body">推荐有礼</div></a></li>
+		           <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="javascript:void(0);" onclick="alertMsg();">
+		                    <img class="icon-grzx" src="[!IMG]9.png" />
+		                    <div class="mui-media-body">优惠券</div></a></li>
+		        </ul> 
+		</div>
+	</body>
+	<script src="[!JS]mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		function alertMsg(){
+			mui.toast('栏目建设中，敬请期待！');
+		}
+	</script>
+</html>

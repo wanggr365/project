@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>泉州广电网络</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name = "format-detection" content = "telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="[!CSS]light7.css?r=201603281">
+    <link rel="stylesheet" href="[!CSS]light7-swiper.css">
+    <link rel="stylesheet" href="[!CSS]light7-swipeout.css">
+    <link rel="stylesheet" href="[!CSS]demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
+    <script src="[!JS]jquery-2.1.4.js"></script>	
+	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
+	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+    <script type="text/JavaScript">
+		var Request = new Object(); 			
+		Request = GetRequest(); 
+		$(document).ready(function() { 
+		if(typeof(Request['custCode']) != "undefined" && Request['custCode'] != "undefined" && Request['custCode'] != "" ){
+		
+			$.showIndicator();
+			$.ajax({
+				type:'post',
+				  url: "index.php?m=qzgdwl&a=queryUser",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"custcode="+Request['custCode'].toString(),
+				  success: function(json){
+						if(json.CODE == "99"){
+							alert("当前客户不存在！");
+						}else{
+							var l = json.length;
+							for(var i=0;i<l;i++){
+								if(typeof json[i].SUBSCRIBERSTATUSSTR != 'undefined' && json[i].SUBSCRIBERSTATUSSTR.indexOf('销') < 0){
+									$("#tbBill").append('<tr style=\"border-bottom: 1px solid #888;\"><th colspan=\"5\"><em>*</em>' + json[i].SUBRELATIONTYPETITLE + '<a onclick=\"getYwyOrding(' + json[i].SUBSCRIBERID + ')\">（查询）</a>' + '</th></tr>'  + '<tr><th width=\"40%\" align=\"center\">用户状态</th><td width=\"60%\" style=\"word-break:break-all\">' + json[i].SUBSCRIBERSTATUSSTR + '</td></tr><tr><th width=\"40%\" align=\"center\">机顶盒/猫号</th><td width=\"60%\" style=\"word-break:break-all\">' + json[i].STBNO + '</td></tr><tr><th width=\"40%\" align=\"center\">智能卡号</th><td width=\"60%\" style=\"word-break:break-all\">' + json[i].CARDNO + '</td></tr><tr><th width=\"40%\" align=\"center\">机顶盒/猫类型</th><td width=\"60%\" style=\"word-break:break-all\">' + json[i].RESCODE + '</td></tr>');			
+								}									
+							}
+						}
+						$.hideIndicator();
+				  }
+			});	
+		}
+	});	
+    </script>
+  </head>
+  <body>
+    <div id="page-label-input" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left back" onclick="goBack()">
+      <span class="icon icon-left"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </a>
+    <h1 class="title">产品订购查询</h1>
+  </header>
+  <div class="content">
+    <div class="ywyP" id="cust">
+		<table id="tbBill" width="100%" class="wt-tab01" cellspacing="0" cellpadding="0" border="0">	
+				
+		</table>
+	</div>
+  </div>
+</div>
+
+    <script src="[!JS]light7.js"></script>
+    <script src="[!JS]light7-swiper.js"></script>
+    <script src="[!JS]light7-city-picker.js"></script>
+    <script src="[!JS]light7-swipeout.js"></script>
+    <script src="[!JS]demos.js?r=201603281"></script>
+  </body>
+</html>

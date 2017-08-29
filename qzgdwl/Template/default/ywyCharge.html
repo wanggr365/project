@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>泉州广电网络</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name = "format-detection" content = "telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="[!CSS]light7.css?r=201603281">
+    <link rel="stylesheet" href="[!CSS]light7-swiper.css">
+    <link rel="stylesheet" href="[!CSS]light7-swipeout.css">
+    <link rel="stylesheet" href="[!CSS]demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
+    <script src="[!JS]jquery-2.1.4.js"></script>	
+	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
+	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+    <script type="text/JavaScript">
+		var Request = new Object(); 			
+		Request = GetRequest(); 
+		$(document).ready(function() { 
+		if(typeof(Request['acctNo']) != "undefined" && Request['acctNo'] != "undefined" && Request['acctNo'] != "" ){
+		
+			$.showIndicator();
+			$.ajax({
+				type:'post',
+				  url: "index.php?m=qzgdwl&a=queryCharge",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"accountNo="+Request['acctNo'].toString(),
+				  success: function(json){
+						if(json.CODE == "99"){
+							alert("当前客户不存在！");
+						}else{
+							var l = json.length;
+							if(l == 0){
+								$.hideIndicator();
+								return false;
+							}
+							$("#ywyBalance").html(json[0].BALANCE+"元");
+							for(var i=0;i<l;i++){
+								if(i%2 == 0){
+									$("#tbBill").append("<tr   class=\"odd\"  onmouseover=\"this.className='highlight'\"  onmouseout=\"this.className='odd'\"><td>" + json[i].OFFICE + '</td>' + '<td>' + json[i].PAYTIME + '</td>' + '<td>' + json[i].AMOUNT + '</td>' + '<td>'+ json[i].PAYMENTTYPE + '</td>' + '<td>'+ json[i].APPPAYSTATUS + '</td>' + '<td>' + json[i].APPPAYTYPE + '</td></tr>' );
+								}else{
+									$("#tbBill").append("<tr   class=\"even\"  onmouseover=\"this.className='highlight'\"  onmouseout=\"this.className='even'\"><td>" + json[i].OFFICE + '</td>' + '<td>' + json[i].PAYTIME + '</td>' + '<td>' + json[i].AMOUNT + '</td>' + '<td>'+ json[i].PAYMENTTYPE + '</td>' + '<td>'+ json[i].APPPAYSTATUS + '</td>' + '<td>' + json[i].APPPAYTYPE + '</td></tr>' );								
+								}
+							}
+						}
+						$.hideIndicator();
+				  }
+			});	
+		}
+	});	
+	
+	function goPer(){
+		
+		location.href = "index.php?m=qzgdwl&a=qzgdwlPersonal&unionid={$unionid}";
+	}
+    </script>
+  </head>
+  <body>
+    <div id="page-label-input" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left" onclick="goPer()">
+      <span class="icon icon-left"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </a>
+    <h1 class="title">缴费记录查询</h1>
+  </header>
+  <div class="content">
+  <div class="jmesa">
+    <table id="tbBill"  border="0"  cellpadding="0"  cellspacing="0"  class="wt-tab04"  width="100%">
+		<tr style="border-bottom: 1px solid #dadada;">
+			<th colspan="6" style="	font-family: verdana, arial, helvetica, sans-serif;">
+				<em>*</em>当前账户余额：<span id="ywyBalance"></span>
+			</th>
+		</tr>	
+		<tr class="trCharge">
+		  <td>缴费点</td>
+		  <td>缴费时间</td>
+		  <td>缴费金额</td>
+		  <td>付费类型</td>
+		  <td>缴费状态</td>
+		  <td>缴费类型</td>
+		</tr>
+	</table>	
+   </div>
+	<p class="ywyP1"></p>
+  </div>
+</div>
+
+    <script src="[!JS]light7.js"></script>
+    <script src="[!JS]light7-swiper.js"></script>
+    <script src="[!JS]light7-city-picker.js"></script>
+    <script src="[!JS]light7-swipeout.js"></script>
+    <script src="[!JS]demos.js?r=201603281"></script>
+  </body>
+</html>

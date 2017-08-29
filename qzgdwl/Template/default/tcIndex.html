@@ -1,0 +1,645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+	<title>泉州广电网络</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+    <link rel="stylesheet" href="[!CSS]weui1.css"/>
+    <link rel="stylesheet" href="[!CSS]example1.css"/>
+	<!--标准mui.css-->
+	<link rel="stylesheet" href="[!CSS]mui.min.css">
+	<!--App自定义的css-->
+	<link rel="stylesheet" type="text/css" href="[!CSS]app.css" />
+	<script src="[!JS]jquery.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>	
+	<link rel="stylesheet" href="[!CSS]tc.css">
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">你吐槽•我送礼</h1>
+	<a id="icon-menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right"></a>
+	<!-- <div class="clickcon">
+		<img src="[!IMG]dian.png" class="dian" id="dianji">
+		<div id="clickcon" style="display: none;">
+			<div class="arrow_up"></div>
+			<div class="con_xl">
+				<div class="linkdiv"><a href="index.php??m=Tc&a=tcIndex">首&nbsp;&nbsp;页</a></div>
+				<div class="linkdiv"><a href="index.php??m=Tc&a=tcIndex">活动规则</a></div>
+				<div class="linkdiv"><a href="index.php??m=Tc&a=tcIndex">奖品设置</a></div>
+				<div class="linkdiv"><a href="index.php??m=Tc&a=tcIndex">广电业务</a></div>
+			</div>
+		</div>
+	</div> -->
+
+</header>
+<br>
+<div id="menu-wrapper" class="menu-wrapper hidden">
+	<div id="menu" class="menu">
+		<ul class="mui-table-view mui-table-view-inverted">
+			<li class="mui-table-view-cell">
+				<a href="index.php?m=qzgdwl&a=qzgdwlIndex&unionid={$unionid}">首&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="#hdgz">活动规则</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="#jpsz">奖品设置</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="index.php?m=qzgdwl&a=qzgdwlBusi&unionid={$unionid}">广电业务</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="index.php?m=qzgdwl&a=qzgdwlTicketList&unionid={$unionid}">我的奖品</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- <img src="[!IMG]banner1.png" class="banner1"/> -->
+<img src="[!IMG]tc1.jpg" class="banner2"/>
+<div class="mui-input-row" style="margin-top: 10px;margin-left:auto;margin-right:auto;width: 78.3%;height: auto;overflow: hidden;background: #700891;">
+	<textarea id="textarea" rows="5" placeholder="活动已结束，谢谢您的参与！" disabled="disabled" style="height:150px;"></textarea>
+</div>
+<div id='image-list' class="row image-list" style="margin-top: 0px;margin-left:auto;margin-right:auto;width: 78.3%;height: auto;overflow: hidden;background: #700891;">
+	<div class="weui_uploader_bd">
+		<ul class="weui_uploader_files" >
+		   
+		</ul>
+		<div class="weui_uploader_input_wrp" id="chooseImage" style="width:65px;height:65px">
+		</div>
+	</div>
+</div>
+<div class="mui-button-row" style="padding-bottom: 10px;background: #700891;font-size:30px;">
+	<button type="button" class="mui-btn mui-btn-primary" onclick="funSubmit();" style="font-size:18px;">确认</button>&nbsp;&nbsp;
+	<button type="button" class="mui-btn mui-btn-danger" onclick="funShare();" style="font-size:18px;">分享</button>
+</div>
+<img src="[!IMG]tc2.jpg" class="banner2"/>
+
+<div id="divDraw" class="div-content" >
+    <a class="close" href="javascript: void(0);"  onclick="hideMore();">X</a>
+    <div class="modal-header">
+		<span class="title" id="divTitle">
+		抽奖赢好礼</span>
+	</div>
+    <div id="divMoreContent" class="claContent"></div>
+	<div class="ggl" id="top">
+		<div class="info" id="prize">
+			<div id="prompt"></div>
+			<div id="divInfor" style="display:none;">
+				<p>
+					<input name="" class="px" id="username" value="" type="text" placeholder="请输入您的姓名">
+				</p>
+				<p>
+					<input name="" class="px" id="phone" value="" maxlength="11" type="text" placeholder="请输入您的手机号">
+				</p>
+			</div>
+			<button type="button" id="draw" class="mui-btn" style="color: #fff;border: 1px solid #df412b;background-color: #df412b;margin-top:10px;font-size:18px;">点击抽奖</button>
+			<button type="button" id="sure" class="mui-btn" style="color: #fff;border: 1px solid #df412b;background-color: #df412b;display:none;margin-top:10px;font-size:18px;">确&nbsp;&nbsp;定</button>
+			<button type="button" id="tuCao" class="mui-btn" style="color: #fff;border: 1px solid #df412b;background-color: #df412b;display:none;margin-top:10px;font-size:18px;">确定</button>
+			<div class="num" style="margin-top:20px;display:none;">
+				您今天还有<span id="spanNum" class="num1">{$userInforRow['draw_num']}</span>次抽奖机会<span id="spanShare" class="num1"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="divBinding" class="div-content" >
+    <span id="spanBinding" class="close-binding" href="javascript: void(0);">8</span>
+    <div class="modal-header">
+		<span class="title" id="divTitleBinding">
+		请先绑定账号</span>
+	</div>
+	<div class="ggl" style="margin: 20px auto;font-size:20px;line-height:30px;">
+		<div class="info" >
+			<div id="promptBinding">只有绑定广电网络账号才能参与活动哦</div>
+			<button type="button" id="buBinding" class="mui-btn" style="color: #fff;border: 1px solid #df412b;background-color: #df412b;margin-top:16px;font-size:18px;">点击绑定</button>
+		</div>
+	</div>
+</div>
+<div id="fade" class="black_overlay"></div> 
+<div class="toast">
+	<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content">抽奖中,<br>请您稍后</p>
+		</div>
+	</div>
+</div>
+<!-- 遮罩层1抽奖次数已经用完-->
+<p id="hdgz" style="position:absolute;top:110%;"></p>
+<p id="jpsz" style="position:absolute;top:200%;"></p>
+<div class="pop pop1">
+	<img src="[!IMG]pop1.png" />
+</div>
+<div class="pop pop2">
+	<img src="[!IMG]pop2.png" id="pop2" />
+</div>	
+	<script>	
+		var draw_num = 0;
+		var filename = "";
+		$(function(){
+			$('#fade').height($(document).height());
+			
+			$('#divDraw').show();
+				$('#fade').show();
+				$('#sure').hide();
+				$('#draw').hide();
+				$('#tuCao').show();
+				$('#prompt').html('活动已结束，谢谢您的参与!<br><a href=\"http://mp.weixin.qq.com/s/MEGXO88-hP_3J1C6RtjqfA\">入围与获得“最佳建议奖”的名单</a>');
+				$('#divDraw').height(250);
+		});	
+		
+		var spanTime = 0;
+		function desTime(){
+			spanTime = $('#spanBinding').html();
+			if(spanTime > 1){	
+				spanTime--;			
+				$('#spanBinding').html(spanTime); 
+			}else{
+				window.location.href="index.php?m=qzgdwl&a=qzgdwlLogin&unionid={$unionid}";
+			}
+		}
+		
+		$('#buBinding').click(function(){
+			window.location.href="index.php?m=qzgdwl&a=qzgdwlLogin&unionid={$unionid}";
+		});
+		
+		$('#tuCao').click(function(){
+			$('#divDraw').hide();
+			$('#fade').hide();
+			$('#draw').hide();
+			$('#sure').hide();
+			$('#tuCao').hide();
+			//$('#textarea').focus();
+		});
+		
+		$('#sure').click(function(){
+			mui.alert('谢谢您的参与', '活动结束了', function() {
+				return false;
+			});return false;
+			var username = trimBlank($('#username').val());
+			var phone = trimBlank($('#phone').val());
+			if($('#divInfor').is(':hidden') ){				
+				$('#divDraw').hide();
+				$('#fade').hide();
+				$('#draw').hide();
+			}else if(username != '' && phone != ''){
+				$.ajax({
+					type:'post',
+					url: "index.php?m=tc&a=inforSubmit",
+					context: document.body,
+					dataType:'json',  
+					data:"username=" + username +'&unionid={$unionid}&phone=' + phone,
+					success: function(json){
+						$('#loadingToast').hide();
+						if(json.code == 0){
+							mui.alert('该手机号已存在', '不行哦', function() {
+								$('#phone').focus();
+								return false;
+							});
+						}else{										
+							$('#divDraw').hide();
+							$('#fade').hide();
+							$('#draw').hide();
+						}
+					}
+				});
+			}else{
+				$('#loadingToast').hide();
+				mui.alert('请输入您的个人信息，以免影响兑奖', '空空', function() {
+					if(username != ''){
+						$('#username').focus();
+					}else{
+						$('#phone').focus();
+					}
+					return false;
+				});	
+			}
+		});
+		
+		$('#draw').click(function(){
+			mui.alert('谢谢您的参与', '活动结束了', function() {
+				return false;
+			});return false;
+			var username = trimBlank($('#username').val());
+			var phone = trimBlank($('#phone').val());
+			$('#loadingToast').show();
+			if($('#divInfor').is(':hidden') ){
+				draw();
+			}else if(username != '' && phone != ''){
+				$('#loadingToast').show();
+				$.ajax({
+					type:'post',
+					url: "index.php?m=tc&a=inforSubmit",
+					context: document.body,
+					dataType:'json',  
+					data:"username=" + username +'&unionid={$unionid}&phone=' + phone,
+					success: function(json){
+						if(json.code == 0){
+							mui.alert('该手机号已存在', '不行哦', function() {
+								$('#phone').focus();
+								$('#loadingToast').hide();
+								return false;
+							});
+						}else{
+							draw();
+						}
+					}
+				});
+			}else{
+				$('#loadingToast').hide();
+				mui.alert('请输入您的个人信息，以免影响兑奖', '空空', function() {
+					if(username == ''){
+						$('#username').focus();
+					}else{
+						$('#phone').focus();
+					}
+					return false;
+				});	
+			}
+		});
+		
+		function funSubmit(){
+			mui.alert('谢谢您的参与', '活动结束了', function() {
+				return false;
+			});
+			return false;
+			var tc = trimBlank($('#textarea').val());
+			if(tc == ''){
+				mui.alert('请输入您的吐槽内容O(∩_∩)O~', '空空', function() {
+					$('#textarea').focus();
+					return false;
+				});								
+			}else{
+				var btnArray = ['修改', '确认'];
+				mui.confirm('“最佳建议”有机会获得<span style=\"color:red;font-weight:bold;\">小米平板2</span>哦', '确认提交吗？', btnArray, function(e) {
+					if (e.index == 1) {
+						$.ajax({
+							type:'post',
+							url: "index.php?m=tc&a=tcSave",
+							context: document.body,
+							dataType:'json',  
+							data:"content=" + tc +'&unionid={$unionid}&tc_pic=' + filename,
+							success: function(json){
+								$('#spanNum').html(json.draw_num);
+								if(json.code == 0){
+									mui.alert('您今天已提交，明朝再来哦', '不能提交啦', function() {	
+										$('#divDraw').show();
+										$('#fade').show();
+										if(json.draw_num == 0){
+											$('#sure').show();
+											$('#draw').hide();
+										}else{
+											$('#sure').hide();
+											$('#draw').show();
+										}
+										$("#prompt").html('');
+									});
+								}else if(json.code == 1){
+									var btnArray = ['先抽奖', '先分享'];
+									mui.confirm('首次分享可以增加<span style=\"color:red;font-weight:bold;\">2次</span>抽奖机会哦', '提交成功', btnArray, function(e) {
+										if (e.index == 1) {
+											mui.toast('请点击微信右上角菜单，<br>选择“分享到朋友圈”');
+										} else {
+											$('#divDraw').show();
+											$('#fade').show();
+											if(json.draw_num == 0){
+												$('#sure').show();
+												$('#draw').hide();
+											}else{
+												$('#draw').show();
+												$('#sure').hide();
+											}
+											$('#prompt').html('');
+										}
+									});
+								}else{
+									mui.alert('提交失败啦', '出错了', function() {
+										$('#textarea').focus();
+										return false;
+									});
+								}
+							}
+						});
+					} else {
+						$('#textarea').focus();
+					}
+				});					
+			}
+		}
+		
+		function funShare(){
+			mui.toast('请点击微信右上角菜单，<br>选择“分享到朋友圈”');
+		}
+		
+		function trimBlank(str){ 
+			return str.replace(/(^\s*)|(\s*$)/g, ""); 
+		}
+		
+		/*function trimBlankAll(str,is_global){
+            var result;
+            result = str.replace(/(^\s+)|(\s+$)/g,"");
+            if(is_global.toLowerCase()=="g"){
+                result = result.replace(/\s/g,"");
+            }
+            return result;
+		}*/
+		
+		function draw(){
+			mui.alert('谢谢您的参与', '活动结束了', function() {
+				return false;
+			});return false;
+			$.ajax({
+				url:"index.php?m=tc&a=run",
+				data: "unionid={$unionid}",
+				dataType:'json',
+				type:'post',
+				error: function(){
+					alert('出错了！');
+					$('#loadingToast').hide();
+					return false;
+				},
+				success:function(json){
+					$('#loadingToast').hide();
+					var a = parseInt(json.angle); //角度
+					var p = json.praisename;//奖项
+					var n = json.num;//剩余抽奖次数
+					draw_num = n;
+					var s = json.show;//是否弹出输入
+					if(p!="" && a!=0){
+						if(p!="谢谢参与"&&s==0){
+							$("#prompt").html(p + '进入“<a href=\"index.php?m=tc&a=tcShare\">泉州广电网络</a>”官方微信查看、使用奖品');
+							$("#divInfor").show();
+							$('#divDraw').height(380);
+							$('#spanNum').html(n);
+						}else if(p!="谢谢参与"&&s==1){	
+							$("#prompt").html('恭喜您抽中<span style=\"color:red;font-size:20px;\">' + p + '</span>进入“<a href=\"index.php?m=tc&a=tcShare\">泉州广电网络</a>”官方微信<br>查看、使用奖品');
+							$("#divInfor").hide();
+							$('#divDraw').height(300);
+							$('#spanNum').html(n);
+						}else{						
+							$("#prompt").html('很遗憾！<br>继续加油，好运就要来了～');
+							$("#divInfor").hide();
+							$('#divDraw').height(250);
+							$('#spanNum').html(n);
+						}	
+						$('#spanShare').html('');
+						if(draw_num == 0){	
+							$('#sure').show();
+							$('#draw').hide();
+							$('#spanShare').html('，每天首次分享活动链接至朋友圈，可增加2次抽奖机会');
+							$('#divDraw').height(330);
+						}	
+					}else{
+						mui.alert('后续还有更多的活动，奖品、积分会一直累加哦！', '次数用完啦', function() {
+							$('#divDraw').hide();
+							$('#fade').hide();
+							$('#draw').hide();
+							return false;
+						});	
+					}
+				}
+			});
+		}
+	</script>	
+	<script src="[!JS]mui.min.js"></script>
+	<script>
+		mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			var menuWrapper = document.getElementById("menu-wrapper");
+			var menu = document.getElementById("menu");
+			var menuWrapperClassList = menuWrapper.classList;
+			//var backdrop = document.getElementById("menu-backdrop");
+			//var info = document.getElementById("info");
+			
+			//backdrop.addEventListener('tap', toggleMenu);
+			//document.getElementById("menu-btn").addEventListener('tap', toggleMenu);
+			document.getElementById("icon-menu").addEventListener('tap',toggleMenu)
+			//下沉菜单中的点击事件
+			/*mui('#menu').on('tap', 'a', function() {
+				toggleMenu();
+				alert(this.attr('href'));
+			});*/
+			var busying = false;
+
+			function toggleMenu() {
+				if (busying) {
+					return;
+				}
+				busying = true;
+				if (menuWrapperClassList.contains('mui-active')) {
+					document.body.classList.remove('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-out-up animated';
+					menu.className = 'menu bounce-out-up animated';
+					setTimeout(function() {
+						//backdrop.style.opacity = 0;
+						menuWrapper.classList.add('hidden');
+					}, 500);
+				} else {
+					document.body.classList.add('menu-open');
+					menuWrapper.className = 'menu-wrapper fade-in-down animated mui-active';
+					menu.className = 'menu bounce-in-down animated';
+					//backdrop.style.opacity = 1;
+				}
+				setTimeout(function() {
+					busying = false;
+				}, 500);
+			}
+	</script>
+	<script>
+		var title="你吐槽我送礼，泉州广电网络送您小米平板2";
+		var desc="被评为“最佳建议”可赢取小米平板2！";
+		var link = "http://www.968816.com.cn/qzgdwl/index.php?m=tc&a=tcShare";
+		var imgUrl = "http://www.968816.com.cn/qzgdwl1010/Statics/Default/Images/title.jpg";
+		//var unionid = '<?php echo $unionid;?>';
+		wx.config({
+		//debug: true,
+			appId: '<?php echo $signPackage["appId"];?>',
+			timestamp: <?php echo $signPackage["timestamp"];?>,
+			nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+			signature: '<?php echo $signPackage["signature"];?>',
+			jsApiList: [
+	'onMenuShareAppMessage','onMenuShareTimeline',
+					'chooseImage',
+					'uploadImage']
+		});
+		wx.ready(function(){		
+			wx.onMenuShareTimeline({
+				title: title, // 分享标题
+				link: link, // 分享链接
+				imgUrl: imgUrl, // 分享图标
+				success: function () { 
+					// 用户确认分享后执行的回调函数
+					share();
+				},
+				cancel: function () { 
+					// 用户取消分享后执行的回调函数
+				}
+			});
+			
+			wx.onMenuShareAppMessage({
+				title: title, // 分享标题
+				desc: desc, // 分享描述
+				link: link, // 分享链接
+				imgUrl: imgUrl, // 分享图标
+				type: '', // 分享类型,music、video或link，不填默认为link
+				dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				success: function () { 
+					// 用户确认分享后执行的回调函数
+					//share();
+				},
+				cancel: function () { 
+					// 用户取消分享后执行的回调函数
+				}
+			});
+		});
+		
+		function share(){
+			mui.alert('谢谢您的参与', '活动结束了', function() {
+				return false;
+			});return false;
+			$.ajax({
+				type:'post',
+				url: "index.php?m=tc&a=qzgdwlShare",
+				context: document.body,
+				dataType:'json',  
+				data:'unionid={$unionid}',
+				success: function(json){
+					if(json.code == 1){
+						showTip("增加2次刮奖机会哦","分享成功~");
+						draw_num = json.draw_num;
+						$('#spanNum').html(draw_num);
+						$('#divDraw').show();
+						$('#fade').show();
+						if(json.draw_num == 0){
+							$('#sure').show();
+							$('#draw').hide();
+						}else{
+							$('#draw').show();
+							$('#sure').hide();
+						}
+						$('#prompt').html('');
+					}else if(json.code == 0){
+						showTip("感谢您的分享,每天首次分享才能增加抽奖次数哦","分享成功~");
+						draw_num = json.draw_num;
+						$('#spanNum').html(draw_num);
+						$('#divDraw').show();
+						$('#fade').show();
+						if(json.draw_num == 0){
+							$('#sure').show();
+							$('#draw').hide();
+						}else{
+							$('#draw').show();
+							$('#sure').hide();
+						}
+						$('#prompt').html('');
+					}else{
+						showTip("请检查您的网络","网络异常！");
+					}
+				}
+			});
+		}
+		
+		var images = {
+			localId: [],
+			serverId: []
+		};
+		
+		document.querySelector('#chooseImage').onclick = function () {
+			wx.chooseImage({
+			  success: function (res) {
+				filename = "";
+				images.localId = res.localIds;
+				//document.getElementById("abc").style.backgroundImage="url("+res.localIds[0]+")";
+				//alert('已选择 ' + res.localIds.length + ' 张图片');
+				$(".weui_uploader_files").html("");
+				var i = 0, length = images.localId.length;
+				for(var k=0;k<length && k<3;k++){
+					//document.getElementsByName("liPic")[k].style.display = "inline-block";
+					//document.getElementsByName("liPic")[k].style.backgroundImage="url("+res.localIds[k]+")";
+					$(".weui_uploader_files").append("<li class=\"weui_uploader_file\" name=\"liPic\"  style=\"width:65px;height:65px;background-image:url(" + res.localIds[k] + ")\"></li>");
+				}
+				function upload() {
+				  wx.uploadImage({
+					localId: images.localId[i],
+					success: function (res) {
+					  i++;
+					  images.serverId.push(res.serverId);
+					  //document.getElementById("question").value = res.serverId;
+					  if (i < length && i<4) {
+						upload();
+					  }
+					  uploadImg(res.serverId);
+					  //download();
+					},
+					fail: function (res) {
+					  alert(JSON.stringify(res));
+					}
+				  });
+				}				
+				upload();
+			  }
+			});
+		};
+		
+		function uploadImg(serverId){
+			var url = "index.php?m=qzgdwl&a=qzgdwlUploadImg&serverId="+serverId;
+			$.getJSON(url,function(data){
+				if(data.code==0){
+					filename += data.msg + "_";
+				}
+				//alert(filename);
+			});
+		}
+		
+		function showTip(strMsg, strResult){
+			mui.alert(strMsg, strResult, function() {
+				return false;
+			});
+		}
+		
+		function reloadNum(){
+		
+		}
+		
+		function hideMore(){
+			var e=window.event || event;
+			if(e.stopPropagation){
+				e.stopPropagation();
+			}else{
+				e.cancelBubble = true;
+			}
+			document.getElementById('divDraw').style.display = "none";	
+			document.getElementById('fade').style.display='none';
+		}
+
+		/*document.onclick = function(){
+			document.getElementById('divDraw').style.display = "none";	
+			document.getElementById('fade').style.display='none';
+		};*/
+		
+		
+
+	</script>
+</body>
+</html>

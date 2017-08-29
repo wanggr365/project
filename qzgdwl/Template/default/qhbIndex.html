@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+
+<meta name="screen-orientation" content="">
+<title>泉州广电网络年会</title>
+<link rel="stylesheet" href="[!CSS]weui1.css"/>
+<link rel="stylesheet" type="text/css" href="[!CSS]qhb.css">
+<style>
+* {
+-webkit-touch-callout:none;
+-webkit-user-select:none;
+-khtml-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+user-select:none;
+}
+</style>
+</head>
+<body>
+<div class="main" id="main">
+	<div class="mask1">
+	
+	</div>
+	<div class="container" id="container">
+			
+	</div>
+	<input id='unionid' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$unionid}">
+	<div class="mask" id="mask">
+		<span id="start"><img src="[!IMG]qhb/a1.png"></span>
+		<span id="start_piv"><a href="index.php?m=qhb&a=qhbRecord"><img src="[!IMG]qhb/a2.png"></a></span>
+	</div>
+
+
+	<div class="toast">
+		<div id="toast_success" style="display: none;">
+			<div class="weui_mask_transparent"></div>
+			<div class="weui_toast">
+				<i class="weui_icon_toast weui_icon_toast_success"></i>
+				<p class="weui_toast_content">识别成功</p>
+			</div>
+		</div>
+		<div id="toast_error" style="display: none;">
+			<div class="weui_mask_transparent"></div>
+			<div class="weui_toast">
+				<i class="weui_icon_toast weui_icon_toast_error"></i>
+				<p class="weui_toast_content">活动还未开始</p>
+			</div>
+		</div>
+
+		
+		
+
+		<!-- loading toast -->
+		<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+			<div class="weui_mask_transparent"></div>
+			<div class="weui_toast">
+				<div class="weui_loading">
+					<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+				</div>
+				<p class="weui_toast_content">数据加载中,<br>请您稍后</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="[!JS]Block.js"></script>
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+<script>
+	$('body').on('touchmove', function (event) {
+		event.preventDefault();
+	});
+	/*$("#toast_error .weui_toast_content").html('测试^^<br>先练练手');
+	$('#toast_error').show();
+	setTimeout(function(){
+		$('#toast_error').hide();
+	},3000);*/
+	
+	function onBridgeReady(){
+		WeixinJSBridge.call('hideOptionMenu');
+	}
+
+	if (typeof WeixinJSBridge == "undefined"){
+		if( document.addEventListener ){
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		}else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	}else{
+		onBridgeReady();
+	}
+	
+	var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+   
+	var oContainer = document.getElementById('container');
+	var block = new Block(oContainer);
+	block.init();
+	//window.location
+	//alert(parseInt((block.sum + 1)*2/block.scaleH));
+	var mask = document.getElementById('mask');
+	var start = document.getElementById('start');
+	start.onclick = function(){
+		<if condition="$isStart eq 0">
+			$("#toast_error .weui_toast_content").html('活动还未开始');
+			$('#toast_error').show();
+			setTimeout(function(){
+				$('#toast_error').hide();
+			},2000);
+			return false;
+		<elseif condition="$isStart eq 2"/>
+			$("#toast_error .weui_toast_content").html('第二轮<br>还未开始');
+			$('#toast_error').show();
+			setTimeout(function(){
+				$('#toast_error').hide();
+			},2000);
+			return false;
+		<elseif condition="$isStart eq 3"/>
+			$("#toast_error .weui_toast_content").html('活动已结束<br>谢谢参与！');
+			$('#toast_error').show();
+			setTimeout(function(){
+				$('#toast_error').hide();
+			},2000);
+			return false;
+		<elseif condition="($times eq 1) AND ($userRow['times'] neq 2) "/>
+			$("#toast_error .weui_toast_content").html('您已参与,<br>等下一轮哦');
+			$('#toast_error').show();
+			setTimeout(function(){
+				$('#toast_error').hide();
+			},2000);
+			return false;
+		<elseif condition="($times eq 2) AND ($userRow['times'] lt 1) "/>
+			$("#toast_error .weui_toast_content").html('您已参与，<br>活动结束了');
+			$('#toast_error').show();
+			setTimeout(function(){
+				$('#toast_error').hide();
+			},2000);
+			return false;
+		</if>
+		$("#loadingToast").show();		
+		var t = setTimeout("qhbStart()",block.randTime);
+		//block.start();
+		//mask.style.display = 'none';
+		//console.log("111");
+	}
+	
+	function qhbStart(){
+		$.ajax({
+			type:'post',
+			url: "index.php?m=qhb&a=qhbMoney",
+			data: "unionid=" + document.getElementById("unionid").value,
+			context: document.body,
+			dataType:'json',
+			success: function(json){
+				$("#loadingToast").hide();
+				block.value = parseInt(json.value);
+				block.start();
+				mask.style.display = 'none';
+			}
+		});	
+	}
+</script>
+
+
+</body></html>

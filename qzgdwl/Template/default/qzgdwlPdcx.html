@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>泉州广电网络</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css" />
+	</head>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<body>
+
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 700px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-row.mui-fullscreen>[class*="mui-col-"] {
+				height: 100%;
+			}
+			
+			.mui-col-xs-3,
+			.mui-col-xs-9 {
+				overflow-y: auto;
+				height: 100%;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 50px;
+				width: 100%;
+			}
+			
+			.mui-control-content {
+				display: block;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				background-color: #fff;
+			}
+		</style>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">频道查询</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						本地
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						高清
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						央视
+					</a>
+					<a class="mui-control-item" href="#item4mobile">
+						卫视
+					</a>
+					<a class="mui-control-item" href="#item5mobile">
+						专业
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-41"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-content mui-row mui-fullscreen">
+							<div class="mui-col-xs-3">
+								<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+								</div>
+							</div>
+							<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+								
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content ">
+						<div class="mui-content mui-row mui-fullscreen">
+							<div class="mui-col-xs-3">
+								<div id="segmentedControls2" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+								</div>
+							</div>
+							<div id="segmentedControlContents2" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+								
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content ">
+						<div class="mui-content mui-row mui-fullscreen">
+							<div class="mui-col-xs-3">
+								<div id="segmentedControls3" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+								</div>
+							</div>
+							<div id="segmentedControlContents3" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+								
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content ">
+						<div class="mui-content mui-row mui-fullscreen">
+							<div class="mui-col-xs-3">
+								<div id="segmentedControls4" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+								</div>
+							</div>
+							<div id="segmentedControlContents4" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+								
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content ">
+						<div class="mui-content mui-row mui-fullscreen">
+							<div class="mui-col-xs-3">
+								<div id="segmentedControls5" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+								</div>
+							</div>
+							<div id="segmentedControlContents5" class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			var controls = document.getElementById("segmentedControls");
+			var controls2 = document.getElementById("segmentedControls2");
+			var controls3 = document.getElementById("segmentedControls3");
+			var controls4 = document.getElementById("segmentedControls4");
+			var controls5 = document.getElementById("segmentedControls5");
+			var contents = document.getElementById("segmentedControlContents");
+			var contents2 = document.getElementById("segmentedControlContents2");
+			var contents3 = document.getElementById("segmentedControlContents3");
+			var contents4 = document.getElementById("segmentedControlContents4");
+			var contents5 = document.getElementById("segmentedControlContents5");
+			var html = [];
+			var i = 1,
+				j = 1,
+				m = 11, //左侧选项卡数量+1
+				n = 21; //每个选项卡列表数量+1	
+				
+			
+			controls.innerHTML = setControls(html,'content');
+			controls2.innerHTML = setControls(html,'tab2channel');
+			controls3.innerHTML = setControls(html,'tab3channel');
+			controls4.innerHTML = setControls(html,'tab4channel');
+			controls5.innerHTML = setControls(html,'tab5channel');
+			html = [];
+			html2 = [];
+			html3 = [];
+			html4 = [];
+			html5 = [];
+			
+			for (i = 1; i < m; i++) {
+				html = getChannelByArea(html,i);
+				
+			}
+			contents.innerHTML = html.join('');
+			
+			for (i = 1; i < m; i++) {
+				html2 = getChannelByArea2(html2,i);
+				
+			}
+			contents2.innerHTML = html2.join('');
+			
+			for (i = 1; i < m; i++) {
+				html3 = getChannelByArea3(html3,i);
+				
+			}
+			contents3.innerHTML = html3.join('');
+			
+			for (i = 1; i < m; i++) {
+				html4 = getChannelByArea4(html4,i);
+				
+			}
+			contents4.innerHTML = html4.join('');
+			
+			for (i = 1; i < m; i++) {
+				html5 = getChannelByArea5(html5,i);
+				
+			}
+			contents5.innerHTML = html5.join('');
+			//默认选中第一个
+			controls.querySelector('.mui-control-item').classList.add('mui-active');
+//			contents.querySelector('.mui-control-content').classList.add('mui-active');
+			
+			function getChannelByArea(html,i){
+				html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				switch(i){
+					case 1:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '市区' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 2:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '台商' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 3:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '晋江' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 4:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '石狮' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 5:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '南安' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 6:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '惠安' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 7:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '安溪' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 8:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '德化' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 9:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '永春' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 10:
+						<foreach name="channelListBDRow" item="ch">
+							<?php if($ch['channel_area'] == '泉港' ) {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+				}
+				
+					
+				
+					
+				html.push('</ul></div>');
+				return html;
+			}
+			
+			function getChannelByArea2(html,i){
+				html.push('<div id="tab2channel' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				switch(i){
+					case 1:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '市区' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 2:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '台商' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 3:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '晋江' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 4:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '石狮' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 5:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '南安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 6:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '惠安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 7:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '安溪' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 8:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '德化' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 9:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '永春' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 10:
+						<foreach name="channelListGQRow" item="ch">
+							<?php if($ch['channel_area'] == '泉港' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+				}
+					
+				html.push('</ul></div>');
+				return html;
+			}
+			
+			function getChannelByArea3(html,i){
+				html.push('<div id="tab3channel' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				switch(i){
+					case 1:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '市区' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 2:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '台商' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 3:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '晋江' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 4:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '石狮' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 5:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '南安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 6:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '惠安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 7:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '安溪' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 8:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '德化' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 9:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '永春' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 10:
+						<foreach name="channelListYSRow" item="ch">
+							<?php if($ch['channel_area'] == '泉港' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+				}
+					
+				html.push('</ul></div>');
+				return html;
+			}
+			
+			function getChannelByArea4(html,i){
+				html.push('<div id="tab4channel' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				switch(i){
+					case 1:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '市区' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 2:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '台商' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 3:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '晋江' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 4:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '石狮' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 5:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '南安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 6:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '惠安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 7:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '安溪' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 8:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '德化' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 9:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '永春' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 10:
+						<foreach name="channelListWSRow" item="ch">
+							<?php if($ch['channel_area'] == '泉港' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+				}
+					
+				html.push('</ul></div>');
+				return html;
+			}
+			
+			function getChannelByArea5(html,i){
+				html.push('<div id="tab5channel' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				switch(i){
+					case 1:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '市区' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 2:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '台商' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 3:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '晋江' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 4:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '石狮' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 5:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '南安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 6:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '惠安' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 7:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '安溪' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 8:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '德化' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 9:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '永春' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+					case 10:
+						<foreach name="channelListZYRow" item="ch">
+							<?php if($ch['channel_area'] == '泉港' || $ch['channel_area'] == '全区域') {?>
+							html.push('<li class="mui-table-view-cell">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + <?php echo $ch['channel_no'];?> + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"display:none;\">{$ch['channel_name']}</span>{$ch['channel_name']}" + '</li>');
+							<?php }?>
+						</foreach>
+						break;
+				}
+					
+				html.push('</ul></div>');
+				return html;
+			}
+			
+			function setControls(html,name){
+				html = [];
+				html.push('<a class="mui-control-item" data-index="' + (0) + '" href="#' + name + 1 + '">市区' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (1) + '" href="#' + name + 2 + '">台商' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (2) + '" href="#' + name + 3 + '">晋江' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (3) + '" href="#' + name + 4 + '">石狮' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (4) + '" href="#' + name + 5 + '">南安' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (5) + '" href="#' + name + 6 + '">惠安' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (6) + '" href="#' + name + 7 + '">安溪' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (7) + '" href="#' + name + 8 + '">德化' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (8) + '" href="#' + name + 9 + '">永春' + '</a>');
+				html.push('<a class="mui-control-item" data-index="' + (9) + '" href="#' + name + 10 + '">泉港' + '</a>');
+				return html.join("");
+			}
+			
+			(function() {
+				var controlsElem = document.getElementById("segmentedControls");
+				var contentsElem = document.getElementById("segmentedControlContents");
+				var controlListElem = controlsElem.querySelectorAll('.mui-control-item');
+				var contentListElem = contentsElem.querySelectorAll('.mui-control-content');
+				var controlWrapperElem = controlsElem.parentNode;
+				var controlWrapperHeight = controlWrapperElem.offsetHeight;
+				var controlMaxScroll = controlWrapperElem.scrollHeight - controlWrapperHeight;//左侧类别最大可滚动高度
+				var maxScroll = contentsElem.scrollHeight - contentsElem.offsetHeight;//右侧内容最大可滚动高度
+				var controlHeight = controlListElem[0].offsetHeight;//左侧类别每一项的高度
+				var controlTops = []; //存储control的scrollTop值
+				var contentTops = [0]; //存储content的scrollTop值
+				var length = contentListElem.length;
+				for (var i = 0; i < length; i++) {
+					controlTops.push(controlListElem[i].offsetTop + controlHeight);
+				}
+				for (var i = 1; i < length; i++) {
+					var offsetTop = contentListElem[i].offsetTop;
+					if (offsetTop + 100 >= maxScroll) {
+						var height = Math.max(offsetTop + 100 - maxScroll, 100);
+						var totalHeight = 0;
+						var heights = [];
+						for (var j = i; j < length; j++) {
+							var offsetHeight = contentListElem[j].offsetHeight;
+							totalHeight += offsetHeight;
+							heights.push(totalHeight);
+						}
+						for (var m = 0, len = heights.length; m < len; m++) {
+							contentTops.push(parseInt(maxScroll - (height - heights[m] / totalHeight * height)));
+						}
+						break;
+					} else {
+						contentTops.push(parseInt(offsetTop));
+					}
+				}
+				contentsElem.addEventListener('scroll', function() {
+					var scrollTop = contentsElem.scrollTop;
+					for (var i = 0; i < length; i++) {
+						var offsetTop = contentTops[i];
+						var offset = Math.abs(offsetTop - scrollTop);
+//						console.log("i:"+i+",scrollTop:"+scrollTop+",offsetTop:"+offsetTop+",offset:"+offset);
+						if (scrollTop < offsetTop) {
+							if (scrollTop >= maxScroll) {
+								onScroll(length - 1);
+							} else {
+								onScroll(i - 1);
+							}
+							break;
+						} else if (offset < 20) {
+							onScroll(i);
+							break;
+						}else if(scrollTop >= maxScroll){
+							onScroll(length - 1);
+							break;
+						}
+					}
+				});
+				var lastIndex = 0;
+				//监听content滚动
+				var onScroll = function(index) {
+					if (lastIndex !== index) {
+						lastIndex = index;
+						var lastActiveElem = controlsElem.querySelector('.mui-active');
+						lastActiveElem && (lastActiveElem.classList.remove('mui-active'));
+						var currentElem = controlsElem.querySelector('.mui-control-item:nth-child(' + (index + 1) + ')');
+						currentElem.classList.add('mui-active');
+						//简单处理左侧分类滚动，要么滚动到底，要么滚动到顶
+						var controlScrollTop = controlWrapperElem.scrollTop;
+						if (controlScrollTop + controlWrapperHeight < controlTops[index]) {
+							controlWrapperElem.scrollTop = controlMaxScroll;
+						} else if (controlScrollTop > controlTops[index] - controlHeight) {
+							controlWrapperElem.scrollTop = 0;
+						}
+					}
+				};
+				//滚动到指定content
+				var scrollTo = function(index) {
+					contentsElem.scrollTop = contentTops[index];
+				};
+				mui(controlsElem).on('tap', '.mui-control-item', function(e) {
+					scrollTo(this.getAttribute('data-index'));
+					return false;
+				});
+			})();
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var html2 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第二个选项卡子项-1</li><li class="mui-table-view-cell">第二个选项卡子项-2</li><li class="mui-table-view-cell">第二个选项卡子项-3</li><li class="mui-table-view-cell">第二个选项卡子项-4</li><li class="mui-table-view-cell">第二个选项卡子项-5</li></ul>';
+				var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第三个选项卡子项-1</li><li class="mui-table-view-cell">第三个选项卡子项-2</li><li class="mui-table-view-cell">第三个选项卡子项-3</li><li class="mui-table-view-cell">第三个选项卡子项-4</li><li class="mui-table-view-cell">第三个选项卡子项-5</li></ul>';
+				var html4 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第四个选项卡子项-1</li><li class="mui-table-view-cell">第四个选项卡子项-2</li><li class="mui-table-view-cell">第四个选项卡子项-3</li><li class="mui-table-view-cell">第四个选项卡子项-4</li><li class="mui-table-view-cell">第四个选项卡子项-5</li></ul>';
+				var html5 = '<ul class="mui-table-view"><li class="mui-table-view-cell">第五个选项卡子项-1</li><li class="mui-table-view-cell">第五个选项卡子项-2</li><li class="mui-table-view-cell">第五个选项卡子项-3</li><li class="mui-table-view-cell">第五个选项卡子项-4</li><li class="mui-table-view-cell">第五个选项卡子项-5</li></ul>';
+				var item2 = document.getElementById('item2mobile');
+				var item3 = document.getElementById('item3mobile');
+				var item4 = document.getElementById('item4mobile');
+				var item5 = document.getElementById('item5mobile');
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if (e.detail.slideNumber === 1) {
+						if (item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = html2;
+							}, 500);
+						}
+					} else if (e.detail.slideNumber === 2) {
+						if (item3.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item3.querySelector('.mui-scroll').innerHTML = html3;
+							}, 500);
+						}
+					} else if (e.detail.slideNumber === 3) {
+						if (item4.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item4.querySelector('.mui-scroll').innerHTML = html4;
+							}, 500);
+						}
+					} else if (e.detail.slideNumber === 4) {
+						if (item5.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item5.querySelector('.mui-scroll').innerHTML = html5;
+							}, 500);
+						}
+					}
+				});
+				
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

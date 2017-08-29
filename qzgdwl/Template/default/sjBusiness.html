@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name = "format-detection" content = "telephone=no">
+		<title>&nbsp;&nbsp;泉州广电网络</title>
+		<link href="[!CSSL]mui.min.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 30%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 70%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 25px;
+				text-align: center;
+			}
+			
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+			
+			.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+	.mui-input-group:before {
+	    background-color: #F54F29;
+	}
+	.mui-input-group:after {
+	    background-color: #F54F29;
+	}
+	.mui-input-row .mui-btn {
+		float: left;
+		width: auto;
+		padding: 0px 0px;
+	    background-color: #F7A99C;
+	}
+	.mui-navigate-right:after, .mui-push-right:after {
+		right: 28%;
+		color: #F64929;
+	}
+		/*******谢谢参与页面*******/
+.xxcy-main { width:100%;height: 100%; max-width: 640px; margin: 0 auto; background-color: rgba(0,0,0,0.7) ; background-size: 100% 100%;position:absolute;overflow:hidden;*zoom:1;z-index:10;left:center;top:0;}
+.xxcy-main .xxcy{width:90%;height:auto;position:absolute;top:10%;left:5%;background: url(Statics/Default/Images/zj_1.png) center ; background-size: 100% 100%;}
+.xxcy h3{font-size:20px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#e32d2c;line-height:140%;text-align:center;margin-top:7%;}
+.xxcy p{font-size:18px;width:90%;height:auto;margin:2% auto 5% auto;color:#232323;line-height:150%;text-align:left;}
+.xxcy .code{width:40%;height:auto;margin:0% auto 3% auto;}
+.xxcy-main .close_xxcy{width:31px;height:31px;position:absolute;top:8%;right:2.5%;}
+		</style>
+
+	</head>
+
+	<body style="background: url(/qzgdwl/Statics/Default/Images/sj/busi.jpg);background-size: 100%;background-repeat: no-repeat;background-color: #FF5735;">
+		<div style="width: 70%;margin: 61% 0 0 15%;">
+			<div style="margin-left: 8px;font-size: 12px;color: white;line-height: 18px;letter-spacing: 1px;padding: 10px 0px;border-radius: 7px;-moz-border-radius: 7px;-webkit-border-radius: 7px;width:100%;">
+				<p ><span style="text-align: left;color: white;font-weight:bolder;margin:0;font-size: 16px;text-decoration:underline;">爱家<b>68</b>(68元/月):</span><span style="color: white;font-size: 15px;">高清直播+互动点播+7天回看，送<b style="color:yellow;">20M</b>宽带</span></p>
+				<p style="margin-top:-5px;"><span style="text-align: left;color: white;font-weight:bolder;margin:0px;font-size: 16px;text-decoration:underline;">爱家<b>88</b>(88元/月):</span><span style="color: white;font-size: 15px;">高清直播+互动点播+7天回看，送<b style="color:yellow;">50M</b>宽带</span></p>
+			</div>
+		</div>
+		<div class="mui-content" style="background-color: rgba(0, 0, 0, 0);margin-top:-8px;">
+			<form id='login-form' class="mui-input-group" style="width: 70%;margin: 0 0 0 15%;background-color: #F7A99C;border-radius: 20px;">
+				<div class="mui-input-row">
+					<label>姓名</label>
+					<input id='name' type="text" class="mui-input-clear mui-input"  placeholder="请输入您的姓名" value="{$userRow['cust_name']}">
+				</div>
+				<div class="mui-input-row">
+					<label>手机</label>
+					<input id='phone' type="text" class="mui-input-clear mui-input" placeholder="请输入您的手机号" value="">
+					<input id='unionid' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$unionid}">
+					<input id='cust_code' type="text" class="mui-input-clear mui-input" style="display:none;" value="{$userRow['cust_code']}">
+				</div>
+				<div class="mui-input-row">
+					<label>地址</label>
+					<input id='address' type="text" class="mui-input-clear mui-input" placeholder="请输入您的地址" value="{$userRow['address']}">
+				</div>
+				<div class="mui-input-row">
+					<label>套餐</label>
+					<a class="mui-navigate-right">
+						<select class="mui-btn mui-btn-block " id='business'>
+							<option value="爱家68套餐">爱家68套餐</option>
+							<option value="爱家88套餐">爱家88套餐</option>
+						</select>
+					</a>
+				</div>
+			</form>
+			<div class="mui-content-padded" style="text-align:center;">
+				<a href="#" id="submit" class="large button red font_class" style="font-size:18px;line-height:15px;margin-top: -10px;background-color:yellow;color:black">提交</a>
+				
+			</div>
+		</div>
+		<div style="width:69%;height:1px;margin:20px auto 0 auto;padding:0px;background-color:yellow;overflow:hidden;"></div>
+		<div style="text-align:center; margin:20px 0 0px 0 ;">
+			<a href="#" class="large button red font_class" onclick="showHdgz();" style="font-size:18px;line-height:15px;margin-left: 0px;">活动规则</a>
+		</div>
+		<div class="xxcy-main" id="csyj-main" style="display:none;">
+	<div class="xxcy">
+		<h3>活动规则</h3>			
+		<p><b>1.活动时间</b>：2016年12月20日-2017年2月28日。<br>
+<b>2.活动对象</b>：办理广电爱家68或88套餐的用户。<br>
+<b>3.活动内容</b>：<br>
+（1）预存服务费满888元，赠送“幸运红包券”1张，红包金额10-300元，还可再领滴滴快车88元大礼包；<br>
+（2）预存服务费满1288元，赠送“超级红包券”1张，红包金额20-1000元，还可再领滴滴快车108元大礼包。<br>
+ 4.根据预存金额取最高档次“红包券”赠送，不叠加赠送。<br>
+5.可进入泉州广电网络官方微信“个人中心”--“优惠券”查看领到的红包。</p>		
+	</div>
+	<div class="close_xxcy" id="close_csyj" onclick="closeHdgz();"><img src="[!IMG]close_1.png" /></div>
+</div>
+		<script src="[!JSL]mui.min.js"></script>
+		<script type="text/javascript" src="[!JS]jquery.min.js"></script>	
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+		<script>
+			(function($, doc) {
+				$.init({
+					statusBarBackground: '#f7f7f7'
+				});				
+				
+				
+				var submit = doc.getElementById('submit');
+				
+				submit.addEventListener('tap', function(event) {
+					var name = document.getElementById('name').value;
+					var phone = document.getElementById('phone').value;
+					var address = document.getElementById('address').value;
+					var business = document.getElementById('business').value;
+					if(name == ""){
+						return mui.alert("姓名不能为空", function() {
+									document.getElementById('name').focus();
+								});
+					}else if(phone == ""){
+						return mui.alert("手机号不能为空", function() {
+									document.getElementById('phone').focus();
+								});
+					}
+					
+					else if(address == ""){
+						return mui.alert("地址不能为空", function() {
+									document.getElementById('address').focus();
+								});
+					}
+					else if(business == ""){
+						return mui.alert("套餐不能为空", function() {
+									document.getElementById('business').focus();
+								});
+					}
+					var phone = document.getElementById('phone').value; 
+					if(!(/^1[3|4|5|7|8]\d{9}$/.test(phone))){ 
+						return mui.alert("手机号码有误，请重填", function() {
+									document.getElementById('phone').focus();
+								});
+					}
+					var btnArray = ['取消', '确定'];
+					mui.confirm('手机号为：<span style="color:red;font-weight:bold">' + phone + '</span><br>' + '地址为：' + address, '成功办理并预存满888元<br>方可领取', btnArray, function(e) {
+						if (e.index == 1) {
+							$.ajax({
+								type:'post',
+								url: "index.php?m=qzgdwl&a=qzgdwlSaveBusiness",
+								context: document.body,
+								dataType:'json',
+								data:"name="+name+"&phone="+phone+"&business="+business+"&address="+address+"&cust_code="+ document.getElementById("cust_code").value + "&unionid="+ document.getElementById("unionid").value,
+								success: function(json){
+									if(json.code == "1"){
+										return mui.alert(json.msg, function() {
+										});
+									}else{
+										mui.alert(json.msg, function() {
+											location.href = "index.php?m=sj&a=sjIndex";
+										});
+									}
+								}
+							});
+						} else {
+							document.getElementById('phone').focus();
+							return false;
+						}
+					})
+					
+				}, false);
+			}(mui, document));
+		</script>
+		<script>
+			function showHdgz(){
+				$('#csyj-main').fadeIn();
+			}
+			function closeHdgz(){
+				$('#csyj-main').fadeOut();		
+			}
+		</script>
+		<script>
+	var title="广电宽带全网升级20m，办爱家套餐送最高千元红包！";
+	var desc="还可再领滴滴快车大礼包";
+	var link = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dshareBinding%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjBusiness#wechat_redirect";
+	var imgUrl = "http://www.968816.com.cn/qzgdwl1010/Statics/Default/Images/title.jpg";
+	wx.config({
+	//debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			'onMenuShareAppMessage',
+			'onMenuShareTimeline'
+		]
+	});
+	
+	wx.ready(function(){		
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		
+		wx.onMenuShareAppMessage({
+			title: title, // 分享标题
+			desc: desc, // 分享描述
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+	});
+
+</script>
+	</body>
+
+</html>

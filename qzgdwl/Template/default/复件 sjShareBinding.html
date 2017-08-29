@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<!--App自定义的css-->
+<style>
+
+
+.mui-toast-container {
+	position: fixed;
+	z-index: 9999;
+	bottom: 20%;
+	width: 100%;
+	-webkit-transition: opacity .8s;
+	transition: opacity .8s;
+	opacity: 0
+}
+
+.mui-toast-container.mui-active {
+	opacity: 1;
+}
+
+.mui-toast-message {
+	font-size: 14px;
+	width: 270px;
+	margin: 5px auto;
+	padding: 5px;
+	text-align: center;
+	color: #000;
+	border-radius: 7px;
+	background-color: #d8d8d8
+}
+
+
+.button, .button:visited {
+	background: #222 url(overlay.png) repeat-x; 
+	display: inline-block; 
+	padding: 5px 10px 6px; 
+	color: #fff; 
+	text-decoration: none;
+	-moz-border-radius: 6px; 
+	-webkit-border-radius: 6px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer
+}
+ 
+	.button:hover							{ background-color: #111; color: #fff; }
+	.button:active							{ top: 1px; }
+	.small.button, .small.button:visited 			{ font-size: 11px}
+	.button, .button:visited,
+	.medium.button, .medium.button:visited 		{ font-size: 13px; 
+												  font-weight: bold; 
+												  line-height: 1; 
+												  text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+												  }
+												  
+	.large.button, .large.button:visited 			{ font-size: 14px; 
+													  padding: 12px 14px 9px; }
+													  
+	.super.button, .super.button:visited 			{ font-size: 34px; 
+													  padding: 13px 14px 9px; }
+	
+	.red.button, .red.button:visited			{ background-color: #F5921E; }
+	.red.button:hover							{ background-color: #F5921E; }
+	.importaa {
+		max-width: 400px;
+		display: block;
+		width: 40%;
+		height: 40px;
+		border: 1px solid #ffff00;
+		border-radius: 50px;
+		text-align: center;
+		font-size: 30px;
+		font-weight: bold;
+		color: #FFFF00;
+		margin: 0 auto;
+		font-family: Arial, Helvetica, sans-serif;
+		background: rgba(0,0,0,0.5);
+	}
+	.footer {
+		width: 80%;
+		margin: 16px auto;
+		padding: 15px 0px;
+		text-align:center;
+		border-radius: 6px;
+		-webkit-border-radius: 6px;
+	}
+	
+	.footer p {
+		font-family:"microsoft yahei";
+		width: 90%;
+		margin: 5px auto;
+		margin-bottom:5px;
+		font-size: 15px;
+		color: #ffffff;
+	}
+		/*******谢谢参与页面*******/
+.xxcy-main { width:100%;height: 100%; max-width: 640px; margin: 0 auto; background-color: rgba(0,0,0,0.7) ; background-size: 100% 100%;position:absolute;overflow:hidden;*zoom:1;z-index:10;left:center;top:0;}
+.xxcy-main .xxcy{width:90%;height:auto;position:absolute;top:10%;left:5%;background: url(Statics/Default/Images/zj_1.png) center ; background-size: 100% 100%;}
+.xxcy h3{font-size:20px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#e32d2c;line-height:140%;text-align:center;margin-top:7%;}
+.xxcy p{font-size:18px;width:90%;height:auto;margin:2% auto 5% auto;color:#232323;line-height:150%;text-align:left;}
+.xxcy .code{width:40%;height:auto;margin:0% auto 3% auto;}
+.xxcy-main .close_xxcy{width:31px;height:31px;position:absolute;top:8%;right:2.5%;}
+
+/*******中奖页面*******/
+.zj-main { width:100%;height: 100%; max-width: 640px; margin: 0 auto; background-color: rgba(0,0,0,0.7) ; background-size: 100% 100%;position:absolute;overflow:hidden;*zoom:1;z-index:10;left:center;top:0; }
+.zj-main .txzl{width:90%;height:45.5%;position:absolute;top:25%;left:5%;background: url(../../images/sj/1yuan.png) center ; background-size: 100% 100%;}
+.txzl h3{font-size:20px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#ffffff;line-height:140%;text-align:center;}
+.txzl h2{font-size:18px;font-weight:bold;width:100%;height:auto;margin:0 auto;color:#ffffff;line-height:140%;text-align:center;}
+.txzl p{font-size:18px;width:90%;height:auto;margin:1% auto 0 auto;color:#232323;line-height:150%;text-align:center;}
+.txzl h4{font-size:16px;font-weight:bold;width:100%;height:auto;margin:3% auto 0 auto;color:#e32d2c;line-height:140%;text-align:center;}
+.txzl .info_tj{width:50%;height:auto;font-size:20px;line-height:180%;color:#000000;text-align:center;background:yellow;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;margin:1.5% auto 6% auto}
+.zj-main .close_zj{width:31px;height:31px;position:absolute;top:27%;right:3.5%;}
+</style>
+<link rel="stylesheet" href="[!CSS]weui1.css"/>
+<link rel="stylesheet" href="[!CSS]example1.css"/>
+
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+</head>
+<body style="background: url(/qzgdwl/Statics/Default/Images/sj/shareBinding.jpg);background-size: 100%;background-repeat: no-repeat;background-color: #FF5735;">
+
+
+<div style="padding-top:60%;">
+	<div class="footer" >
+		<div style="width:100%;">
+			<img src="[!IMG]sj/QR.png"/>
+			<div  style="width:70%;margin: -5% 0 0 15%;">
+				<p style="margin-bottom:0px;">长按识别二维码绑定</p>
+				<p style="font-size:26px;margin-bottom:5px;">邀请码</p>
+			</div>
+
+			<span class="importa">
+				<input class="importaa" type="text" name="textfield" readonly id="nu" value="{$shareCode}">
+			</span>
+		</div>
+		<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjBinding#wechat_redirect" class="large button red font_class" style="font-size:18px;line-height:15px;margin-top: 12px;background-color:yellow;color:black">我也要邀请好友</a>
+
+		<p style="margin-top:10px;">成功绑定后，双方各赚1个红包</p>
+		<p>还有滴滴快车18元大礼包</p>
+		<p>邀请越多，更有机会领888元红包</p>
+	</div>
+</div>
+
+<div style="width:69%;height:1px;margin:-20px auto 0 auto;padding:0px;background-color:yellow;overflow:hidden;"></div>
+<div style="text-align:center; margin-top: 20px;"><a href="#" class="large button red font_class" onclick="showHdgz();" style="font-size:18px;line-height:15px;margin-left: 0px;">活动规则</a>
+</div>
+<div class="mui-toast-container"><div class="mui-toast-message">点击右上角菜单，分享到朋友圈！</div></div>
+<div class="toast">
+	<div id="toast_success" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_success"></i>
+			<p class="weui_toast_content">识别成功</p>
+		</div>
+	</div>
+	<div id="toast_error" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast" style="width: 9.6em;margin-left: -4.8em;">
+			<i class="weui_icon_toast weui_icon_toast_error"></i>
+			<p class="weui_toast_content">未绑定账号</p>
+		</div>
+	</div>
+</div>
+<div class="xxcy-main" id="csyj-main" style="display:none;">
+	<div class="xxcy">
+		<h3>活动规则</h3>			
+		<p><b>1.活动时间</b>：2016年12月20日-2017年2月28日。<br>
+<b>2.活动对象</b>：关注泉州广电网络官方微信并绑定广电账户的用户。<br>
+<b>3.活动内容</b>：<br>
+（1）分享链接邀请好友绑定广电账户，成功邀请绑定后，双方可各领1个红包，还可再领滴滴快车18元大礼包。<br>
+（2）成功邀请1个好友绑定，邀请者可增加1个“红包积分”，累积红包积分最多的可领取888元“财运红包”，若出现多人并列第一，则平分红包。<br>
+4.可进入泉州广电网络官方微信“个人中心”--“优惠券”查看领到的红包。</p>
+		
+		
+	</div>
+	<div class="close_xxcy" id="close_csyj" onclick="closeHdgz();"><img src="[!IMG]close_1.png" /></div>
+</div>
+<div class="zj-main" id="gd-main" style="display:none;overflow:auto;">
+		<div class="txzl" style="background-image:url(Statics/Default/Images/zj_1.png);width: 86%;height: 60.5%;position: absolute;top: 20%;left: 7%; background-size: 100% 100%; text-align: center;">
+			<img src="[!IMG]sj/QR.png" style="padding-top: 6%;"/>
+			<div style="padding-top:0%">
+				<h3>长按识别二维码</h3>
+				<h2>绑定广电账号送红包</h2>	
+				<h2>还可再领滴滴快车券</h2>		
+			</div>
+		</div>
+		<div class="close_zj" style="top: 18%"><img src="[!IMG]close_1.png" /></div>
+		<!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+</div>
+<script>
+
+	window.onload = function(){
+		
+	}
+	$('.close_zj').click(function(){
+		$('.zj-main').fadeOut();
+	});
+</script>
+<script>
+	function alertMsg(){
+		window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjBinding#wechat_redirect';
+	}
+</script>
+<script>
+	var title="我的红包分你1个，一起抢888元红包！";
+	var desc="还有滴滴快车大礼包";
+	var link = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dshareBinding%26a%3dindex&response_type=code&scope=snsapi_base&state=sj%26sjShareBinding%26{$unionid}%26{$shareCode}#wechat_redirect";
+	var imgUrl = "http://www.968816.com.cn/qzgdwl/Statics/Default/Images/sj/hb.jpg";
+	wx.config({
+	//debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: <?php echo $signPackage["timestamp"];?>,
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			'onMenuShareAppMessage',
+			'onMenuShareTimeline'
+		]
+	});
+	
+	wx.ready(function(){		
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		
+		wx.onMenuShareAppMessage({
+			title: title, // 分享标题
+			desc: desc, // 分享描述
+			link: link, // 分享链接
+			imgUrl: imgUrl, // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+				//share();
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+	});
+
+</script>
+<script>
+	function showHdgz(){
+		$('#csyj-main').fadeIn();
+	}
+	function closeHdgz(){
+		$('#csyj-main').fadeOut();		
+	}
+</script>
+</body>
+</html>

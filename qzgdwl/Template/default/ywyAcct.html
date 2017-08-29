@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>泉州广电网络</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name = "format-detection" content = "telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="[!CSS]light7.css?r=201603281">
+    <link rel="stylesheet" href="[!CSS]light7-swiper.css">
+    <link rel="stylesheet" href="[!CSS]light7-swipeout.css">
+    <link rel="stylesheet" href="[!CSS]demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
+    <script src="[!JS]jquery-2.1.4.js"></script>	
+	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
+	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+    <script type="text/JavaScript">
+		var Request = new Object(); 			
+		Request = GetRequest(); 
+		$(document).ready(function() { 
+		if(typeof(Request['acctNo']) != "undefined" && Request['acctNo'] != "undefined" && Request['acctNo'] != "" ){
+		
+			$.showIndicator();
+			$.ajax({
+				type:'post',
+				  url: "index.php?m=qzgdwl&a=getAcctBalance",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"acctNo="+Request['acctNo'].toString(),
+				  success: function(json){
+						if(json.CODE == "99"){
+							alert("当前客户不存在！");
+						}else{
+							$("#acctNo").html(json.ACCOUNTNO);
+							$("#custName").html(json.NAME);
+							$("#acctBalance").html(json.BALANCE);
+							$("#payType").html(json.PAYTYPE);
+							$("#joinDate").html(json.JOINDATE);
+							$("#status").html(json.STATUS);
+						}
+						$.hideIndicator();
+				  }
+			});	
+		}
+	});
+    </script>
+  </head>
+  <body>
+    <div id="page-label-input" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left" onclick="goBack()">
+      <span class="icon icon-left"></span>
+      Back
+    </a>
+    <h1 class="title">账户信息查询</h1>
+  </header>
+  <div class="content">
+    <div class="list-block">
+      <ul>
+        <!-- Text inputs -->
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">账户名称：</div>
+              <div class="item-input">
+                <div class="item-title label1" id="custName"></div>
+              </div>
+            </div>
+          </div>
+        </li>  
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">账户编号：</div>
+              <div class="item-input">
+                <div class="item-title label1" id="acctNo"></div>
+              </div>
+            </div>
+          </div>
+        </li> 
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">账户余额：</div>
+              <div class="item-input">
+                <div class="item-title label1" id="acctBalance"></div>
+              </div>
+            </div>
+          </div>
+        </li> 
+		<li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">账户状态</div>
+              <div class="item-input">
+                <div class="item-title label1" id="status"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+		<li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">支付类型：</div>
+              <div class="item-input">
+                <div class="item-title label1" id="payType"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+		<li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">开户时间：</div>
+              <div class="item-input">
+                <div class="item-title label1" id="joinDate"></div>
+              </div>
+            </div>
+          </div>
+        </li>
+		<li>
+          <div class="item-content">
+            <div class="item-inner">
+              注：账本余额指的是通用账本余额
+              
+            </div>
+          </div>
+        </li> 			
+      </ul>
+	  <div><a class="weui_btn_warn" onclick="getYwyBill()">查看账单</a></div>
+    </div>
+	
+  </div>
+</div>
+
+    <script src="[!JS]light7.js"></script>
+    <script src="[!JS]light7-swiper.js"></script>
+    <script src="[!JS]light7-city-picker.js"></script>
+    <script src="[!JS]light7-swipeout.js"></script>
+    <script src="[!JS]demos.js?r=201603281"></script>
+  </body>
+</html>

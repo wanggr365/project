@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!-- saved from url=(0120)http://yd.wicherry.com/v/index.php?s=/addon/A105/Index/index/a_id/521790/timestamp/1490334445/token/gh_bd880109bcee.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>广电网络“爱家”套餐办理</title>
+<link rel="stylesheet" type="text/css" href="[!CSS]agentCSS/reset.css">
+<link rel="stylesheet" type="text/css" href="[!CSS]agentCSS/media50px.min.css">
+<link rel="stylesheet" type="text/css" href="[!CSS]agentCSS/animate.css">
+<link rel="stylesheet" type="text/css" href="[!CSS]agentCSS/style.css">
+<style>
+</style>
+<script src="[!JS]agentJS/jquery.js"></script>
+<script src="[!JS]agentJS/jquery.cityselect.js"></script>
+<script src="[!JS]agentJS/layer.m.js"></script>
+<link href="[!CSS]agentCSS/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+
+</head>
+
+<body>
+<div class="banner">
+	<img src="[!IMG]agentIMG/orderTitle.png" style="margin:auto;" class="bannerpic">
+	</div>
+
+	<ul class="clearfix dali">
+		<li>
+			<div class="lipin">
+				<div class="box2">
+				    <form id="formbox">
+					<div class="divselect divselect1">
+						<cite id="productbox" style="height: auto !important; white-space:normal !important; line-height: 1.4; padding: 0.15rem 0.5rem 0.15rem 0.15rem;">请选择客户要办理的套餐</cite>
+						<ul id="optionbox">
+							<li>
+								<a href="javascript:;" selectid="2" data-jg="90">
+									<h3>爱家68套餐（68元/月）=高清直播+互动点播+7天回看，送<b style="color:black;">20M</b>宽带</h3>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;" selectid="3" data-jg="60">
+									<h3>爱家88套餐（88元/月）=高清直播+互动点播+7天回看，送<b style="color:black;">50M</b>宽带</h3>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<input name="business" type="hidden" value="" id="business">
+					<ul class="yylist">
+						<li><span><input class="name" name="name" type="text" placeholder="请输入客户的姓名"></span></li>
+						<li><span><input class="phone" name="phone" type="number" placeholder="请输入客户的手机号码"></span></li>
+					</ul>
+					<ul id="dizhi" class="yylist">
+						<li><span class="xzqx"><select name="district" class="prov"><option value="请选择客户的县（市、区）">请选择客户的县（市、区）</option><option value="鲤城">鲤城</option><option value="丰泽">丰泽</option><option value="洛江">洛江</option><option value="台商">台商</option><option value="泉港">泉港</option><option value="惠安">惠安</option><option value="安溪">安溪</option><option value="永春">永春</option><option value="德化">德化</option><option value="石狮">石狮</option><option value="晋江">晋江</option><option value="南安">南安</option></select></span></li>
+						<li><span class="xzqx"><select name="town" class="city"><option value="请选择客户的街道（镇）">请选择客户的街道（镇）</option></select></span></li>
+					</ul>
+					<ul class="yylist">
+						<li><span><input class="addr" name="address" type="text" placeholder="请输入客户的具体地址"></span></li>
+						<li class="yynote">
+							<p>城镇地址格式：市-区-街道-小区-栋-门牌号</p>
+							<p>乡村地址格式：市-镇-村-组-号</p>
+							<p>举例：泉州市鲤城区开元街道阳光小区1栋101室</p>
+						</li>
+					</ul>
+					<ul class="btn clearfix">
+						<li style="width:100%;">
+							<a class="btn2" href="javascript:;">提&nbsp;&nbsp;交</a>
+						</li>
+					</ul>
+					</form>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div style="background: #e0ebf4;"><br></div>
+</div>
+
+
+
+
+<script>
+
+
+$(document).ready(function() {
+	$(".divselect1 cite").click(function() {
+		var ul = $(".divselect1 ul");
+		if(ul.css("display") == "none") {
+			ul.slideDown("fast");
+			$(".divselect2 ul").slideUp(0);
+		} else {
+			ul.slideUp("fast");
+		}
+	});
+	$(".divselect1 ul li a").click(function() {
+		var txt = $(this).children("h3").text();
+		$(".divselect1 cite").html(txt);
+		//var value = $(this).attr("selectid");
+		var value = $(this).find("h3").text();
+		$(".divselect1 ul").hide();
+		$("#business").val(value);
+	});
+	$(".btn2").click(function() {
+		var cite1 = $("#business");
+		var name = $(".name");
+		var phone = $(".phone");
+		var prov = $(".prov");
+		var city = $(".city");
+		var addr = $(".addr");
+		if(cite1.val() == "" || name.val() == "" || city.val() == "请选择客户的街道（镇）" || prov.val() == "请选择客户的县（市、区）" || phone.val() == "" || addr.val() == "") {
+			layer.open({
+				btn: ['好的'],
+				content: '<p style="text-align:center;">提示！<br/>所有信息都要填完！</p>',
+				shadeClose: false
+			});
+		} else {
+			layer.open({
+				content: '<p style="text-align:center; font-weight:bold;">请确定以下填写信息？</p>' + cite1.val() + '<br>' + name.val() + '<br>' + phone.val() + '<br>' + prov.val() + '<br>' + city.val() + '<br>' + addr.val()
+				,btn: [ '确定','取消']
+				,yes: function(index){
+					layer.close(index);
+					var formdata=$('#formbox').serialize();
+					var delay=layer.open({type:2,shadeClose:false});
+					$.post('index.php?m=agent&a=agentOrderAdd',formdata,function(json){
+						layer.close(delay);
+						if(json.code == 0){
+							layer.open({
+								btn: ['好的'],
+								content: '<p style="text-align:center;">'+json.msg+'</p>',
+								shadeClose: false,
+								end:function(){
+									window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=agent%26agentOrder#wechat_redirect";
+								}
+							});
+						}else{
+							layer.open({
+								btn: ['好的'],
+								content: '<p style="text-align:center;">'+json.msg+'</p>',
+								shadeClose: false,
+								end:function(){
+									location.reload();
+								}
+							});
+						}
+					},'json'); 
+				},
+				shadeClose: false
+			 });
+		    
+		};
+	});
+});
+
+
+
+$("#dizhi").citySelect({url:{"citylist":[{"p":"请选择客户的县（市、区）","c":[{"n":"请选择客户的街道（镇）"}]},{"p":"鲤城","c":[{"n":"请选择客户的街道（镇）"},{"n":"海滨街道"},{"n":"临江街道"},{"n":"鲤中街道"},{"n":"开元街道"},{"n":"浮桥街道"},{"n":"江南街道"},{"n":"金龙街道"},{"n":"常泰街道"},{"n":"清濛经济开发区"}]},{"p":"丰泽","c":[{"n":"请选择客户的街道（镇）"},{"n":"东湖街道"},{"n":"丰泽街道"},{"n":"泉秀街道"},{"n":"清源街道"},{"n":"华大街道"},{"n":"城东街道"},{"n":"东海街道"},{"n":"北峰街道"}]},{"p":"洛江","c":[{"n":"请选择客户的街道（镇）"},{"n":"万安街道"},{"n":"双阳街道"},{"n":"罗溪镇"},{"n":"马甲镇"},{"n":"河市镇"},{"n":"虹山乡"}]},{"p":"台商","c":[{"n":"请选择客户的街道（镇）"},{"n":"洛阳镇"},{"n":"东园镇"},{"n":"张坂镇"},{"n":"百崎回族乡"}]},{"p":"泉港","c":[{"n":"请选择客户的街道（镇）"},{"n":"山腰街道"},{"n":"南埔镇"},{"n":"界山镇"},{"n":"后龙镇"},{"n":"峰尾镇"},{"n":"前黄镇"},{"n":"涂岭镇"}]},{"p":"惠安","c":[{"n":"请选择客户的街道（镇）"},{"n":"螺城镇"},{"n":"螺阳镇"},{"n":"黄塘镇"},{"n":"紫山镇"},{"n":"崇武镇"},{"n":"山霞镇"},{"n":"涂寨镇"},{"n":"东岭镇"},{"n":"东桥镇"},{"n":"净峰镇"},{"n":"小岞镇"},{"n":"辋川镇"},{"n":"城南工业区"},{"n":"惠南工业区"}]},{"p":"安溪","c":[{"n":"请选择客户的街道（镇）"},{"n":"凤城镇"},{"n":"蓬莱镇"},{"n":"湖头镇"},{"n":"官桥镇"},{"n":"剑斗镇"},{"n":"城厢镇"},{"n":"金谷镇"},{"n":"龙门镇"},{"n":"虎邱镇"},{"n":"芦田镇"},{"n":"感德镇"},{"n":"魁斗镇"},{"n":"西坪镇"},{"n":"参内乡"},{"n":"白濑乡"},{"n":"湖上乡"},{"n":"尚卿乡"},{"n":"大坪乡"},{"n":"龙涓乡"},{"n":"长坑乡"},{"n":"蓝田乡"},{"n":"祥华乡"},{"n":"桃舟乡"},{"n":"福田乡"}]},{"p":"永春","c":[{"n":"请选择客户的街道（镇）"},{"n":"桃城镇"},{"n":"五里街镇"},{"n":"一都镇"},{"n":"下洋镇"},{"n":"蓬壶镇"},{"n":"达埔镇"},{"n":"吾峰镇"},{"n":"石鼓镇"},{"n":"岵山镇"},{"n":"东平镇"},{"n":"湖洋镇"},{"n":"坑仔口镇"},{"n":"玉斗镇"},{"n":"锦斗镇"},{"n":"东关镇"},{"n":"桂洋镇"},{"n":"苏坑镇"},{"n":"仙夹镇"},{"n":"横口乡"},{"n":"呈祥乡"},{"n":"介福乡"},{"n":"外山乡"}]},{"p":"德化","c":[{"n":"请选择客户的街道（镇）"},{"n":"浔中镇"},{"n":"龙浔镇"},{"n":"三班镇"},{"n":"龙门滩镇"},{"n":"雷峰镇"},{"n":"南埕镇"},{"n":"水口镇"},{"n":"赤水镇"},{"n":"上涌镇"},{"n":"葛坑镇"},{"n":"盖德镇"},{"n":"杨梅乡"},{"n":"汤头乡"},{"n":"桂阳乡"},{"n":"国宝乡"},{"n":"美湖镇"},{"n":"大铭乡"},{"n":"春美乡"}]},{"p":"石狮","c":[{"n":"请选择客户的街道（镇）"},{"n":"湖滨街道"},{"n":"凤里街道"},{"n":"灵秀镇"},{"n":"宝盖镇"},{"n":"蚶江镇"},{"n":"祥芝镇"},{"n":"鸿山镇"},{"n":"锦尚镇"},{"n":"永宁镇"}]},{"p":"晋江","c":[{"n":"请选择客户的街道（镇）"},{"n":"青阳街道"},{"n":"梅岭街道"},{"n":"西园街道"},{"n":"罗山街道"},{"n":"新塘街道"},{"n":"灵源街道"},{"n":"安海镇"},{"n":"磁灶镇"},{"n":"陈埭镇"},{"n":"东石镇"},{"n":"深沪镇"},{"n":"金井镇"},{"n":"池店镇"},{"n":"内坑镇"},{"n":"龙湖镇"},{"n":"永和镇"},{"n":"英林镇"},{"n":"紫帽镇"},{"n":"西滨镇"},{"n":"安平开发区"},{"n":"晋江市经济开发区"},{"n":"泉州出口加工区"}]},{"p":"南安","c":[{"n":"请选择客户的街道（镇）"},{"n":"溪美街道"},{"n":"柳城街道"},{"n":"美林街道"},{"n":"省新镇"},{"n":"仑苍镇"},{"n":"东田镇"},{"n":"英都镇"},{"n":"翔云镇"},{"n":"金淘镇"},{"n":"诗山镇"},{"n":"蓬华镇"},{"n":"码头镇"},{"n":"九都镇"},{"n":"乐峰镇"},{"n":"罗东镇"},{"n":"梅山镇"},{"n":"洪濑镇"},{"n":"洪梅镇"},{"n":"康美镇"},{"n":"丰州镇"},{"n":"霞美镇"},{"n":"官桥镇"},{"n":"水头镇"},{"n":"石井镇"},{"n":"眉山乡"},{"n":"向阳乡"},{"n":"雪峰管委会"}]},]},prov:"请选择客户的县（市、区）",city:"请选择客户的街道（镇）"});
+$(function(){
+        })
+</script>
+
+
+</body></html>

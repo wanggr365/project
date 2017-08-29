@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css" />
+		<link rel="stylesheet" type="text/css" href="[!CSS]mui.picker.min.css" />
+		<style>
+			html,
+			body,
+			.mui-content {
+				height: 0px;
+				margin: 0px;
+				background-color: #efeff4;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+		.regTop{
+			width: 100%;
+			padding:3% 0 3%;
+			background: #50b4f9;
+			text-align: center;
+			color: #ffffff;
+			position: relative;
+		}
+		
+		.money{
+			padding:2%;
+		}
+		
+		em {
+			color: #ff0000;
+			font-weight: bold;
+		}
+		
+		.trCharge td {
+			font-family: verdana, arial, helvetica, sans-serif;
+			font-weight: bold;
+			cursor: default;
+			text-align: center;
+			text-decoration: none;
+			white-space: normal;
+			background: #f7f7f7;
+			border: 1px solid #dadada;
+			table-layout: fixed;
+		}
+		
+		.jmesa .odd {
+			background-color: #ffffff;
+		}
+		
+		.jmesa .even {
+			background-color: #e3e3e3;
+		}
+		
+		.jmesa .odd td {
+			FONT-SIZE: 12px;
+			BACKGROUND: #ffffff;
+			FONT-FAMILY: "宋体";
+			HEIGHT: 40px;
+			text-decoration: none;
+			border-bottom: 1px solid #E4ECF2;
+			font-family: verdana, arial, helvetica, sans-serif;
+			font-size: 14px;
+			text-align: center;
+			border-right: 1px solid #DDDDEE;
+			border-bottom: 1px solid #DDDDEE;
+		}
+		
+		.jmesa .even td {
+			FONT-SIZE: 12px;
+			BACKGROUND: #f5f5f5;
+			FONT-FAMILY: "宋体";
+			HEIGHT: 40px;
+			text-decoration: none;
+			border-bottom: 1px solid #E4ECF2;
+			font-family: verdana, arial, helvetica, sans-serif;
+			font-size: 14px;
+			text-align: center;
+			border-right: 1px solid #DDDDEE;
+			border-bottom: 1px solid #DDDDEE;
+		}
+		
+		.jmesa .even td, .jmesa .removed td {
+			padding-top: 2px;
+			padding-right: 3px;
+			padding-bottom: 2px;
+			padding-left: 3px;
+			vertical-align: middle;
+			font-family: verdana, arial, helvetica, sans-serif;
+			font-size: 14px;
+			text-align: center;
+			border-right: 1px solid #DDDDEE;
+			border-bottom: 1px solid #DDDDEE;
+		}
+		</style>
+    <link rel="stylesheet" href="[!CSS]demos.css">
+	</head>
+
+	<body style="background-color: #e0ebf4;opacity: 0.9;">
+		<div class="regTop" >
+            <span>我的佣金</span>
+        </div>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				
+				<button id='startDate' data-options='{"type":"month"}' class="btn mui-btn mui-btn-block">选择月份 ...</button>
+				<div id='result' class="ui-alert"></div>
+				
+		        <button type="button" class="mui-btn mui-btn-primary mui-btn-block" style="background: #50b4f9;border:0px;" onclick="queryByDate()">查询</button>
+			</div>
+			<div class="jmesa">
+				<table id="tbBill"  border="0"  cellpadding="0"  cellspacing="0"  class="wt-tab04"  width="100%">
+					<tr style="border-bottom: 1px solid #dadada;">
+						<th colspan="6" style="	font-family: verdana, arial, helvetica, sans-serif;">
+							<em>*</em>结果：
+						</th>
+					</tr>	
+					<tr class="trCharge" >
+					  <td>月份</td>
+					  <td>套餐类型</td>
+					  <td>最终成交量</td>
+					  <td>佣金（50元/台）</td>
+					</tr>
+				</table>	
+			</div>
+			<table border="0"  cellpadding="0"  cellspacing="0"  class="wt-tab04"  width="100%" style="margin-top:2%;">
+				<tr >
+					<th colspan="6" style="	font-family: verdana, arial, helvetica, sans-serif;">
+						<em>*</em>佣金合计：
+					</th>
+				</tr>
+			</table>
+			<div class="mui-card" >
+				<ul class="mui-table-view" >
+					
+				</ul>
+			</div>
+			<br></br>
+			<div class="mui-content-padded">
+								
+		        <button type="button" class="mui-btn mui-btn-primary mui-btn-block" style="background: red;width:30%;margin:0 0 0 35%;border: 0px" id="moneyInstruction">佣金提取说明</button>
+			</div>
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script src="[!JS]mui.picker.min.js"></script>
+		<script src="[!JS]jquery-2.1.4.js"></script>
+		<script>			
+			var localMonth = '{$localMonth}';
+			var localDay = '{$localDay}';
+			var localYear = '{$localYear}';
+			var day = '{$day}';
+			var month = '{$month}';
+			var tbBillValue = "";
+			var mostValue = "";
+			var result ="";
+			(function($) {
+				$.init();
+				result = $('#result')[0];
+				var btns = $('.btn');
+				btns.each(function(i, btn) {
+					btn.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');						
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {							
+							result.innerText =  rs.text;							
+							picker.dispose();
+						});
+					}, false);
+				});
+				if(month == "01" && day < "16"){
+					mostValue = (parseInt(localYear)-1) + '-' + '11';
+				}else if(month == "01" && day >= "16" || month == "02" && day < "16"){
+					mostValue = (parseInt(localYear)-1) + '-' + '12';
+				}else if(day < "16"){
+					mostValue = localYear + '-' + ((parseInt(month)-2) < 10 ? ('0' + (parseInt(month)-2)) : (parseInt(month)-2));
+				}else{
+					mostValue = localYear + '-' + ((parseInt(month)-1) < 10 ? ('0' + (parseInt(month)-1)) : (parseInt(month)-1));
+				}
+				result.innerText =  mostValue;	
+				//$("#result").html(mostValue);
+				tbBillValue = $('#tbBill')[0].innerHTML;	
+			})(mui);
+			
+			function queryByDate(){
+			if($('#result')[0].value == "" ){
+				mui.alert('查询月份不能为空', '错误!', function() {
+					return false;
+				});
+				return false;
+			}else if($('#result')[0].value > mostValue){
+				//$.alert('查询月份不能大于' + mostValue, '错误!');
+				//return false;
+			}
+		
+		
+			$.ajax({
+				type:'post',
+					url: "index.php?m=agent&a=agentMoneyQuery",
+					context: document.body,
+					dataType:'json',  
+					data:"startDate=" + $('#result')[0].innerText ,
+					success: function(json){
+						$(".mui-table-view").html('');
+						$("#tbBill").html('');
+						$("#tbBill").append(tbBillValue);
+						if(json.code == 0){
+							mui.alert('操作超时', '注意!', function() {
+								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=agent%26agentIndex#wechat_redirect";
+							});
+						}else{
+							var num = json.num;
+							if(num == 0){
+								
+								mui.alert('当前时间段无成功办理记录', '抱歉!', function() {
+									return false;
+								});
+							}
+							
+							$("#tbBill").append("<tr   class=\"odd\"  onmouseover=\"this.className='highlight'\"  onmouseout=\"this.className='odd'\"><td>" + $('#result')[0].innerText + "</td><td>爱家68" + '</td>' + '<td>' + json.sucNum1 + '</td>' + '<td>' + parseInt(json.sucNum1)*50 + '</td>' + '</tr>' );
+							
+							$("#tbBill").append("<tr   class=\"even\"  onmouseover=\"this.className='highlight'\"  onmouseout=\"this.className='odd'\"><td>" + $('#result')[0].innerText + "</td><td>爱家88" + '</td>' + '<td>' + json.sucNum2 + '</td>' + '<td>' + parseInt(json.sucNum2)*50 + '</td>' + '</tr>' );
+							$(".mui-table-view").addClass('money');
+							$(".mui-table-view").append("佣金合计：" + (parseInt(json.sucNum1)*50 + parseInt(json.sucNum2)*50) + "元<br>佣金状态：" + json.is_exchange);								
+							
+						}
+					}
+			});	
+		}
+		
+		$('#moneyInstruction').click(function(){
+			mui.alert('黑黑的文字还没整理好', '抱歉!', function() {
+				return false;
+			});		
+		});
+		
+		</script>
+	</body>
+
+</html>

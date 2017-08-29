@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>泉州广电网络</title>
+    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
+    <meta name="author" content="任行">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name = "format-detection" content = "telephone=no">
+
+    <!-- Google Web Fonts -->
+
+    <link rel="stylesheet" href="[!CSS]light7.css?r=201603281">
+    <link rel="stylesheet" href="[!CSS]light7-swiper.css">
+    <link rel="stylesheet" href="[!CSS]light7-swipeout.css">
+    <link rel="stylesheet" href="[!CSS]demos.css">
+
+    <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
+    <script src="[!JS]jquery-2.1.4.js"></script>	
+	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
+	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+    <script type="text/JavaScript">
+		var Request = new Object(); 			
+		Request = GetRequest(); 
+		$(document).ready(function() { 
+		if(typeof(Request['SUBSCRIBERID']) != "undefined" && Request['SUBSCRIBERID'] != "undefined" && Request['SUBSCRIBERID'] != "" ){
+		
+			$.showIndicator();
+			$.ajax({
+				type:'post',
+				  url: "index.php?m=qzgdwl&a=queryAllOrdering",
+				  context: document.body,
+				  dataType:'json',  
+				  data:"SUBSCRIBERID="+Request['SUBSCRIBERID'].toString(),
+				  success: function(json){
+						var l = json.length;
+						for(var i=0;i<l;i++){
+							$("#tbBill").append('<tr><td class=\"tdOrding\">' + json[i].OFFERNAME + '</td>' + '<td class=\"tdOrding\">' + json[i].PRODUCTNAME + '</td>' + '<td class=\"tdOrding\">' + json[i].SUBSTATUSSTR + '</td>' + '<td class=\"tdOrding\">'+ json[i].JOINDATE + '</td>' + '<td class=\"tdOrding\">'+ json[i].VALIDDAYS + '</td>' + '<td class=\"tdOrding\">' + json[i].EXPIREDAYS + '</td></tr>' );
+						}
+						//$("#tip").html("");
+						$.hideIndicator();
+				  }
+			});				
+		}
+	});	
+    </script>
+  </head>
+  <body>
+    <div id="page-label-input" class="page">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left" onclick="goBack()">
+      <span class="icon icon-left"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </a>
+    <h1 class="title">在用产品明细</h1>
+  </header>
+  <div class="content">
+  <div class="tbBill">
+    <table id="tbBill" frame="box" style="background-color:#ffffff;" >	
+		<tr>
+		  <td class="thOrding">套餐名称</td>
+		  <td class="thOrding">产品名称</td>
+		  <td class="thOrding">产品状态</td>
+		  <td class="thOrding">订购时间</td>
+		  <td class="thOrding">生效时间</td>
+		  <td class="thOrding">失效时间</td>
+		</tr>		
+	</table>	
+   </div>
+	<p class="ywyP1"></p>
+  </div>
+</div>
+
+    <script src="[!JS]light7.js"></script>
+    <script src="[!JS]light7-swiper.js"></script>
+    <script src="[!JS]light7-city-picker.js"></script>
+    <script src="[!JS]light7-swipeout.js"></script>
+    <script src="[!JS]demos.js?r=201603281"></script>
+  </body>
+</html>

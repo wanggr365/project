@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<meta name="MobileOptimized" content="300"/>
+<title>广电网络微信营业厅</title>
+<link rel="stylesheet" type="text/css" href="[!CSS]css.css" media="all">
+<script type="text/javascript" src="[!JS]search.js" ></script>
+<script type="text/javascript" src="[!JS]jquery-1.8.3.min.js" ></script>
+</head>
+
+
+<body style="background-image:url([!IMG]bg.png);">
+	<form action="__URL__/loginSubmit" name="frm" method="POST">
+		<div class="bianhao02"><div style="height:20px;"></div></div>
+		<div class="logo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信账号绑定</div>
+		<div class="bianhao02"><div style="height:5px;"></div></div>
+
+		<!--div class="bianhao02"><img src="[!IMG]bangding02.jpg"/></div-->
+		<div class="bianhao04">
+		<div class="bianhao21">验证类型选择：</div>
+		  <div class="bianhao08"></div>
+		
+		<div class="bianhao24"><div class="bianhao23"><input name="input_type" id="sel1" type="radio" value="1" onclick="switchInput(this.value)" checked/></div><label for="sel1" class="bianhao22" onclick="changeInput('1')">服务密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+		
+		<div class="bianhao08"></div>
+		
+		<div class="bianhao24"><div class="bianhao23"><input name="input_type" id="sel2"  type="radio" value="2" onclick="switchInput(this.value)" /></div><label for="sel2" class="bianhao22" onclick="changeInput('2')">户主姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></div>
+		<div class="bianhao08"></div>
+		
+		</div>
+		
+		<div class="bianhao04">
+		<div class="bianhao13"></div>
+		
+		<div class="bianhao27"><div class="bianhao26">客户编号：</div><div class="bianhao29"><input name="cust_no" type="text" style=" margin:3px 0 0 8px;;width:90px; height:15px;border:1px solid #ffffff;font-size:13px;color:#787878;"/>
+		</div><div class="bianhao30"><a href="/index.php?m=index&a=bangding">忘记编号</a></div></div>
+		
+		
+		<div id="password" class="bianhao27" style="display:block;"><div class="bianhao26">服务密码：</div><div class="bianhao29"><input name="pwd" type="password" style=" margin:3px 0 0 8px;;width:90px; height:15px;border:1px solid #ffffff;font-size:13px;color:#787878;"/>
+		</div><div class="bianhao30"><a href="/index.php?m=index&a=password">忘记密码</a></div></div>
+			
+		<div id="linkphone" class="bianhao27" style="display:none;"><div class="bianhao26">户主姓名：</div><div class="bianhao29"><input name="cust_name" type="text" value="%" style=" margin:3px 0 0 8px;;width:90px; height:20px;border:1px solid #ffffff;font-size:13px;color:#787878;"/>
+</div></div>
+
+		
+<div class="bianhao02"><div style="height:10px;"></div></div>
+		
+		
+		<div class="back"><a href="javascript:frm.submit();"><div style="height:44px;width:280px;color:#0269AC;font-size:25px;font-weight:bold;"><div class="bianhao02">
+	</div>确定绑定</div></a></div>
+</form>
+</body>
+</html>

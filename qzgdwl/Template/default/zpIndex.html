@@ -1,0 +1,811 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>泉州广电网络</title>
+<link rel="stylesheet" href="[!CSS]weui1.css"/>
+<link rel="stylesheet" href="[!CSS]example1.css"/>
+<link rel="stylesheet" href="[!CSS]zp.css"/>
+<style type="text/css">
+	body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div{margin:0;padding:0;border:0;}
+	body{color:#333; font-size:12px;font-family:"Microsoft YaHei"}
+	ul,ol{list-style-type:none;}
+	select,input,img,select{vertical-align:middle;}
+	input{ font-size:12px;}
+	a{ text-decoration:none; color:#000;}
+	a:hover{color:#c00; text-decoration:none;}
+	.clear{clear:both;}
+@-webkit-keyframes rotate-animation {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes rotate-animation {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes move-animation {
+            0% {
+                -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+            }
+            25% {
+                -webkit-transform: translate(-64px, 0);
+                transform: translate(-64px, 0);
+            }
+            75% {
+                -webkit-transform: translate(32px, 0);
+                transform: translate(32px, 0);
+            }
+            100% {
+                -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+            }
+        }
+        @-webkit-keyframes move-animation {
+         0%{
+             -webkit-transform: translate(0,0);
+			 transform: translate(0,0);
+         }
+         }
+        @keyframes move-animation {
+            0% {
+                -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+            }
+            25% {
+                -webkit-transform: translate(-64px, 0);
+                transform: translate(-64px, 0);
+            }
+            75% {
+                -webkit-transform: translate(32px, 0);
+                transform: translate(32px, 0);
+            }
+            100% {
+                -webkit-transform: translate(0, 0);
+                transform: translate(0, 0);
+            }
+        }
+
+        .circle-loader {
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin-left: -32px;
+            margin-top: -32px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform-origin: 16px 16px;
+            transform-origin: 16px 16px;
+            -webkit-animation: rotate-animation 5s infinite;
+            animation: rotate-animation 5s infinite;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+        }
+        .circle-loader .circle {
+            -webkit-animation: move-animation 2.5s infinite;
+            animation: move-animation 2.5s infinite;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+        .circle-loader .circle-line {
+            width: 64px;
+            height: 24px;
+            position: absolute;
+            top: 4px;
+            left: 0;
+            -webkit-transform-origin: 4px 4px;
+            transform-origin: 4px 4px;
+        }
+        .circle-loader .circle-line:nth-child(0) {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        .circle-loader .circle-line:nth-child(1) {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        .circle-loader .circle-line:nth-child(2) {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        .circle-loader .circle-line:nth-child(3) {
+            -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+        .circle-loader .circle-line .circle:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            top: 50%;
+            left: 50%;
+            margin-top: -4px;
+            margin-left: -4px;
+            border-radius: 4px;
+            -webkit-animation-delay: -0.3s;
+            animation-delay: -0.3s;
+        }
+        .circle-loader .circle-line .circle:nth-child(2) {
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -8px;
+            border-radius: 8px;
+            -webkit-animation-delay: -0.6s;
+            animation-delay: -0.6s;
+        }
+        .circle-loader .circle-line .circle:nth-child(3) {
+            width: 24px;
+            height: 24px;
+            top: 50%;
+            left: 50%;
+            margin-top: -12px;
+            margin-left: -12px;
+            border-radius: 12px;
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+        .circle-loader .circle-blue {
+            background-color: #1f4e5a;
+        }
+        .circle-loader .circle-red {
+            background-color: #ff5955;
+        }
+        .circle-loader .circle-yellow {
+            background-color: #ffb265;
+        }
+        .circle-loader .circle-green {
+            background-color: #00a691;
+        }
+
+	/* 大转盘样式 */
+	.banner{display:block;width:80%;margin-left:auto;margin-right:auto;margin-bottom: 20px;}
+	.banner .turnplate{display:block;width:100%;position:relative;}
+	.banner .turnplate canvas.item{width:100%;}
+	.banner .turnplate img.pointer{position:absolute;width:36%;height:40%;left:32%;top:28%;}
+	.more{display: block;width: 100%;position: fixed;top: 0;left: 0;height: 150px;}
+	.cloud{position: fixed;left: 0;top: 70%;width: 150px;}
+	.cloud2{position: fixed;right: 0;top: 32%;width: 50px;}
+	.cloud3{position: fixed;left: 0;top: 30%;width: 100px;}
+	@media screen and (max-width: 320px) {
+		.cloud{position: fixed;left: 0;top: 70%;width: 150px;}
+		.cloud2{position: fixed;right: 0;top: 30%;width: 50px;}
+		.cloud3{position: fixed;left: 0;top: 23%;width: 100px;}
+	}
+	@media screen and (min-width: 321px) and (max-width: 375px) {
+		.cloud{position: fixed;left: 0;top: 72%;width: 150px;}
+		.cloud2{position: fixed;right: 0;top: 32%;width: 50px;}
+		.cloud3{position: fixed;left: 0;top: 25%;width: 100px;}
+	}
+	@media screen and (min-width: 376px) {
+		.cloud{position: fixed;left: 0;top: 68%;width: 150px;}
+		.cloud2{position: fixed;right: 0;top: 32%;width: 50px;}
+		.cloud3{position: fixed;left: 0;top: 25%;width: 100px;}
+	}
+	@media screen and (max-height: 480px) {
+		.cloud{position: fixed;left: 0;top: 81%;width: 150px;}
+		.cloud2{position: fixed;right: 0;top: 35%;width: 50px;}
+		.cloud3{position: fixed;left: 0;top: 27%;width: 100px;}
+	}
+
+	.mark{width: 100%;height: 100%;background: rgba(0,0,0,0.5);position: fixed;top: 0;left: 0;display: none;}
+	.red-img{position: fixed;top: 10%;left: 5%;width: 90%;}
+	
+	.button.blue {
+		color: 				hsl(208, 50%, 40%) !important;
+		background-color: 	hsl(208, 100%, 75%);
+		
+		-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+								hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+								rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+		-moz-box-shadow: 	inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+								hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+								rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+		box-shadow: 		inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ 
+								hsl(208, 50%, 55%) 0 .1em 3px, hsl(208, 50%, 40%) 0 .3em 1px, /* color border */
+								rgba(0,0,0,0.2) 0 .5em 5px;	/* drop shadow */
+	}
+	.button.blue:hover { 	background-color: hsl(208, 100%, 83%); }
+		.brackets, .brackets.glossy:after, .brackets.glass:after {
+		border-top: none;
+		-webkit-border-radius: .5em / 1em;
+		-moz-border-radius: .5em / 1em;
+		border-radius: .5em / 1em;
+	}
+	.button {
+		text-decoration: none;
+		font: 24px/1em 'Droid Sans', sans-serif;
+		font-weight: bold;
+		text-shadow: rgba(255,255,255,.5) 0 1px 0;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+		padding: .5em .6em .4em .6em;
+		margin: .5em;
+		display: inline-block;
+		position: relative;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		border-radius: 8px;
+		border-top: 1px solid rgba(255,255,255,0.8);
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		background-image: -webkit-gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0.7) )), url(noise.png);
+		background-image: -moz-radial-gradient(top, ellipse cover, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%), url(noise.png);
+		background-image: gradient(radial, 50% 0, 100, 50% 0, 0, from( rgba(255,255,255,0) ), to( rgba(255,255,255,0.7) )), url(noise.png);
+		-webkit-transition: background .2s ease-in-out;
+		-moz-transition: background .2s ease-in-out;
+		transition: background .2s ease-in-out;
+		color: hsl(0, 0%, 40%) !important;
+		background-color: hsl(0, 0%, 75%);
+		-webkit-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */ rgba(0,0,0,0.2) 0 .5em 5px;
+		-moz-box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */ rgba(0,0,0,0.2) 0 .5em 5px;
+		box-shadow: inset rgba(255,254,255,0.6) 0 0.3em .3em, inset rgba(0,0,0,0.15) 0 -0.1em .3em, /* inner shadow */ hsl(0, 0%, 60%) 0 .1em 3px, hsl(0, 0%, 45%) 0 .3em 1px, /* color border */ rgba(0,0,0,0.2) 0 .5em 5px;
+	}
+</style>
+
+<script type="text/javascript" src="[!JS]jquery.min.js"></script>
+<script type="text/javascript" src="[!JS]awardRotate.js"></script>
+<script>
+	function onBridgeReady(){
+		WeixinJSBridge.call('hideOptionMenu');
+	}
+
+	if (typeof WeixinJSBridge == "undefined"){
+		if( document.addEventListener ){
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		}else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	}else{
+		onBridgeReady();
+	}
+</script>
+<script type="text/javascript">
+var turnplate={
+		restaraunts:[],				//大转盘奖品名称
+		colors:[],					//大转盘奖品区块对应背景颜色
+		outsideRadius:192,			//大转盘外圆的半径
+		textRadius:155,				//大转盘奖品位置距离圆心的距离
+		insideRadius:68,			//大转盘内圆的半径
+		startAngle:0,				//开始角度
+		
+		bRotate:false				//false:停止;ture:旋转
+};
+var draw_num = {$userInforRow.draw_num};
+
+var username = '';
+var phone = '';
+var address = '';
+
+$(document).ready(function(){
+	//动态添加大转盘的奖品与奖品区域背景颜色
+	turnplate.restaraunts = ["20元充值卡", "保温杯", "1元充值卡", "再接再厉", "250元银瓷杯", "黑胶晴雨伞"];
+	turnplate.colors = ["#FFFFFF","#5fcbd5", "#FFFFFF", "#5fcbd5", "#FFFFFF","#5fcbd5"];
+
+	
+	var rotateTimeOut = function (){
+		$('#wheelcanvas').rotate({
+			angle:0,
+			animateTo:2160,
+			duration:8000,
+			callback:function (){
+				alert('网络超时，请检查您的网络设置！');
+			}
+		});
+	};
+
+	//旋转转盘 item:奖品位置; txt：提示语;
+	var rotateFn = function (item, txt){
+		var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+		if(angles<270){
+			angles = 270 - angles; 
+		}else{
+			angles = 360 - angles + 270;
+		}
+		$('#wheelcanvas').stopRotate();
+		$('#wheelcanvas').rotate({
+			angle:0,
+			animateTo:angles+1800,
+			duration:8000,
+			callback:function (){
+				if(item == 1 || item == 3){
+					$('#jiangpin1').html(txt);
+					$('#czk-main').fadeIn();
+				}else if(item == 4){
+					$('#xxcy-main').fadeIn();
+				}else{
+					$('#jiangpin').html(txt);
+					$('#zj-main').fadeIn();
+				}
+				turnplate.bRotate = !turnplate.bRotate;
+				
+				$('.close_zj').click(function(){
+					$('#zj-main').fadeOut();
+				});
+				
+				$('#close_xxcy').click(function(){
+					$('#xxcy-main').fadeOut();
+				});
+				
+				$('#close_jp').click(function(){
+					$('#czk-main').fadeOut();
+					$('#tjcg-main').fadeOut();
+					window.location.reload(); 
+				});
+				
+				$('#close_czk').click(function(){
+					$('#czk-main').fadeOut();
+					$('#tjcg-main').fadeOut();
+				});
+				
+				$('.info_tj').click(function(){
+					username = trimBlank($('#username').val());
+					phone = trimBlank($('#phone').val());
+					address = trimBlank($('#address').val());
+					if(username == ''){
+						$('#toast_error').show();
+						$("#toast_error .weui_toast_content").html('姓名不能为空');
+						setTimeout(function(){
+							$('#toast_error').hide();
+						},2000);
+						$('#username').focus();
+						return false;
+					}else if(phone == ''){
+						$('#toast_error').show();
+						$("#toast_error .weui_toast_content").html('手机号码不能为空');
+						setTimeout(function(){
+							$('#toast_error').hide();
+						},2000);
+						$('#phone').focus();
+						return false;
+					}else if(address == ''){
+						$('#toast_error').show();
+						$("#toast_error .weui_toast_content").html('地址不能为空');
+						setTimeout(function(){
+							$('#toast_error').hide();
+						},2000);
+						$('#address').focus();
+						return false;
+					}
+					if(!(/^1[3|4|5|7|8]\d{9}$/.test(phone))){ 
+						$('#toast_error').show();
+						$("#toast_error .weui_toast_content").html('请输入正确的手机号码');
+						setTimeout(function(){
+							$('#toast_error').hide();
+						},2000);
+						$('#phone').focus();
+						return false;
+					}
+					$('#spanUserName').html(username);
+					$('#spanPhone').html(phone);
+					$('#spanAddress').html(address);					
+					$('#divSubmitSure').fadeIn();
+					
+				});
+			}
+		});
+	};
+
+	$('.pointer').click(function (){
+		if(turnplate.bRotate)return;
+		if(draw_num == 0){
+			$('#csyj-main').fadeIn();
+			return;
+		}
+		$('#loadingToast').show();
+		var item = 4;
+		$.ajax({
+			url:"index.php?m=zp&a=run",
+			data: "unionid={$unionid}",
+			dataType:'json',
+			type:'post',
+			error: function(){
+				$('#loadingToast').hide();	
+				turnplate.bRotate = !turnplate.bRotate;			
+				rotateFn(item, turnplate.restaraunts[item-1]);
+			},
+			success:function(json){
+				$('#loadingToast').hide();
+				item = json.praise;//奖项
+				draw_num = json.num;//剩余抽奖次数
+				$('.draw_num').html('还有' + draw_num + '次机会');
+				$('#award').html(json.jiangpin1);
+				turnplate.bRotate = !turnplate.bRotate;
+				rotateFn(item, turnplate.restaraunts[item-1]);
+			}
+		});
+		//获取随机数(奖品个数范围内)
+		//var item = rnd(1,turnplate.restaraunts.length);
+		//alert(item);
+		//奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+		//rotateFn(item, turnplate.restaraunts[item-1]);
+		
+		console.log(item);
+	});
+});
+
+function closeCsyj(){
+	$('#csyj-main').fadeOut();
+}
+
+function rnd(n, m){
+	var random = Math.floor(Math.random()*(m-n+1)+n);
+	return random;
+	
+}
+
+
+//页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+window.onload=function(){
+	drawRouletteWheel();
+	$('#loding-main').hide();
+};
+
+function drawRouletteWheel() {    
+  var canvas = document.getElementById("wheelcanvas");    
+  if (canvas.getContext) {
+	  //根据奖品个数计算圆周角度
+	  var arc = Math.PI / (turnplate.restaraunts.length/2);
+	  var ctx = canvas.getContext("2d");
+	  //在给定矩形内清空一个矩形
+	  ctx.clearRect(0,0,422,422);
+	  //strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式  
+	  ctx.strokeStyle = "#FFBE04";
+	  //font 属性设置或返回画布上文本内容的当前字体属性
+	  ctx.font = 'bold 18px Microsoft YaHei';      
+	  for(var i = 0; i < turnplate.restaraunts.length; i++) {       
+		  var angle = turnplate.startAngle + i * arc;		 
+		  ctx.fillStyle = turnplate.colors[i];
+		  ctx.beginPath();
+		  //arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）    
+		  ctx.arc(211, 211, turnplate.outsideRadius, angle, angle + arc, false);    
+		  ctx.arc(211, 211, turnplate.insideRadius, angle + arc, angle, true);
+		  ctx.stroke();  
+		  ctx.fill();
+		  //锁画布(为了保存之前的画布状态)
+		  ctx.save();
+
+		  //改变画布文字颜色
+		  var b = i+2;
+		  if(b%2){
+		  	 ctx.fillStyle = "#FFFFFF";
+		  	}else{
+		  	 ctx.fillStyle = "#E5302F";
+		  	};
+		  
+		  //----绘制奖品开始----
+		 	
+		  	  	  
+		  var text = turnplate.restaraunts[i];
+		  var line_height = 17;
+		  //translate方法重新映射画布上的 (0,0) 位置
+		  ctx.translate(211 + Math.cos(angle + arc / 2) * turnplate.textRadius, 211 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+		  
+		  //rotate方法旋转当前的绘图
+		  ctx.rotate(angle + arc / 2 + Math.PI / 2);
+		  
+		  if(text.indexOf("盘")>0){
+			  var texts = text.split("盘");
+			  for(var j = 0; j<texts.length; j++){
+				  ctx.font = j == 0?'bold 20px Microsoft YaHei':'bold 18px Microsoft YaHei';
+				  if(j == 0){
+					  ctx.fillText(texts[j]+"盘", -ctx.measureText(texts[j]+"盘").width / 2, j * line_height);
+				  }else{
+					  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height*1.2); 
+				  }
+			  }
+		  }else if(text.indexOf("盘") == -1 && text.length>8){ 
+			  text = text.substring(0,8)+"||"+text.substring(8);
+			  var texts = text.split("||");
+			  for(var j = 0; j<texts.length; j++){
+				  ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+			  }
+		  }else{
+		  		
+			  //在画布上绘制填色的文本。文本的默认颜色是黑色
+ 
+			  //measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
+			  ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+		  }
+		  
+		  //添加对应图标
+		  
+		  if(text.indexOf(turnplate.restaraunts[0])>=0){
+			  var img= document.getElementById("diy0-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-35,20);      
+			  };  
+			  ctx.drawImage(img,-35,20);  
+		  };
+		  if(text.indexOf(turnplate.restaraunts[1])>=0){
+			  var img= document.getElementById("diy1-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-35,20);      
+			  }; 
+			  ctx.drawImage(img,-35,20);  
+		  };
+		  if(text.indexOf(turnplate.restaraunts[2])>=0){
+			  var img= document.getElementById("diy2-img");			
+			  img.onload=function(){  
+				  ctx.drawImage(img,-25,35);      
+			  };  
+			  ctx.drawImage(img,-30,20);  
+		  };
+		  if(text.indexOf(turnplate.restaraunts[3])>=0){
+			  var img= document.getElementById("diy3-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-35,20);      
+			  };  
+			  ctx.drawImage(img,-35,20);  
+		  };
+		  if(text.indexOf(turnplate.restaraunts[4])>=0){
+			  var img= document.getElementById("diy4-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-30,20);      
+			  };  
+			  ctx.drawImage(img,-30,20);  
+		  };
+		  if(text.indexOf(turnplate.restaraunts[5])>=0){
+			  var img= document.getElementById("diy5-img");
+			  img.onload=function(){  
+				  ctx.drawImage(img,-35,20);      
+			  };  
+			  ctx.drawImage(img,-35,20);  
+		  };
+		  //把当前画布返回（调整）到上一个save()状态之前 
+		  ctx.restore();
+		  //----绘制奖品结束----
+	  }     
+  } 
+};
+
+function trimBlank(str){ 
+	return str.replace(/(^\s*)|(\s*$)/g, ""); 
+}
+
+function showRule(){
+	$('#hdgz-main').fadeIn();
+}
+
+function closeRule(){
+	$('#hdgz-main').fadeOut();
+}
+
+function showWdjp(){
+	$('#wdjp-main').fadeIn();
+}
+
+function closeWdjp(){
+	$('#wdjp-main').fadeOut();
+}
+
+function submitCancel(){
+	$('#divSubmitSure').fadeOut();
+}
+
+function submitSure(){
+	$('#divSubmitSure').fadeOut();
+	$('#loadingToast').show();
+	$.ajax({
+		type:'post',
+		url: "index.php?m=zp&a=inforSubmit",
+		context: document.body,
+		dataType:'json',  
+		data:"username=" + username +'&unionid={$unionid}&address=' + address +'&phone=' + phone,
+		success: function(json){
+			$('#loadingToast').hide();
+			if(json.code == 0){
+				$('#toast_error').show();
+				$("#toast_error .weui_toast_content").html('该手机已存在');
+				setTimeout(function(){
+					$('#toast_error').hide();
+				},2000);
+				return false;
+			}else{										
+				$('#zj-main').fadeOut();
+				$('#tjcg-main').fadeIn();
+			}
+		}
+	});
+}
+
+</script>
+</head>
+<body style="background:url([!IMG]zp/body_bg2.jpg);background-size:cover;background-repeat: no-repeat;background-color:#ebbe00;">
+<div class="xxcy-main" id="loding-main">
+    <div class="circle-loader">
+        <div class="circle-line">
+            <div class="circle circle-blue"></div>
+            <div class="circle circle-blue"></div>
+            <div class="circle circle-blue"></div>
+        </div>
+        <div class="circle-line">
+            <div class="circle circle-yellow"></div>
+            <div class="circle circle-yellow"></div>
+            <div class="circle circle-yellow"></div>
+        </div>
+        <div class="circle-line">
+            <div class="circle circle-red"></div>
+            <div class="circle circle-red"></div>
+            <div class="circle circle-red"></div>
+        </div>
+        <div class="circle-line">
+            <div class="circle circle-green"></div>
+            <div class="circle circle-green"></div>
+            <div class="circle circle-green"></div>
+        </div>
+    </div>
+</div>
+<div class="weui_dialog_confirm" id="divSubmitSure" style="display:none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">请确认领奖信息</strong></div>
+        <div class="weui_dialog_bd">姓名：<span id="spanUserName"></span><br>手机：<span id="spanPhone"></span><br>地址：<span id="spanAddress"></span><br></div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" onclick="submitCancel();" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:;" onclick="submitSure();" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+
+	<img src="[!IMG]zp/0.png" id="diy0-img" style="display:none;" />
+    <img src="[!IMG]zp/1.png" id="diy2-img" style="display:none;" />    
+    <img src="[!IMG]zp/2.png" id="diy1-img" style="display:none;" />
+    <img src="[!IMG]zp/3.png" id="diy3-img" style="display:none;" />
+    <img src="[!IMG]zp/4.png" id="diy4-img" style="display:none;" />
+    <img src="[!IMG]zp/5.png" id="diy5-img" style="display:none;" />
+	<div class="banner" style="margin-top: 56%">
+		<div class="turnplate" style="background-image:url([!IMG]zp/cj_bg.png);background-size:100% 100%;background-repeat:no-repeat;">
+			<canvas class="item" id="wheelcanvas" width="422px" height="422px"></canvas>
+			<img class="pointer" src="[!IMG]zp/jt2.png"/>
+		</div>
+	</div>
+	<span id="rule" style="position:absolute;right:4%;top:2.7%;font-size:20px;color:red;font-family:Microsoft YaHei;font-weight:bold;border-bottom:1px solid white;" onclick="showRule()">活动规则 >></span>
+	<div style="text-align:center">
+		<a href="#" onClick="showWdjp();" class="button blue brackets" style="margin-top:0%;height:40px;font-size:21px;font-family:Microsoft YaHei;" >我的奖品</a>
+	</div>
+	<div class="zj-main" id="zj-main" style="height:140%">
+            <div class="txzl">
+            	<h3>HI 亲！人品爆发！</h3>
+                <h2>恭喜抽中<br /><span id="jiangpin"></span></h2>				
+				<if condition="$userInforRow['phone'] eq null">
+                <p>请填写资料领取奖品：</p>
+                <label>姓名：<input type="text" id="username" /></label>
+                <label>手机：<input type="text" id="phone" /></label>
+                <label>地址：<input type="text" id="address" /></label>
+                <h4><sub>*</sub>未提交个人资料将视为放弃领取此次奖品</h4>
+                <div class="info_tj">提交领奖</div>		
+				 <p class="draw_num" style="margin-bottom:15px;">还有0次机会</p>
+            </div>
+				<else/><h4 style="margin-bottom:10px;">我们将尽快给您寄送奖品哦</h4>
+				 <p class="draw_num" style="margin-bottom:10px;">还有0次机会</p>
+            </div>
+			<div class="close_zj" ><img src="[!IMG]close_1.png" /></div>
+				</if>
+            <!--<div class="close_zj"><img src="[!IMG]close_1.png" /></div>-->
+	</div>
+    
+    <!-------------谢谢参与弹窗-------------->
+    <div class="xxcy-main" id="xxcy-main">
+    	<div class="xxcy">
+        	<h3>谢谢参与！</h3>	            
+			<p class="draw_num" style="margin-bottom:10px;">还有0次机会</p>
+			<if condition="$userRow['is_binding'] neq 1">
+			<p><a style="text-decoration:underline;" href="index.php?m=qzgdwl&a=qzgdwlLogin&unionid={$unionid}">点击前往绑定</a><br />(绑定广电账号每天有5次机会哦)</p>
+			</if>
+            
+        </div>
+    	<div class="close_xxcy" id="close_xxcy"><img src="[!IMG]close_1.png" /></div>
+    </div>
+	
+	<!-------------次数用尽弹窗-------------->
+    <div class="xxcy-main" id="csyj-main" style="display:block;">
+    	<div class="xxcy">
+        	<h3>活动结束啦，谢谢您的参与！</h3>			
+            <p>接下来还有更多的福利哦</p>
+			
+            
+        </div>
+    	<div class="close_xxcy" id="close_csyj" onclick="closeCsyj();"><img src="[!IMG]close_1.png" /></div>
+    </div>
+    
+    <!-------------提交成功弹窗-------------->
+    <div class="tjcg-main" id="tjcg-main">
+    	<div class="tjcg">
+        	<h3>恭喜您提交成功</h3>
+            <p>我们将尽快给您寄送奖品<br />敬请期待^^</p>
+			<p class="draw_num" style="margin-bottom:10px;">还有0次机会</p>
+            
+        </div>
+    	<div class="close_tjcg" id="close_jp"><img src="[!IMG]close_1.png" /></div>
+    </div>
+	
+	<!-------------获得充值卡-------------->
+    <div class="tjcg-main" id="czk-main">
+    	<div class="tjcg">
+        	<h3 id="czk">恭喜抽中<span id="jiangpin1"></span></h3>
+            <p><a style="text-decoration:underline;" href="index.php?m=qzgdwl&a=qzgdwlTicketList&unionid={$unionid}">点击前往充值</a><br />（绑定广电账号后，进入“优惠券”查看奖品）</p>
+			<p class="draw_num" style="margin-bottom:10px;">还有0次机会</p>
+            
+        </div>
+    	<div class="close_tjcg" id="close_czk"><img src="[!IMG]close_1.png" /></div>
+    </div>
+	
+	<!-------------活动规则-------------->
+    <div class="tjcg-main" id="hdgz-main">
+    	<img src="[!IMG]rule.jpg" style="position: absolute;top: 25%;width: 90%;left:5%;"/>
+    	<div class="close_tjcg" id="close_rule" onclick="closeRule();"><img src="[!IMG]close_1.png" /></div>
+    </div>
+	
+	 <!-------------我的奖品-------------->
+    <div class="tjcg-main" id="wdjp-main" style="overflow:auto;">
+    	<div class="tjcg" >
+        	<h3>我的奖品</h3>
+            <p id="award">{$praiseName}</p>			
+        	<h3>我的领奖信息</h3>
+            <p>{$userInforRow.username}</p>
+            <p>{$userInforRow.phone}</p>
+            <p>{$userInforRow.address}</p>  
+			<br>
+        </div>
+    	<div class="close_tjcg" id="close_wdjp" onclick="closeWdjp();"><img src="[!IMG]close_1.png" /></div>
+    </div>
+<div class="toast">
+	<div id="loadingToast" class="weui_loading_toast" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<div class="weui_loading">
+				<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+				<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+			</div>
+			<p class="weui_toast_content" style="font-size: 16px;">请稍后</p>
+		</div>
+	</div>
+	<div id="toast_error" style="display: none;">
+		<div class="weui_mask_transparent"></div>
+		<div class="weui_toast">
+			<i class="weui_icon_toast weui_icon_toast_error"></i>
+			<p class="weui_toast_content"  style="font-size: 16px;"></p>
+		</div>
+	</div>
+</div>
+<style>
+.weui_icon_toast_error:before {
+	content: '\EA03';
+}
+.weui_toast{
+	width: 9em;
+}
+</style>
+</body>
+</html>

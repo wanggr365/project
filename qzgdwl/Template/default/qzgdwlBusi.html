@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>&nbsp;&nbsp;泉州广电网络</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" href="index.php?m=qzgdwl&a=qzgdwlIndex&unionid={$unionid}"></a>
+			<h1 class="mui-title">在线业务办理</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<div class="mui-card-header mui-card-media" style="height:45vw;background-image:url([!IMG]busi.jpg)"></div>
+				<ul class="mui-table-view">
+					<foreach name="taocanRow" item="tc">
+						<div class="busi-taocan">
+							<div>
+								<h4>{$tc.tc_name}
+								<if condition="$tc['is_kd'] eq 1">
+								<img src="[!IMG]kd-gq.png" style="margin-left:0%;width:13%;" align="absmiddle">
+								<else />
+								</if>								
+								<if condition="$tc['is_hd'] eq 1">
+								<img src="[!IMG]hd-gq.png" style="margin-left:0%;width:13%;" align="absmiddle">
+								<else />
+								</if>	
+								<if condition="$tc['is_gq'] eq 1">
+								<img src="[!IMG]gq-gq.png" style="margin-left:1%;width:13%;" align="absmiddle">
+								<else />
+								</if>	
+								<if condition="$tc['is_bq'] eq 1">
+								<img src="[!IMG]bq-gq.png" style="margin-left:0%;width:13%;" align="absmiddle">
+								<else />
+								</if>	
+								<if condition="$tc['is_ssf'] eq 1">
+								<img src="[!IMG]ssf-gq.png" style="margin-left:1%;width:13%;" align="absmiddle">
+								<else />
+								</if>
+								<if condition="$tc['is_ll'] eq 1">
+								<img src="[!IMG]ll-gq.png" style="margin-left:1%;width:13%;" align="absmiddle">
+								<else />
+								</if>	
+								<if condition="$tc['is_yy'] eq 1">
+								<img src="[!IMG]yy-gq.png" style="margin-left:1%;width:13%;" align="absmiddle">
+								<else />
+								</if>		
+								</h4>
+							</div>
+							<table style="width:90%;margin-bottom: -2.5%;margin-top: 2%;"><tr><td rowspan="2">
+							<div class="col-6" style="float: left;padding: 5px 0;box-sizing: border-box;"> 
+								<div style="width: 216px;height: 116px;float: left;text-align: center;font-size: 2.4rem;font-weight: bold;color: #ffffff;margin: 5px;position: relative;background: url('[!IMG]{$tc.tc_img}') no-repeat center;background-size: 215px 115px;"></div> 
+							</div></td><td style="text-align:center;">	
+								<h4 style="font-weight: bold;color: #FE5C00;font-size: 1.4rem;margin-top:15px;">{$tc.tc_fee}{$tc.tc_fee_unit}</h4>
+								</td> </tr>
+							<tr>
+								<td >
+								<!--<a class="mui-btn mui-btn-success" style="width:100%;">
+									立即办理
+								</a>-->
+									<input type="button" onclick="goBusiness('{$tc.tc_name}');" class="greenbtn col-12" value="立即办理" style="color:#fff;background:#9fd10e;font-size:20px;"> 
+								
+							</td>
+								</tr>
+								</table>
+						</div> 
+					
+					<li class="mui-table-view-cell mui-collapse" style="width:100%";>
+						<a class="mui-navigate-right" href="#">							
+								查看详情
+						</a>						
+						<div class="mui-collapse-content">
+						<if condition="$tc['tc_content'] neq ''">
+							<div style="float: left;width:50%;">
+								<dl style="margin-top:5px;">
+								   <dt style="background: url([!IMG]header_bg.png) no-repeat;background-size: 28%;
+		height: 2rem;line-height: 1.8rem;text-indent: 1rem;color: #fff;background-size: 104px 29px;">套餐内容</dt>
+								<?php $tc_content_arr = explode('；',$tc['tc_content']);
+									  $tc_content_count = count($tc_content_arr) ;
+								?>
+								<for start="0" end="$tc_content_count">
+								   <dd style="line-height: 1.5;margin: 0 1rem;"><?php echo ($i+1).".  ".$tc_content_arr[$i];?></dd>
+								</for>
+								</dl>
+							</div>
+						<else/>
+						</if>
+							<div style="float: left;width:50%;">
+								<dl style="margin-top:5px;">
+								   <dt style="background: url([!IMG]header_bg.png) no-repeat;background-size: 28%;
+		height: 2rem;line-height: 1.8rem;text-indent: 1rem;color: #fff;background-size: 104px 29px;">说明</dt>
+								  <?php $tc_free_arr = explode('；',$tc['tc_free']);
+									  $tc_free_count = count($tc_free_arr) ;
+								?>
+								<if condition="$tc_free_arr[0] neq ''">
+								<for start="0" end="$tc_free_count">
+								   <dd style="line-height: 1.5;margin: 0 1rem;"><?php echo ($i+1).".  ".$tc_free_arr[$i];?></dd>
+								</for>
+								<else/>
+								</if>
+								</dl>
+							</div>	
+						</div>
+					</li>
+					</foreach>
+				</ul>
+			</div>
+			
+			
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script>
+			function goBusiness(tc_name){
+				location.href = "index.php?m=qzgdwl&a=qzgdwlBusiness&unionid=" + "{$unionid}" + "&tc_name=" + tc_name;
+			}
+		</script>
+	</body>
+
+</html>

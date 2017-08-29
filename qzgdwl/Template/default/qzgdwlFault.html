@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" class="feedback">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>泉州广电网络</title>
+		<link rel="stylesheet" type="text/css" href="[!CSS]mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="[!CSS]feedback.css" />
+		
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css" />
+		<link href="[!CSS]mui.picker.css" rel="stylesheet" />
+		<link href="[!CSS]mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="[!CSS]weui.css"/>
+		<link rel="stylesheet" href="[!CSS]example.css"/>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script src="[!JS]jquery-2.1.4.js"></script>
+		
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button id="submit" onclick="submit();" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">提交</button>
+			<h1 class="mui-title">报故障</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<!--<div class="mui-inline">问题和意见</div>-->
+				
+				<!--快捷输入具体内容，开发者可自己替换常用语-->
+				<div id="popover" class="mui-popover">
+					<div class="mui-popover-arrow"></div>
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<!--仅流应用环境下显示-->
+								<li class="mui-table-view-cell stream">
+									<a href="#">桌面快捷方式创建失败</a>
+								</li>
+								<li class="mui-table-view-cell"><a href="#">界面显示错乱</a></li>
+								<li class="mui-table-view-cell"><a href="#">启动缓慢，卡出翔了</a></li>
+								<li class="mui-table-view-cell"><a href="#">偶发性崩溃</a></li>
+								<li class="mui-table-view-cell"><a href="#">UI无法直视，丑哭了</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<h5 class="mui-content-padded">请选择故障类型</h5>
+				<button id='showCityPicker3' class="mui-btn mui-btn-block" type='button'>故障类型选择 ...</button>
+				您选择的故障是：<span id='faultType' class="ui-alert"></span>
+			</div>
+			<!--<a class="mui-pull-right mui-inline" href="#popover">
+					快捷输入
+					<span class="mui-icon mui-icon-arrowdown"></span>
+			</a>-->
+			<div class="row mui-input-row">
+				<textarea id='question' class="mui-input-clear question" placeholder="选填，请详细描述您的故障情况..."></textarea>
+			</div>
+			<p>图片(选填，方便我们定位故障，最多上传3张)</p>
+			<div id='image-list' class="row image-list">
+				<div class="weui_uploader_bd">
+                        <ul class="weui_uploader_files" >
+                           
+                        </ul>
+                        <div class="weui_uploader_input_wrp" id="chooseImage">
+                        </div>
+            </div>
+			</div>
+			<p>姓名</p>
+			<div class="mui-input-row" style="height:40px;">
+				<input id='cust_name' type="text" class="mui-input-clear contact" placeholder="(必填，方便我们称呼您 )" value="{$userRow['cust_name']}" />
+			</div>
+			<p>手机号</p>
+			<div class="mui-input-row" style="height:40px;">
+				<input id='contact' type="text" class="mui-input-clear contact" placeholder="(必填，方便我们联系您 )" value="{$userRow['mobile1']}" />
+			</div>
+			<p>地址</p>
+			<div class="mui-input-row">
+				<input id='address' type="text" class="mui-input-clear address" placeholder="(必填，方便我们上门维护 )"  value="{$userRow['address']}"/>
+				<input id='cust_code' type="text" class="mui-input-clear address" style="display:none"  value="{$userRow['cust_code']}"/>
+			</div>
+			
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script src="[!JS]mui.picker.js"></script>
+		<script src="[!JS]mui.poppicker.js"></script>
+		<script src="[!JS]city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui('.mui-scroll-wrapper').scroll();
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					
+					//-----------------------------------------
+					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					var faultType = doc.getElementById('faultType');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							faultType.innerText = "" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					//-----------------------------------------
+					
+				});
+			})(mui, document);
+			
+			
+		</script>
+		<script>
+			var unionid = '<?php echo $unionid;?>';
+			wx.config({
+			//debug: true,
+				appId: '<?php echo $signPackage["appId"];?>',
+				timestamp: <?php echo $signPackage["timestamp"];?>,
+				nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+				signature: '<?php echo $signPackage["signature"];?>',
+				jsApiList: [
+					"chooseImage",
+					"uploadImage",
+					"downloadImage",
+					"previewImage"
+				]
+		  });
+		   var images = {
+			localId: [],
+			serverId: []
+		  };
+		  var filename = "";
+		  document.getElementsByName("liPic").onclick = function(){
+			  //alert(123);
+		  }
+		  document.querySelector('#chooseImage').onclick = function () {
+			wx.chooseImage({
+			  success: function (res) {
+				filename = "";
+				images.localId = res.localIds;
+				//document.getElementById("abc").style.backgroundImage="url("+res.localIds[0]+")";
+				//alert('已选择 ' + res.localIds.length + ' 张图片');
+				$(".weui_uploader_files").html("");
+				var i = 0, length = images.localId.length;
+				for(var k=0;k<length && k<3;k++){
+					//document.getElementsByName("liPic")[k].style.display = "inline-block";
+					//document.getElementsByName("liPic")[k].style.backgroundImage="url("+res.localIds[k]+")";
+					$(".weui_uploader_files").append("<li class=\"weui_uploader_file\" name=\"liPic\"  style=\"width:75px;background-image:url(" + res.localIds[k] + ")\"></li>");
+				}
+				function upload() {
+				  wx.uploadImage({
+					localId: images.localId[i],
+					success: function (res) {
+					  i++;
+					  images.serverId.push(res.serverId);
+					  //document.getElementById("question").value = res.serverId;
+					  if (i < length && i<4) {
+						upload();
+					  }
+					  uploadImg(res.serverId);
+					  //download();
+					},
+					fail: function (res) {
+					  alert(JSON.stringify(res));
+					}
+				  });
+				}
+				
+				upload();
+				
+				function download() {
+				 
+				var i = 0, length = images.serverId.length;
+				//images.localId = [];
+				  wx.downloadImage({
+					serverId: images.serverId[i],
+					success: function (res) {
+					  
+					  
+					  //document.getElementById("abc").style.backgroundImage="url("+res.localId+")"; 
+					}
+				  });
+				}
+				//download();
+			  }
+			});
+		  };
+		  
+		document.querySelector('#previewImage').onclick = function () {
+			wx.previewImage({
+			  current: 'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+			  urls: [
+				'http://img3.douban.com/view/photo/photo/public/p2152117150.jpg',
+				'http://img5.douban.com/view/photo/photo/public/p1353993776.jpg',
+				'http://img3.douban.com/view/photo/photo/public/p2152134700.jpg'
+			  ]
+			});
+		  };
+		
+		function uploadImg(serverId){
+			var url = "index.php?m=qzgdwl&a=qzgdwlUploadImg&serverId="+serverId;
+			$.getJSON(url,function(data){
+				if(data.code==0){
+					filename += data.msg + "_";
+				}
+				//alert(filename);
+			});
+		}
+		function submit() {
+			var feedback = {
+				faultType: document.getElementById('faultType'), 
+				cust_name: document.getElementById('cust_name'), 
+				cust_code: document.getElementById('cust_code'), 
+				question: document.getElementById('question'), 
+				contact: document.getElementById('contact'), 
+				address: document.getElementById('address'), 
+				submitBtn: document.getElementById('submit')
+			};
+			if(BASEtrim(feedback.faultType.innerHTML) == ""){
+				return mui.toast('故障类型不能为空');
+			}else if(BASEtrim(feedback.cust_name.value) == ""){
+				return mui.toast('姓名不能为空');
+			}else if(BASEtrim(feedback.contact.value) == ""){
+				return mui.toast('手机号不能为空');
+			}else if(BASEtrim(feedback.address.value) == ""){
+				return mui.toast('地址不能为空');
+			}
+			//alert(feedback.cust_code.value);
+			var btnArray = ['取消', '确定'];
+			mui.confirm('手机号为' + feedback.contact.value , '提交前请确认', btnArray, function(e) {
+				if (e.index == 1) {
+					$.ajax({
+					type:'post',
+					  url: "index.php?m=qzgdwl&a=qzgdwlSaveFault&unionid=" + unionid,
+					  context: document.body,
+					  dataType:'json',  
+					  data:"fault_type="+BASEtrim(feedback.faultType.innerHTML)+"&fault_code="+feedback.cust_code.value+"&fault_detail="+feedback.question.value+"&fault_phone="+BASEtrim(feedback.contact.value)+"&fault_address="+feedback.address.value+"&fault_pic="+filename+"&fault_name="+feedback.cust_name.value,
+					  success: function(json){
+							if(json.code == "0"){
+								mui.alert(json.msg, function() {
+									location.href = "index.php?m=qzgdwl&a=qzgdwlFaultList&unionid=" + unionid;
+								});
+							}else{
+								mui.alert("提交失败！", function() {
+								});
+							}
+					  }
+					});	
+				} else {
+					feedback.contact.focus();
+					return false;
+				}
+			})
+		}
+		
+	function BASEtrim(str){
+		  if (str!=""){
+		  lIdx=0;
+	//	  if (document.all==null)
+	//	  	rIdx=str.length();
+	//	  else
+			rIdx=str.length;
+		  if (BASEtrim.arguments.length==2)
+			act=BASEtrim.arguments[1].toLowerCase();
+		  else
+			act="all"
+		  for(var i=0;i<str.length;i++){
+			thelStr=str.substring(lIdx,lIdx+1);
+			therStr=str.substring(rIdx,rIdx-1);
+			if ((act=="all" || act=="left") && thelStr==" "){
+				lIdx++;
+			}
+			if ((act=="all" || act=="right") && therStr==" "){
+				rIdx--;
+			}
+		  }
+		  if (document.all==null){
+			str=str.substring(lIdx,rIdx);
+		  }
+		  else{
+			str=str.slice(lIdx,rIdx);
+		  }
+
+		  }
+		  return str;
+	}
+		</script>
+		
+		<!--<script src="[!JS]feedback.js" type="text/javascript" charset="utf-8"></script>-->
+	</body>
+
+</html>

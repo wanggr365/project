@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html style="font-size: 120px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>排行榜</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="[!CSS]main.css">	
+		<script src="[!JS]jquery.min.js"></script>
+		<script src="[!JS]qhbRecord.js"></script>
+	
+	<script>
+		
+$(function(){
+		
+		
+ 		$("#width img").css("height",($(window).height()));
+		//$(".scroll img").css("width",($(window).width()));
+			$(".zjxx ul").css("height",($(window).height()/1.12));
+	
+});
+
+	</script></head>
+	
+	
+	<body>
+	<div id="width" "=""><img src="[!IMG]qhb/bg4.jpg" style="height: 974px;"></div>
+		<div class="zjxx" >
+			<ul style="height: 869.643px;">
+				<?php $i++; ?>
+				<foreach name="rankRow" item="rr">
+				<li>
+					<p class="one"><?php echo $i++; ?></p>
+					<i><img src="[!IMG]qhb/p1.png"></i>
+					<p class="nameAndTime">
+						<span>{$rr.username}</span>
+						<time><img src="[!IMG]qhb/p6.png">&nbsp;{$rr.money}元</time>
+					</p>
+					<p class="jp"><span><img src="[!IMG]qhb/p2.png"></span></p>
+				</li>	
+				</foreach>
+				<li style="background-color:yellow;">
+					<p class="one" style="color:black;">{$myRankRow.rang}</p>
+					<i><img src="[!IMG]qhb/p1.png" style ="margin-left:50%"></i>
+					<p class="nameAndTime" style ="margin-left:10%">
+						<span>我</span>
+						<time><img src="[!IMG]qhb/p6.png">&nbsp;{$myRankRow.money}元</time>
+					</p>
+					<p class="jp"><span><img src="[!IMG]qhb/p2.png"></span></p>
+				</li>
+			</ul>
+		</div>
+	
+
+</body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>泉州广电网络</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="[!CSS]mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="[!CSS]app.css"/>
+		
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon mui-icon-left-nav mui-pull-left" href="index.php?m=qzgdwl&a=qzgdwlPersonal&unionid={$unionid}"></a>
+			<h1 class="mui-title">在线办理查询</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<foreach name="busiRow" item="bu">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">{$bu.busi_type}&nbsp;&nbsp;&nbsp;&nbsp;{$bu.create_date}</a>
+						<div class="mui-collapse-content">
+							<form class="mui-input-group">
+								<div class="mui-input-row">
+									<label style="width:30%;">客户编号</label>
+									<label style="width:70%;color:blue;">{$bu.busi_code}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">姓名</label>	
+									<label style="width:70%;color:blue;">{$bu.busi_name}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">地址</label>
+									<label style="width:70%;color:blue;">{$bu.busi_address}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">手机号</label>
+									<label style="width:70%;color:blue;">{$bu.busi_phone}</label>
+								</div>
+								<div class="mui-input-row">
+									<label style="width:30%;">办理状态</label>
+									<label style="width:70%;color:blue;">{$bu.busi_status1}</label>
+								</div>
+							</form>
+							
+						</div>
+					</li>	
+					</foreach>
+				</ul>
+			</div>
+		</div>
+		<script src="[!JS]mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+		</script>
+	</body>
+
+</html>
