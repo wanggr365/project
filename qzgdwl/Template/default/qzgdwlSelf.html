@@ -12,34 +12,121 @@
 		<link rel="stylesheet" href="[!CSS]mui.min.css">
 		<!--App自定义的css-->
 		<link rel="stylesheet" type="text/css" href="[!CSS]app.css"/>
-		
+		<?php 
+			echo "<script>
+				var selfRow= $selfRow;
+				var selType = $selfType ;
+				</script>"
+		?>
+		<script>
+	
+			function initSelect(){
+				var obj= selfRow;
+				var initTilte = obj[0].self_type;
+				for(var i=0;i<obj.length;i++){
+					var self_type = obj[i].self_type;
+					var self_tilte = obj[i].self_tilte;
+					if(self_type == initTilte){
+						var option =  $("<option>").val(1).text(self_tilte);
+						$("#selectList").append(option);
+					}
+				}		
+			
+			}
+			
+			function initNavMenu()
+			{
+				var obj= selType;
+				var option="";
+				for(var i=0;i<obj.length;i++){
+					var self_type = obj[i].self_type;
+					if(i==0){
+						option =  "<a class=\"mui-control-item mui-active\">"+self_type+"</a>";
+					}else{
+						option =  "<a class=\"mui-control-item \">"+self_type+"</a>";
+					}
+					 
+					$("#segmentedControl").append(option);
+					
+				}
+			}
+			
+			function init(){
+				initNavMenu();
+				initSelect();
+			}
+		</script>
 	</head>
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">自助诊断</h1>
-		</header>
+	<body onload ="init()">
+		
 		<div class="mui-content">
-			<div class="mui-card">
-				<ul class="mui-table-view">
-					<foreach name="selfRow" item="se">
-					<li class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#"><b>{$se.self_type}</b>-{$se.self_tilte}</a>
-						<div class="mui-collapse-content">
-							<p>
-								{$se.self_content}
-							</p>
-						</div>
-					</li>
-					</foreach>
-				</ul>
+		
+			<div id="fixedtop" class="mui-content-padded" style="margin:0px">
+				<img src="[!IMG]zhbdBG.jpg" style="width:100%"/>
 			</div>
+														
+			<div  id="navMenu" style="padding: 10px 10px;">
+				<div  id="segmentedControl" class="mui-segmented-control">
+					
+				</div>
+			</div>
+						
+			<div id="select">
+				<select  id ="selectList" class="mui-btn mui-btn-block">
+				</select>
+			</select>
+					
+			<div id="display"	class="mui-collapse-content">
+				<p id="displayDetail">
+				</p>
+			</div>
+					
 		</div>
 		<script src="[!JS]mui.min.js"></script>
+		<script src="[!JS]agentJS/jquery.js"></script>
 		<script>
+		
 			mui.init({
 				swipeBack:true //启用右滑关闭功能
-			});
+				 
+			});	
+			
+		    mui('#segmentedControl').on('tap', 'a', function() { 
+					var type =this.innerText;
+					changSelList(type);
+                                });
+
+			$('select').on('click',function(){
+　　			var $opt = $(this).children('option:selected');
+				var title = $($opt).html();
+				var obj= selfRow;
+				for(var i=0;i<obj.length;i++){
+					var self_tilte = obj[i].self_tilte;
+					var self_content = obj[i].self_content;
+					if(self_tilte == title){
+						$('#displayDetail').text(self_content);
+					}
+				}			
+				
+			})
+
+			
+			function changSelList(type){
+				$("#selectList").empty();
+				var obj= selfRow;
+				for(var i=0;i<obj.length;i++){
+					var self_type = obj[i].self_type;
+					var self_tilte = obj[i].self_tilte;
+					if(self_type == type){
+						var option =  $("<option>").val(1).text(self_tilte);
+						$("#selectList").append(option);
+					}
+				}					
+
+			}
+					
+			
+
 		</script>
 	</body>
 

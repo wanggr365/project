@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>泉州广电网络</title>
-    <meta name="description" content="light7: Build mobile apps with simple HTML, CSS, and JS components.">
-    <meta name="author" content="任行">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="../favicon.ico">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta charset="utf-8">
+	<title>&nbsp;泉州广电网络</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name = "format-detection" content = "telephone=no">
 
-    <!-- Google Web Fonts -->
-
-    <link rel="stylesheet" href="[!CSS]light7.css?r=201603281">
-    <link rel="stylesheet" href="[!CSS]light7-swiper.css">
-    <link rel="stylesheet" href="[!CSS]light7-swipeout.css">
-    <link rel="stylesheet" href="[!CSS]demos.css">
+	<!--标准mui.css-->
+	<link rel="stylesheet" href="[!CSS]mui.min.css">
+	<!--App自定义的css-->
+	<link rel="stylesheet" type="text/css" href="[!CSS]app.css"/>
 
     <link rel="apple-touch-icon-precomposed" href="[!IMG]apple-touch-icon-114x114.png">
     <script src="[!JS]jquery-2.1.4.js"></script>	
 	<SCRIPT src="[!JS]qzgdwlSearch.js" type="text/JavaScript" > </SCRIPT>
 	<SCRIPT src="[!JS]function.js" type="text/JavaScript"></SCRIPT>
+	<script src="[!JS]mui.min.js"></script>
+	<script src="[!JS]echarts-all.js"></script>
+		
     <script type="text/JavaScript">
 		//var Request = new Object(); 			
 		//Request = GetRequest(); 
@@ -35,30 +32,89 @@
 				  dataType:'json',  
 				  data:"accountNo={$accountNo}",
 				  success: function(json){
-						$.hideIndicator();
-						if(json.CODE == "99"){
-							alert("当前客户不存在！");
-						}else{
-							var l = json.length;
+						var totalAmount=0;
+						var amountList=[];
+						var monthList=[];
+						
+						var l = json.length;
 							var j = 0;
-							var k = 0
-							for(var i=l-2;i>=0;i--){
-								k = i < 10 ? '0' + i.toString() : i; 
-								$("#tbBill").append('<tr><td class=\"tdBill\">' + json[i].BILLCYCLE + '</td>' + '<td class=\"tdBill\">' + json[i].AMOUNT + '</td>' + '<td class=\"tdBill\">' + json[i].PPYAMOUNT + '</td>' + '<td class=\"tdBill\">' + json[i].UNPAYMENTCHARGE + '</td>' + '<td class=\"tdBill\" style=\"display:none;\">' + '<a id=\"aBill' + i +  '\" onclick=\"getSubBill(\'trBill' + k + '\', \'aBill' + i + '\' )\">查看详单</a>' + '</td>' + '</tr>' );
-								do{
-									if(j == 0){
-										$("#tbBill").append('<tr id=\"trBill' + k + '\" class=\"trBill\"><td class=\"thBill\">计费期</td><td class=\"thBill\">账单科目</td><td class=\"thBill\">账单金额（元）</td><td class=\"thBill\">已缴金额（元）</td><td class=\"thBill\">未缴金额（元）</td></tr>' );
-									}else{
-										$("#tbBill").append('<tr id=\"trBill' + k + j + '\" class=\"trBill\"><td class=\"thSubBill\">' + json[i][j-1].BILLCYCLE + '</td>' + '<td class=\"thSubBill\">' + json[i][j-1].ACCTITEMTYPENAME + '</td>' + '<td class=\"thSubBill\">' + json[i][j-1].AMOUNT + '</td>' + '<td class=\"thSubBill\">' + json[i][j-1].PPYAMOUNT + '</td>' + '<td class=\"thSubBill\">' + json[i][j-1].UNPAYMENTCHARGE + '</td></tr>' );
-									}
-									j++;
-								}while(json[i][j-1])
-								j = 0;
+							var k = 0;
+							for(var i=l-2;i>=0 && k<4;i--){
+								k++;
+								
+								var cycle = json[i].BILLCYCLE.substr(0,4)+"-"+json[i].BILLCYCLE.substr(4,2);
+								$("#tbBill").append('<tr style=\"width:100%; border-bottom: 2px solid #f0f0f0;height: 50px;\"><td class=\"tdBill\" style=\"text-align:left;width:50%\">' + cycle + '</td>' + '<td class=\"tdBill\" style=\"text-align:right;width:50%\">' + json[i].AMOUNT + '元</td>'  + '</tr>' );
+								totalAmount += parseInt(json[i].AMOUNT);
+								amountList.push(parseInt(json[i].AMOUNT));
+								
+								var month= parseInt(json[i].BILLCYCLE.substr(4,2))+"月";
+								monthList.push(month);
+								
 							}
-							$("#ywyBalance").html(json[0].BALANCE+"元");
 							
+							var tmparray = [amountList[0],amountList[1],amountList[2],amountList[3]];
+							
+							$("#ywyBalance").html(json[0].BALANCE+"元");
+							$("#cust_name").html("{$cust_name}");	
+							$("#totalAmount").html(totalAmount + "元");	
+							
+							// 柱状图初始化数据
+							var getOption = function(chartType) {
+				var chartOption =  {
+					
+					grid: {
+						x: 35,
+						x2: 10,
+						y: 30,
+						y2: 25
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							mark: {
+								show: true
+							},
+							dataView: {
+								show: true,
+								readOnly: false
+							},
+							magicType: {
+								show: true,
+								type: ['bar']
+							},
+							restore: {
+								show: true
+							},
+							saveAsImage: {
+								show: true
+							}
 						}
-						$.hideIndicator();
+					},
+					calculable: false,
+					xAxis: [{
+						type: 'category',
+						data: [monthList[0],monthList[1],monthList[2],monthList[3]]
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '消费额',
+						type: chartType,
+						data:[amountList[0],amountList[1],amountList[2],amountList[3]]
+					}]
+				};
+				return chartOption;
+			};
+			var byId = function(id) {
+				return document.getElementById(id);
+			};
+			var barChart = echarts.init(byId('barChart'));
+			barChart.setOption(getOption('bar'));
+			
 				  }
 			});	
 	});
@@ -73,35 +129,45 @@
     </script>
   </head>
   <body>
-    <div id="page-label-input" class="page">
-  <header class="bar bar-nav">
-    <a class="button button-link button-nav pull-left" onclick="goBack1()">
-      <span class="icon icon-left" style="font-size:16px;">个人中心</span>
-      
-    </a>
-    <h1 class="title">历史账单查询</h1>
-  </header>
+  <div id="page-label-input" class="page">
   <div class="content">
-  <div class="tbBill">
-    <table id="tbBill" frame="box" style="background-color:#ffffff;" >
-		<tr style="border: 1px solid #11cbb6;">
-			<th colspan="5">
-				<em>*</em>当前账户余额：<span id="ywyBalance"></span><a href="javascript:void(0);" onclick="goUrl();">（点击缴费）</a>
-			</th>
-		</tr>	
-		<tr>
-		  <td class="thBill">计费期</td>
-		  <td class="thBill">账单金额（元）</td>
-		  <td class="thBill">已缴金额（元）</td>
-		  <td class="thBill">未缴金额（元）</td>
-		  <td class="thBill" style="display:none;">操作</td>
-		</tr>
-	</table>	
-   </div>
-	<p class="ywyP1">注：查询结果只显示最近一年的账单</p>
+	<div id="fixedtop" class="mui-content-padded" style="margin:0px">
+		<img src="[!IMG]10.jpg" style="height:20%;width:100%"/>
+		<span id="custLabel" style="position: absolute; top: 1%;left: 5%;  color: white;font-weight: bolder; font-size: 1.0rem;" >账单查询</span>
+		<span id="cust_name" style="position: absolute; top: 1%;left: 30%;  color: white; font-size: 1.0rem;"></span>
+		<span id="balanceLabel" style="position: absolute; top: 6%;left: 42%;  color: white; font-size: 0.8rem;">余额</span>
+		<span id="ywyBalance" style="position: absolute; top: 10%;left: 38%;  color: white; font-size: 1.0rem;"></span>
+		<a href="javascript:void(0);" onclick="goUrl();" style="position: absolute; top:16%;left: 38%;  color: white; font-size: 0.8rem;color:#0894ec">（点击缴费）</a>
+	</div>
+	<div id="displayChar" class="mui-content-padded" style="margin:0px;margin-top:-2%";>
+		<table style="width:100%;background-color:#f0ede8;border-top: 6px solid #e7dcca;">
+			<tr>
+				<td style="width:60%">
+						<div class="chart" id="barChart" style="width:100%;height:200px"></div>
+				</td>
+				<td style="width:40%;text-align:center;">
+						<p>最近四个月消费</p>
+						<p id="totalAmount"></p>
+				</td>
+			<tr>
+		</table>
+	</div>
+	
+	<div id="displayDetail" class="mui-content-padded" style="margin:0px;background-color:#f0f0f0;">
+		<table id="tbBill"  style="width:80%;margin:0px 10%  10%" >
+		</table>	
+	</div>
+	
+			
+		
+		
+	
+	<script>
+			
+		</script>
+	
   </div>
-</div>
-
+  </div>
     <script src="[!JS]light7.js"></script>
     <script src="[!JS]light7-swiper.js"></script>
     <script src="[!JS]light7-city-picker.js"></script>
@@ -109,3 +175,5 @@
     <script src="[!JS]demos.js?r=201603281"></script>
   </body>
 </html>
+
+
