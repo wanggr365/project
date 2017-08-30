@@ -23,15 +23,7 @@
 			function initSelect(){
 				var obj= selfRow;
 				var initTilte = obj[0].self_type;
-				for(var i=0;i<obj.length;i++){
-					var self_type = obj[i].self_type;
-					var self_tilte = obj[i].self_tilte;
-					if(self_type == initTilte){
-						var option =  $("<option>").val(1).text(self_tilte);
-						$("#selectList").append(option);
-					}
-				}		
-			
+				changSelList(initTilte);	
 			}
 			
 			function initNavMenu()
@@ -62,7 +54,7 @@
 		<div class="mui-content">
 		
 			<div id="fixedtop" class="mui-content-padded" style="margin:0px">
-				<img src="[!IMG]zhbdBG.jpg" style="width:100%"/>
+				<img src="[!IMG]zzzdBG.jpg" style="width:100%"/>
 			</div>
 														
 			<div  id="navMenu" style="padding: 10px 10px;">
@@ -71,12 +63,13 @@
 				</div>
 			</div>
 						
-			<div id="select">
+			<div id="select1" style="margin-right: 10px;margin-left: 10px;">
 				<select  id ="selectList" class="mui-btn mui-btn-block">
-				</select>
-			</select>
 					
-			<div id="display"	class="mui-collapse-content">
+				</select>
+			</div>		
+			<div id="display"	class="mui-collapse-content" style="margin-right: 20px;margin-left: 20px;margin-top:50px">
+				<p style="font-size:20px;font-weight:bold;color:#5c5c5c">解决方案:</p>
 				<p id="displayDetail">
 				</p>
 			</div>
@@ -93,12 +86,37 @@
 			
 		    mui('#segmentedControl').on('tap', 'a', function() { 
 					var type =this.innerText;
+					
 					changSelList(type);
                                 });
 
-			$('select').on('click',function(){
+			$('select').on('change',function(){
 　　			var $opt = $(this).children('option:selected');
 				var title = $($opt).html();
+				displayContent(title);				
+			})
+
+			
+			function changSelList(type){
+				$("#selectList").empty();
+				var obj= selfRow;
+				var j=0;
+				for(var i=0;i<obj.length;i++){
+					var self_type = obj[i].self_type;
+					var self_tilte = obj[i].self_tilte;
+					if(self_type == type){						
+						var option =  $("<option>").val(1).text(self_tilte);
+						$("#selectList").append(option);
+						if( j == 0 ){
+							displayContent(self_tilte);
+						}
+						j++;
+					}
+				}					
+
+			}
+			
+			function displayContent(title){
 				var obj= selfRow;
 				for(var i=0;i<obj.length;i++){
 					var self_tilte = obj[i].self_tilte;
@@ -106,23 +124,7 @@
 					if(self_tilte == title){
 						$('#displayDetail').text(self_content);
 					}
-				}			
-				
-			})
-
-			
-			function changSelList(type){
-				$("#selectList").empty();
-				var obj= selfRow;
-				for(var i=0;i<obj.length;i++){
-					var self_type = obj[i].self_type;
-					var self_tilte = obj[i].self_tilte;
-					if(self_type == type){
-						var option =  $("<option>").val(1).text(self_tilte);
-						$("#selectList").append(option);
-					}
-				}					
-
+				}		
 			}
 					
 			

@@ -31,10 +31,10 @@
 				<if condition="$card['card_status'] eq '0'">
 					<?php $i++; ?>
 					
-					<div class="unuse" onClick="alterMsg('{$card.id}','{$card.card_no|substr=-4,4}');" style="margin-left:5%;margin-right:5%;height:105px">
+					<div class="unuse" onClick="alterMsg('{$card.id}','{$card.card_no|substr=-4,4}');" style="margin-left:5%;margin-right:5%;margin-bottom:1%;position:relative">
 						<img src="[!IMG]yhq_unuse.png" style="width:100%;margin-top:2%;">
-						<p style="position: relative;top: -73px;left: 105px;">{$card.card_name}&nbsp;&nbsp;&nbsp;&nbsp;（卡号：******{$card.card_no|substr=-4,4}）</p>
-						<p style="position: relative;top: -71px;left: 97px;overflow: visible;">有效期：{$card.card_expiredate}&nbsp;|&nbsp;{$card.card_remark}</p>
+						<p style="position: absolute;top: 34%;left: 30%;font-size:12px;">{$card.card_name}&nbsp;&nbsp;&nbsp;&nbsp;（卡号：******{$card.card_no|substr=-4,4}）</p>
+						<p style="position: absolute;top: 61%;left: 30%;overflow: visible;font-size:12px;">有效期：{$card.card_expiredate}&nbsp;|&nbsp;{$card.card_remark}</p>
 					</div>
 									
 				</if>
@@ -57,11 +57,11 @@
 				<if condition="$card['card_status'] eq '1'">
 					<?php $i++; ?>
 				
-					<div class="used"  style="margin-left:5%;margin-right:5%;height:105px">
+					<div class="used"  style="margin-left:5%;margin-right:5%;margin-bottom:2%;position:relative">
 						<a href="index.php?m=qzgdwl&a=ywyCharge&acctNo={$userRow['accountno']}&unionid={$unionid}">
 						<img src="[!IMG]yhq_used.png" style="width:100%;margin-top:2%;">
-						<p style="position: relative;top: -73px;left: 105px;">{$card.card_name}&nbsp;|&nbsp;{$card.card_useddate}</p>
-						<p style="position: relative;top: -71px;left: 97px;overflow: visible;">来源：{$card.card_remark}</p>
+						<p style="position: absolute;top: 34%;left: 30%;font-size:12px;">{$card.card_name}&nbsp;|&nbsp;{$card.card_useddate}</p>
+						<p style="position: absolute;top: 61%;left: 30%;overflow: visible;font-size:12px;">来源：{$card.card_remark}</p>
 						</a>
 					</div>
 					
