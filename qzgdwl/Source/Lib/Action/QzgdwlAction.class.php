@@ -1,11 +1,18 @@
-﻿<?php
+<?php
 class QzgdwlAction extends Action {
-    protected function _initialize() {		
-		$useragent = addslashes($_SERVER['HTTP_USER_AGENT']);		
-		$this->isWx();
-		if(strpos($useragent, 'MicroMessenger') == false && strpos($useragent, 'Windows Phone') == false ){
-			header("location:http://www.968816.com.cn/error.html");
-		}		
+    protected function _initialize() {
+		$useragent = addslashes($_SERVER['HTTP_USER_AGENT']);	
+
+		//$_SESSION['unionid'] = 'j8HfvgRu1LYgrBUjsiC-YegE0yM';
+		//$_SESSION['openid'] = 'odrEdt-p-oPeQ7gA4rpXlTI34E_0';	
+		
+		$_SESSION['unionid'] = 'oj8HfvquP3oHLCavPTo5bCROjMmc';
+		$_SESSION['openid'] = 'odrEdt4BSKcs-VvOXocU3joswWDU';	
+		
+		// $this->isWx();
+		// if(strpos($useragent, 'MicroMessenger') == false && strpos($useragent, 'Windows Phone') == false ){
+			 // header("location:http://www.968816.com.cn/error.html");
+		// }		
 	}
 	
     public function index(){
@@ -272,21 +279,26 @@ class QzgdwlAction extends Action {
 	private function isWx(){
 		
 		if(!$_SESSION['unionid'] || !$_SESSION['openid'] || !$_SESSION['state']){
-			$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=qzgdwl%26qzgdwlIndex#wechat_redirect";
+			//$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http%3a%2f%2fwww.968816.com.cn%2fqzgdwl%2findex.php%3fm%3dlogin%26a%3dindex&response_type=code&scope=snsapi_base&state=qzgdwl%26qzgdwlIndex#wechat_redirect";
+			
+			$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1ae00a2623048bf1&redirect_uri=http://192.168.191.1/qzgdwl/index.php?m=qzgdwl&a=qzgdwlIndex&response_type=code&scope=snsapi_base&state=qzgdwl/qzgdwlIndex#wechat_redirect";
 			header("Location: $url");
 		}
 	}
 	
 	public function qzgdwlIndex(){
-
 		if(strpos($_SERVER["HTTP_USER_AGENT"],"Chrome"))  {
 			$this->assign("browser","chrome");
 		}
 		
 		$this->assign("unionid",$_SESSION['unionid']);
 		$this->assign("openid",$_SESSION['openid']);
+		
 		$unionid = $_SESSION['unionid'];
 		$openid = $_SESSION['openid'];
+		
+		// $unionid = 'oj8HfvquP3oHLCavPTo5bCROjMmc';
+		// $openid = 'oq76puBf2GX4A0q2bxJc8E5jmO_A';
 		
 		$user = M('User');
 		$unionidArr = array();
@@ -310,7 +322,14 @@ class QzgdwlAction extends Action {
 		$unionidArr['unionid'] = $unionid;
 		$userRow = $user->where($unionidArr)->select();
 		$userMoreRow = M('Usermore')->where($unionidArr)->select();
-		//echo $unionid;
+		
+		//echo $this->json($userRow);
+		//echo $this->json($userMoreRow);
+		//$this->assign("tmp_userRow",json_encode($userRow));
+		//$this->assign("tmp_userMoreRow",json_encode($userMoreRow));
+		
+		//echo count($userMoreRow);
+		
 		if($userRow){
 			if($userRow[0]['is_binding'] == 1 && $userRow[0]['cust_code']){		
 				$this->qzgdwlSaveLog("登录");
@@ -318,6 +337,14 @@ class QzgdwlAction extends Action {
 				$count = count($addressArr);
 				$userRow[0]['address1'] = $addressArr[$count-3];
 				$userRow[0]['address2'] = $addressArr[$count-2].$addressArr[$count-1];
+				
+				$userRow[0]['cust_name'] = $this->hideName($userRow[0]['cust_name']);
+				for ($i=0;$i<count($userMoreRow);$i++)
+				{
+						$userMoreRow[$i]['cust_name'] = $this->hideName($userMoreRow[$i]['cust_name']);
+				}
+			
+				
 				$this->assign("userRow",$userRow[0]);
 				$this->assign("userMoreRow",$userMoreRow);
 				
@@ -351,6 +378,8 @@ class QzgdwlAction extends Action {
 	public function qzgdwlPersonal(){
 		$unionid = $_SESSION['unionid'];
 		$openid = $_SESSION['openid'];
+		
+		
 		
 		$this->assign("unionid",$unionid);
 		$user = M('User');
@@ -609,6 +638,7 @@ class QzgdwlAction extends Action {
 		
 		$id = $_POST['id'];
 		$card = M('Card');
+		$card = M('Card');
 		$cardConditonArr = array();
 		$cardConditonArr['id'] = $id;
 		$cardRow = $card->where($cardConditonArr)->select();
@@ -823,8 +853,14 @@ class QzgdwlAction extends Action {
 		
 		$self = M('Self');
 		$selfRow = $self->order('self_id asc')->select();
-		$this->assign("selfRow",$selfRow);
+		$selfType = $self->Distinct(true)->field('self_type')->order('self_id asc')->select();
+		
+		$this->assign("selfRow",json_encode($selfRow));
+		$this->assign("selfType",json_encode($selfType));
 		$this->assign("unionid",$unionid);
+		
+		$this->assign("test","HeiLOOd");
+		
 		$this->display(C('HOME_DEFAULT_THEME').':qzgdwlSelf');		
 	}
 	
@@ -1158,7 +1194,11 @@ class QzgdwlAction extends Action {
 		$unionidArr['unionid'] = $unionid;
 		$userRow = $user->where($unionidArr)->select();
 		if($userRow[0]['is_binding']==1){
-			$this->assign("accountNo",$userRow[0]['accountno']);	
+			
+			$userRow[0]['cust_name'] = $this->hideName($userRow[0]['cust_name']);	
+			
+			$this->assign("accountNo",$userRow[0]['accountno']);
+			$this->assign("cust_name",$userRow[0]['cust_name']);				
 			$this->assign("unionid",$unionid);		
 			$this->display(C('HOME_DEFAULT_THEME').':ywyBill');
 		}else{
@@ -2011,6 +2051,174 @@ class QzgdwlAction extends Action {
 		echo $this->json($result);
     }
 	
+	public function loginSubmitNew(){
+		$result = array();
+		$haveBind = 0;//判断是否有绑定记录
+		$unionid = $_SESSION['unionid'];
+		$openid = $_SESSION['openid'];
+		
+		$cust_code = $this->post_check($_POST['cust_code']);
+		$cust_name = $this->post_check($_POST['cust_name']);
+		$phone = $this->post_check($_POST['phone']);
+		$verCode = $this->post_check($_POST['verCode']);
+		
+		
+			
+		$isUser = $this->isUser(array('unionid'=>$unionid,'is_binding'=>1));
+		
+		//判断验证码是否正确
+        $checkVerify =  $this->checkVerifyNo($phone,$verCode);
+		if($checkVerify == 1){
+			$result['verCode'] = "验证码正确！";
+			$isMore = $this->isMore($cust_code);
+			if(count($isMore) > 3){
+				$result['code'] = 2;
+				$result['msg'] = "抱歉，该账号已被绑定！";
+			}elseif(count($isUser)>=3){
+				$result['code'] = 2;
+				$result['msg'] = "抱歉，最多只能绑定三个账号！";
+			}elseif($isUser){
+				foreach($isUser as $isU){
+					if($isU['cust_code'] == $cust_code){
+						$haveBind = 1;
+						break;
+					}
+				}
+				if($haveBind == 1){
+					$result['code'] = 2;
+					$result['msg'] = "您已绑定当前账户，请勿重复！";
+				}else{
+					//$TOKEN_URL="http://36.250.88.58:8085/ppjj/tvPpjj.action?method=loginBossByPwd&custcode=$cust_no&pwd=$pwd";
+					//$values = $this->getBoss($TOKEN_URL);
+					//if($values[0]['attributes']['RETURN-CODE'] == 0) {	
+					if(true){
+			
+					
+						$userMore = M('Usermore');				
+						$data = array();			
+						
+						$TOKEN_URL="http://36.250.88.58:8085/ppjj/tvPpjj.action?method=loginBossByName&custcode=$cust_code";
+						$values = $this->getBoss($TOKEN_URL);
+						
+						if(strlen($values[1]['attributes']['CUSTOMERCODE']) == 12){
+							
+							$data['cust_code'] = $values[1]['attributes']['CUSTOMERCODE'];
+							$data['cust_name'] = $values[1]['attributes']['CUSTOMERNAME'];
+							$data['cust_prop'] = $values[1]['attributes']['CUSTPROP'];
+							$data['address'] = $values[1]['attributes']['ADDRESS'];
+							$data['phone1'] = $values[1]['attributes']['PHONE1'];
+							$data['phone2'] = $values[1]['attributes']['PHONE2'];
+							$data['mobile1'] = $values[1]['attributes']['MOBILE1'];
+							$data['mobile2'] = $values[1]['attributes']['MOBILE2'];
+							$data['accountno'] = $values[1]['attributes']['ACCOUNTID'];	
+							$data['createdate'] = $values[1]['attributes']['CREATEDATE'];
+							$data['createorg'] = $values[1]['attributes']['CREATEORG'];	
+							$data['ownorgid'] = $values[1]['attributes']['OWNORGID'];
+							$data['parentMgrAddrId'] = $values[1]['attributes']['PARENTMGRADDRID'];	
+							$data['mgrAddrid'] = $values[1]['attributes']['MGRADDRID'];
+							$data['bind_time'] = date('Y-m-d H:i:s',time());			
+							$data['is_binding'] = 1;					
+							$data['unionid'] = $unionid;
+							$data['subscribe_time'] = date('Y-m-d H:i:s',time());
+							$data['bind_msisdn'] = $phone;
+							$userMore->data($data)->add();
+												
+							$unionidArr = array();
+							$unionidArr['unionid'] = $unionid;
+							$user = M('User');
+							//$userRow = $user->where($unionidArr)->select();
+							$user->where($unionidArr)->setInc('binding_num',1);//->save(array('binding_num'=>intval($userRow[0]['binding_num'] )+ 1));	
+							
+							$result['code'] = 0;
+							$result['msg'] = "新客户编号绑定成功！";
+						}else{
+							$this->qzgdwlSaveLog("系统无法获取该账号！".$cust_no);
+							$result['code'] = 2;
+							$result['msg'] = "系统无法获取该账号，请重试一下！";
+						}
+					}else{
+						$result['code'] = 1;
+						$result['msg'] = "客户编号或服务密码错误！";
+					}			
+				}			
+			}else{
+				// $TOKEN_URL="http://36.250.88.58:8085/ppjj/tvPpjj.action?method=loginBossByPwd&custcode=$cust_no&pwd=$pwd";
+				// $values = $this->getBoss($TOKEN_URL);
+				// if($values[0]['attributes']['RETURN-CODE'] == 0) {		
+					//echo "登录成功";
+				   if(true){
+					$user = M('User');				
+					$data = array();			
+					$unionidArr = array();
+					$unionidArr['unionid'] = $unionid;
+					$userRow = $user->where($unionidArr)->select();
+					//if($userRow){
+					$TOKEN_URL="http://36.250.88.58:8085/ppjj/tvPpjj.action?method=loginBossByName&custcode=$cust_code";
+					$values = $this->getBoss($TOKEN_URL);
+					if(strlen($values[1]['attributes']['CUSTOMERCODE']) == 12){
+						$data['cust_code'] = $values[1]['attributes']['CUSTOMERCODE'];
+						$data['binding_num'] = 1;
+						$data['cust_name'] = $values[1]['attributes']['CUSTOMERNAME'];
+						$data['cust_prop'] = $values[1]['attributes']['CUSTPROP'];
+						$data['address'] = $values[1]['attributes']['ADDRESS'];
+						$data['phone1'] = $values[1]['attributes']['PHONE1'];
+						$data['phone2'] = $values[1]['attributes']['PHONE2'];
+						$data['mobile1'] = $values[1]['attributes']['MOBILE1'];
+						$data['mobile2'] = $values[1]['attributes']['MOBILE2'];
+						$data['accountno'] = $values[1]['attributes']['ACCOUNTID'];	
+						$data['createdate'] = $values[1]['attributes']['CREATEDATE'];
+						$data['createorg'] = $values[1]['attributes']['CREATEORG'];	
+						$data['ownorgid'] = $values[1]['attributes']['OWNORGID'];
+						$data['parentMgrAddrId'] = $values[1]['attributes']['PARENTMGRADDRID'];	
+						$data['mgrAddrid'] = $values[1]['attributes']['MGRADDRID'];
+						$data['bind_time'] = date('Y-m-d H:i:s',time());			
+						$data['is_binding'] = 1;
+						$data['bind_msisdn'] = $phone;
+						$user->where($unionidArr)->save($data);
+						//$this->display(C('HOME_DEFAULT_THEME').':bindSuc');
+									
+						$data['unionid'] = $unionid;
+						M('Usermore')->data($data)->add();
+						
+						$arrShare = array();
+						$arrShare['unionidnext'] = $unionid;
+						$arrShare['cust_code']=array('EXP','IS NULL');
+						$share_binding = M('Share_binding_ywy');
+						$share_bindingRow = $share_binding->where($arrShare)->order('id desc')->select();
+						//$arrShare['unionid'] = $share_bindingRow[0]['unionid'];
+						if($share_bindingRow){
+							$share_bindingRow1 = $share_binding->where($arrShare)->save(array('cust_code'=>$values[1]['attributes']['CUSTOMERCODE'],'cust_name'=>$values[1]['attributes']['CUSTOMERNAME'],'create_date'=>date('Y-m-d H:i:s',time())));
+							if($share_bindingRow1){
+								M('Share_code_ywy')->where(array('sharecode'=>$share_bindingRow[0]['sharecode']))->setInc('score',1);
+								//$this->bindingShare($share_bindingRow[0]['unionid'],$share_bindingRow[0]['unionidnext']);
+							}
+						}else{
+							//$this->bindingShare('',$unionid);
+						}
+						$result['code'] = 0;
+						$result['msg'] = "绑定成功！";
+						}else{
+						$this->qzgdwlSaveLog("系统无法获取该账号！".$cust_no);
+						$result['code'] = 2;
+						$result['msg'] = "系统无法获取该账号，请重试一下！";
+					}
+				}else{
+					$result['code'] = 1;
+					$result['msg'] = "客户编号或服务密码错误！";
+				}	
+			}
+				
+		}else{
+				$result['code'] = 4;
+				$result['msg'] = "抱歉，验证码错误！";
+				$result['verCode'] = "验证码错误！";
+		}
+		
+		echo $this->json($result);
+    }
+	
+	
+	
 	public function bindingShare($unionid,$unionidNext){
 		
 		
@@ -2248,16 +2456,19 @@ class QzgdwlAction extends Action {
 		$parser = xml_parser_create();//创建解析器
 		xml_parse_into_struct($parser, $data, $values, $index);//解析到数组
 		xml_parser_free($parser);//释放资源
-		return $values;
-		//print_r($values);
-		//echo $values[0]['tag'];
-		//echo json_encode($values[1],JSON_UNESCAPED_UNICODE);
-		//echo json_decode($values);
-		//echo "\n索引数组\n";
-		//print_r($index);
-		//echo "\n数据数组\n";
-		//print_r($values);
 		
+		
+		// print_r($values);
+		// echo $values[0]['tag'];
+		// echo json_encode($values[1],JSON_UNESCAPED_UNICODE);
+		// echo json_decode($values);
+		// echo "\n索引数组\n";
+		// print_r($index);
+		// echo "\n数据数组\n";
+		// print_r($values);
+		
+		
+		return $values;
 	}
 	
 	private function json($array){
@@ -2281,6 +2492,112 @@ class QzgdwlAction extends Action {
 					unset($array[$key]);
 				}
 			}
+		}
+	}
+	
+	public function sendSMS(){
+		
+		// $result['code'] = 1;
+		// $result['msg'] = "短信已发送！";
+		// echo $this->json($result);
+						
+			
+		$unionid = $_SESSION['unionid'];
+		$openid = $_SESSION['openid'];
+		$result = array();
+		
+		$phone = $_POST['phone'];
+		
+		$data = array();
+		$data['unionid'] = $_SESSION['unionid'];
+		
+		if($_SESSION['unionid']){
+			
+											
+					require_once "ServerAPI.php";
+					$test = new ServerAPI('b71820caab4115163fccea2ebe6a1f6f','f21c592d1317','curl');
+					$resultSMS = $test->sendSmsCode($phone,'',3055328,6);
+					if($resultSMS['code'] == 200){
+						$result['code'] = 1;
+						$result['msg'] = "短信已发送！";
+						//$this->agentSaveLog($phone."  修改密码短信已发送");
+					}else{
+						$result['code'] = 3;
+						$result['msg'] = "短信发送失败！";
+						$result['phone'] = $phone;
+						//$this->agentSaveLog($phone."  修改密码短信发送失败！");
+					}
+					
+					echo $this->json($result);
+			
+		}else{
+			$result['code'] = 0;
+			$result['msg'] = "操作超时！";
+			echo $this->json($result);
+		}	
+		
+	}
+	
+	public function checkVerifyNo($phone,$verify_no){
+		return 1;
+		/*
+		require_once "ServerAPI.php";
+		$test = new ServerAPI('b71820caab4115163fccea2ebe6a1f6f','f21c592d1317','curl');
+		$resultSMS = $test->verifycode($phone,$verify_no);
+		if($resultSMS['code'] == 200){
+			return 1;//成功
+		}else{
+			return 3;
+		}
+		*/
+	}
+	
+	public function hideName($name){
+		$length = mb_strlen($name);
+		return $length > 2 ? mb_substr($name,0,1).'*'.mb_substr($name,2,1):mb_substr($name,0,1).'*';
+	}
+	
+	
+	public function productOrder(){
+		$this->isLogin();
+		$unionid = $_SESSION['unionid'];
+		$openid = $_SESSION['openid'];
+		$this->display(C('HOME_DEFAULT_THEME').':productOrder');
+	}
+	
+	private function isLogin(){
+		if(!$_SESSION['unionid']){			
+			$this->display(C('HOME_DEFAULT_THEME').':qzgdwlLogin');
+			$url = "index.php?m=qzgdwl&a=qzgdwlLogin";
+			header("Location: $url");
+		}
+	}
+	
+	public function productOrderAdd(){
+		$business = M('Agent_business');
+		$data = array();
+		$data['unionid'] = $_SESSION['unionid'];
+		$result = array();
+		if($_SESSION['unionid']){
+			$data['org'] = $_SESSION['org'];
+			$data['org_type'] = $_SESSION['org_type'];
+			$data['district'] = $_POST['district'];
+			$data['town'] = $_POST['town'];
+			$data['create_date'] = date('Y-m-d H:i:s',time());
+			$data['busi_type'] = substr($_POST['business'],0,10);
+			$data['busi_name'] = $_POST['name'];
+			$data['busi_phone'] = $_POST['phone'];
+			$data['phone'] = $_SESSION['phone'];
+			$data['busi_address'] = $_POST['address'];
+			$data['busi_status1'] = '待处理';
+			$business->data($data)->add();
+			$result['code'] = 1;
+			$result['msg'] = "提交成功，客服人员将与客户联系。";
+			echo $this->json($result);
+		}else{
+			$result['code'] = 0;
+			$result['msg'] = "操作超时！";
+			echo $this->json($result);
 		}
 	}
 
@@ -2911,6 +3228,8 @@ class wechatCallbackapiTest
 		//print_r($values);
 		
 	}
+	
+	
 }
 
 ?>
