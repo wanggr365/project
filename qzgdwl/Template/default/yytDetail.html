@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<html lang="zh" style="font-size: 80px;">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta id="metaId" name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <title>{$yytRow.name}</title>
+        <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+        <link rel="stylesheet" href="[!CSS]yyt/branchMap.min-1.0.2.css">
+        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=8dc4612a0f4a3868a5ea9e1e808297dd"></script>
+    </head>
+<body>
+<div id="container"></div>
+<div class="branch-info flex-box">
+    <div class="info flex-box-sub1">
+        <p class="t-24">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAAAdVBMVEUAAAAxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5gxq5jeqWIsAAAAJnRSTlMA4C7s0RzccPuwX/H258lBOE6WjIIkCb6oY1ZIFAWkeGkPDcy1nf2U3aQAAAEJSURBVDjL3dHbcoMgFAVQRFEiXiBeEmPMrS3//4llwzh0KtTnZj9wjsNShwP5nbZOL2QnbaU131FSaBOudg1UGzc0NUDUZqmMKpsuZirpqHxxreeNGdwnKKMCSpmlDBo+0zRnUoAHEMthFP6VsxYCKGQuMFAzD6BrBlPCOKW4RRujJ5hVlVDZ1Ztng40HjFcTysdzNS9rCme8eqA0ozPjCU/31Xh1RzmN3vTeeNWjfC6ELAd0HcxWdSiHhXyhHmFC6mh3CY8bqBvmR8yEbjAxdTbTIqyfYKJqKLqBmNgxpYkNR89db989E5fsxzUl6BPXF/Zsb4F6alP/gXz+E2riyF+wEnFUS9N8A3jmXKeXJjT4AAAAAElFTkSuQmCC">
+            <span id="J_org_name" style="font-size:15px;">{$yytRow.name}</span>
+        </p>
+        <p class="t-22" style="font-size:12px;">地址：<span id="J_org_addr">{$yytRow.address}</span></p>
+        <p class="t-22" style="font-size:12px;">电话：<span id="J_org_tel" class="t-blue3ebbf9"><a href="tel:{$yytRow.phone}">{$yytRow.phone}</a></span></p>
+    </div>
+    <div class="gotomap" id="J_navigation" style="display: block;margin-top:15px;">
+        <button class="btn-blue" onclick="comeHere()">导航</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var infoWindow;
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+		center: [parseFloat({$yytRow.longitude}),parseFloat({$yytRow.latitude})],
+        zoom: 15
+    });
+     openInfo();
+    //在指定位置打开信息窗体
+    function openInfo() {
+        //构建信息窗体中显示的内容
+        var info = [];
+        info.push("<div><div style=\"padding:0px 0px 0px 4px;\"><b>{$yytRow.name}</b>");
+        info.push("地址：{$yytRow.address}");
+        info.push("电话：<a href=\"tel:{$yytRow.phone}\">{$yytRow.phone}</a>");
+        infoWindow = new AMap.InfoWindow({
+            content: info.join("<br/>")  //使用默认信息窗体框样式，显示信息内容
+        });
+        infoWindow.open(map, map.getCenter());
+    }
+    
+    function comeHere(){
+        window.location.href = "https://m.amap.com/navi/?dest={$yytRow.longlai}&destName={$yytRow.name}&key=8dc4612a0f4a3868a5ea9e1e808297dd";
+    }
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
+<script type='text/javascript'>
+	var mock = {
+		log: function(result) {
+			window.parent.setIFrameResult('log', result);
+		}
+	}
+	console = mock;
+	window.Konsole = {
+		exec: function(code) {
+			code = code || '';
+			try {
+				var result = window.eval(code);
+				window.parent.setIFrameResult('result', result);
+			} catch (e) {
+				window.parent.setIFrameResult('error', e);
+			}
+		}
+	}
+</script></body>
+</html>

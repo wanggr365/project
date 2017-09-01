@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh" style="font-size: 80px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     
+     <meta id="metaId" name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+     <meta name="format-detection" content="telephone=no">
+     <title>泉州广电网络</title>
+     <script>
+          // window.version=new Date().getTime().toString();
+          window.version = "201603100015";
+          window.isDebug=window.location.search.indexOf("&debug=true")>-1;
+          if(isDebug){
+               document.write('<link rel="stylesheet" href="[!CSS]yyt/branches.css?v='+version+'">')
+          }else{
+               document.write('<link rel="stylesheet" href="[!CSS]yyt/branches.min-1.0.2.css?v='+version+'">')
+          }
+          var fontSize=Math.round(document.documentElement.clientWidth/320*50);
+          fontSize=80<fontSize?80:fontSize;
+          document.getElementsByTagName("html")[0].style.fontSize=fontSize+"px";
+     </script><link rel="stylesheet" href="[!CSS]yyt/branches.min-1.0.2.css">
+</head>
+<body>
+	<div class="pop-mask cover" id="J_pop_mask" style="display: none;">
+		<div class="pop">
+			<i class="i-load"></i>
+		</div>
+	</div>
+	<!-- <section class="main-page"> -->
+		<div style="height:auto;">
+			<div class="curr-area t-28" style="padding-left: 0px;height:130px;">
+                <img src="[!IMG]yyt/wxBg.jpg" style="width:100%;height:auto;">
+            </div>
+			
+		</div>
+		<div class="list-wrapper" style="margin-top:0;">
+			<div class="list-scroller t-26">
+				<div class="" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+                    <ul class="page-group flex-box" id="J_page_group" style="margin-bottom:5px;padding-bottom:8px;">
+						<li class="flex-box-sub1">
+							<if condition="$type neq 'ios'">
+							<select class="mui-btn mui-btn-block" id="corp" style="margin-top:5px;font-size:18px;padding-top: 6px;padding-bottom: 4px;display: block;width: 120%;color: #aeafb1;text-align: center;border-bottom: 1px #ccc solid;line-height: 18px;">
+							<else/>
+							<select class="mui-btn mui-btn-block" id="corp" style="margin-top:5px;font-size:18px;padding-top: 10px;padding-bottom: 10px;display: block;width: 120%;color: #aeafb1;text-align: center;border-bottom: 1px #ccc solid;line-height: 15px;">
+							</if>
+                                <option value="选择地区">选择地区</option>
+                                <option value="鲤城">鲤城</option>
+                                <option value="丰泽">丰泽</option>
+                                <option value="洛江">洛江</option>
+                                <option value="台商">台商</option>
+                                <option value="晋江">晋江</option>
+                                <option value="石狮">石狮</option>
+                                <option value="南安">南安</option>
+                                <option value="惠安">惠安</option>
+                                <option value="永春">永春</option>
+                                <option value="德化">德化</option>
+                                <option value="安溪">安溪</option>
+                                <option value="泉港">泉港</option>
+                            </select>
+						</li>
+						<li class="flex-box-sub1">
+							<input type="text" id="yytName" style="margin-top:6px;margin-left:15%;font-size:18px;padding-top: 4px;padding-bottom: 4px;display: block;width: 60%;color: #aeafb1;text-align: center;border-bottom: 1px #ccc solid;">
+						</li>
+						<li class="flex-box-sub1">
+							<button type="button" class="mui-btn mui-btn-success" onclick="search()"  style="margin-top:10px;font-size:15px;padding-top: 0px;padding-right: 30px;display: block;width: 100%;height: 100%;margin-left:-20px;">搜索</button>
+						</li>
+					</ul>
+					<ul id="J_branch_list">
+					<foreach name="yytRow" item="yr" key="key">
+						<li class="item">
+							<p>
+								<i class="icon"></i>
+								<span class="org-name t-28">{$yr.name}</span>
+							</p>
+							<p>地址：<span class="org-addr">{$yr.address}</span></p>
+							<p>电话：<span class="org-tel t-blue3ebbf9">{$yr.phone}</span>
+                                <button type="button" class="mui-btn mui-btn-success mui-pull-right" onclick="goDetail({$yr.id})"  style="margin-right: 0px;">详&nbsp;&nbsp;&nbsp;情</button>
+                                <button type="button" class="mui-btn mui-btn-purple mui-pull-right" onclick="comeHere('{$yr.longlai}','{$yr.name}')">到这里</button>
+                            </p>
+						</li>
+					</foreach>	
+					</ul>
+					<if condition="$pageNo lt $pageTotal">
+					<ul class="page-group flex-box" id="J_page_group">
+						<li class="flex-box-sub1">
+							<a onclick="getMoreYyt()" id="getMore" class="next active">点击加载更多</a>
+						</li>
+					</ul>
+					</if>
+				</div>
+			</div>
+		</div>	
+    <script src="[!JS]jquery-2.1.4.js"></script>	
+    <script>
+		var pageNo = {$pageNo};
+        function goDetail(id){
+            window.location.href = "index.php?m=yyt&a=yytDetail&id=" + id;
+        }
+        
+        function comeHere(longlai,name){
+            window.location.href = "https://m.amap.com/navi/?dest=" + longlai +"&destName=" + name + "&key=8dc4612a0f4a3868a5ea9e1e808297dd";
+        }
+		
+		function search(){
+			$("#J_branch_list").html('加载中...');
+			$.ajax({
+				type:'post',
+				url: "index.php?m=yyt&a=yytMore",
+				context: document.body,
+				dataType:'json',  
+				data:"pageNo=" + 0 + "&corp=" + $('#corp').val() + "&name=" + $('#yytName').val(),
+				success: function(json){
+					var l = json.length;					
+					$("#J_branch_list").html('');
+					for(var i=0;i<l;i++){
+						$("#J_branch_list").append("<li class=\"item\"><p><i class=\"icon\"></i><span class=\"org-name t-28\">" + json[i].name + "</span></p><p>地址：<span class=\"org-addr\">" + json[i].address + "</span></p><p>电话：<span class=\"org-tel t-blue3ebbf9\">" + json[i].phone + "</span><button type=\"button\" class=\"mui-btn mui-btn-success mui-pull-right\" onclick=\"goDetail(" + json[i].id + ")\"  style=\"margin-right: 20px;\">详&nbsp;&nbsp;&nbsp;情</button> <button type=\"button\" class=\"mui-btn mui-btn-purple mui-pull-right\" onclick=\"comeHere('" + json[i].longlai + "','" + json[i].name + "')\">到这里</button></p></li>" );
+					}
+					if(l == 0){						
+						$("#J_branch_list").html('没有查到相关营业网点');
+					}
+				}
+			});	
+		}
+		
+		function getMoreYyt(){
+			if($("#getMore").html() == '已经没有了'){
+				return false;
+			}
+			$("#getMore").html('加载中...');
+			$.ajax({
+				type:'post',
+				url: "index.php?m=yyt&a=yytMore",
+				context: document.body,
+				dataType:'json',  
+				data:"pageNo=" + pageNo + "&corp=" + $('#corp').val() + "&name=" + $('#yytName').val(),
+				success: function(json){
+					pageNo = pageNo + 1;
+					var l = json.length;
+					for(var i=0;i<l;i++){
+						$("#J_branch_list").append("<li class=\"item\"><p><i class=\"icon\"></i><span class=\"org-name t-28\">" + json[i].name + "</span></p><p>地址：<span class=\"org-addr\">" + json[i].address + "</span></p><p>电话：<span class=\"org-tel t-blue3ebbf9\">" + json[i].phone + "</span><button type=\"button\" class=\"mui-btn mui-btn-success mui-pull-right\" onclick=\"goDetail(" + json[i].id + ")\"  style=\"margin-right: 20px;\">详&nbsp;&nbsp;&nbsp;情</button> <button type=\"button\" class=\"mui-btn mui-btn-purple mui-pull-right\" onclick=\"comeHere('" + json[i].longlai + "','" + json[i].name + "')\">到这里</button></p></li>" );
+					}
+					if(l == 0){
+						$("#getMore").html('已经没有了');
+					}else{						
+						$("#getMore").html('点击加载更多');
+					}
+				}
+			});	
+		}
+    </script>
+	
+
+
+</body></html>
